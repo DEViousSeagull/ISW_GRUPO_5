@@ -14,3 +14,19 @@
 | Felippa, Alexis | 90843 |
 | Jaureguialzo, Carolina Belen | 94278 |
 | Odar Alejos, Yanella Esmeralda | 95230 |
+| Osella, Lourdes | 97245 |
+
+## Estructura
+IMAGEN AQUI
+
+## Ítems de Configuración
+| Item de Configuracion | Nomenclatura | Definición | Ubicación |
+|-----------------------|--------------|------------|-----------|
+| Plan de Gestión de Configuración | Plan_de_gestion.md | Definición de la estructura del repositorio | / |
+| Material Bibliografico | BIBLIO_<nombre_del_libro>.pdf |  | /Material Teórico/Material de la UV/Bibliografía |
+| Presentacion de Clase | 
+| Notas de Clase |
+| Resumen |
+
+
+

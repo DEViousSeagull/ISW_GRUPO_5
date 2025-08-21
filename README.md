@@ -22,11 +22,19 @@ IMAGEN AQUI
 ## Ítems de Configuración
 | Item de Configuracion | Nomenclatura | Definición | Ubicación |
 |-----------------------|--------------|------------|-----------|
-| Plan de Gestión de Configuración | Plan_de_gestion.md | Definición de la estructura del repositorio | / |
+| Plan de Gestión de Configuración | PGC.md | Definición de la estructura del repositorio | / |
 | Material Bibliografico | BIBLIO_<nombre_del_libro>.pdf |  | /Material Teórico/Material de la UV/Bibliografía |
-| Presentacion de Clase | 
-| Notas de Clase |
-| Resumen |
+| Presentacion de Clase | PPT_<nombre_de_la_presentacion>.<pdf/ppt/pptx> | | /Material Teórico/Material de la UV/Presentación de Clases |
+| Notas de Clase | NOTA_dd/mm/aa.docx | Notas tomadas para la clase de la fecha (dd//mm/aa) indicada | /Material Teórico/Material de elaboración propia/Notas de clases |
+| Resumen | RES_<tema>.docx | Resumen para el <tema> indicado | /Material Teórico/Material de elaboración propia/Resúmenes |
 
 
-
+## Glosario
+| Terminó | Descripción |
+|-----------------------|--------------|
+| PGC | Plan de Gestión de Configuración de Software |
+| BIBLIO | Material Bibliográfico |
+| PPT | Presentación |
+| NOTA | Nota de clases |
+| dd/mm/aa | Fecha en el formato día/mes/año |
+| RES | Resumen |

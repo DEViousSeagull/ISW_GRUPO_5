@@ -1,11 +1,10 @@
 # ISW_GRUPO_5
-## Información del curso
-### Curso 4K1 - Turno Mañana
-### Docentes:
+## Curso 4K1 - Turno Mañana
+## Docentes:
 - Titular: Judith Meles
 - Auxiliares de Trabajos Prácticos: Mickaela Crespo, Valeria Abdala y ???
 
-### Grupo N°: 5
+## Grupo N°: 5
 | Apellido y Nombre | Legajo |
 |--------------|------|
 | Bacchin, Rosario | 90229 |

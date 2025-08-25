@@ -22,7 +22,7 @@
 ## Ítems de Configuración
 | Item de Configuracion | Nomenclatura | Definición | Ubicación |
 |-----------------------|--------------|------------|-----------|
-| Plan de Gestión de Configuración | PGC.md | Definición de la estructura del repositorio | / |
+| Plan de Gestión de Configuración | README.md | Definición de la estructura del repositorio | / |
 | Material Bibliografico | BIBLIO_&lt;nombre_libro&gt;.pdf | Material de referencia académico | /Material Teórico/Material de la UV/Bibliografía |
 | Presentacion de Clase | PPT_&lt;nombre_presentacion&gt;.&lt;pdf/ppt/pptx&gt; | Diapositivas elaboradas por los docentes de la cátedra | /Material Teórico/Material de la UV/Presentación de Clases |
 | Notas de Clase | NOTA_&lt;dd/mm/aa&gt;.docx | Notas tomadas para la clase de la fecha (dd//mm/aa) indicada | /Material Teórico/Material de elaboración propia/Notas de clases |
@@ -36,7 +36,7 @@
 ## Glosario
 | Terminó | Descripción |
 |-----------------------|--------------|
-| PGC | Plan de Gestión de Configuración de Software |
+| README | Plan de Gestión de Configuración de Software |
 | BIBLIO | Material Bibliográfico |
 | PPT | Presentación |
 | NOTA | Nota de clases |

@@ -34,7 +34,7 @@
 
 
 ## Glosario
-| Terminó | Descripción |
+| Termino | Descripción |
 |-----------------------|--------------|
 | README | Plan de Gestión de Configuración de Software |
 | BIBLIO | Material Bibliográfico |

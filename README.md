@@ -17,7 +17,7 @@
 | Osella, Lourdes | 97245 |
 
 ## Estructura
-![ESTRUCTURA DEL REPO](https://app.diagrams.net/?splash=0#G148qNq7fzNCWr3ML9-zrF_lQbIdeNEJw2#%7B%22pageId%22%3A%223qZsuJ5DQa2aeD_hm6PN%22%7D)
+<img width="881" height="689" alt="estructura_repo_grupo_5" src="https://github.com/user-attachments/assets/c5b47685-5b78-4328-9462-ba41f03fbb48" />
 
 ## Ítems de Configuración
 | Item de Configuracion | Nomenclatura | Definición | Ubicación |

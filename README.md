@@ -29,7 +29,8 @@ IMAGEN AQUI
 | Resumen | RES_&lt;tema&gt;.docx | Resumen para el &lt;tema&gt; indicado | /Material Teórico/Material de elaboración propia/Resúmenes |
 | Consigna de Trabajo Practico | CONS_TP_&lt;nro&gt;.pdf | Consigna del Trabajo Práctico numero &lt;nro&gt; a realizar | /Material Práctico/Trabajo Practicos/TP_&lt;nro&gt; |
 | Resolución de Trabajo Practico | RESOL_TP_&lt;nro&gt;.&lt;pdf&gt; | Resolucion del Trabajo Práctico numero &lt;nro&gt; realizado | /Material Práctico/Trabajo Practicos/TP_&lt;nro&gt; |
-
+| Caso de Estudio | CE_&lt;nombre_del_caso&gt;.pdf | Descripción de un Caso de estudio | /Material Practico/Ejercitación/Casos de Estudio |
+| Ejercicio Resuelto | ER_&lt;nombre_del_ejercicio&gt;.pdf | Descripción y resolución de un ejercicio | /Material Practico/Ejercitación/Ejercicios Resueltos |
 
 
 ## Glosario
@@ -41,5 +42,8 @@ IMAGEN AQUI
 | NOTA | Nota de clases |
 | dd/mm/aa | Fecha en el formato día/mes/año |
 | RES | Resumen |
-| CONS | Consigna de Trabajo Práctico |
-| RESOL | Resolucion de Trabajo Práctico |
+| TP | Trabajo Práctico |
+| CONS | Consigna |
+| RESOL | Resolucion |
+| CE | Caso de Estudio |
+| ER | Ejercicio Resuelto |

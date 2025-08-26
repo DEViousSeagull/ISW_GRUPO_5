@@ -46,9 +46,9 @@
 | TP | Trabajo Práctico |
 | CONS | Consigna |
 | RESOL | Resolucion |
-| CE | Caso de Estudio |
+| CE | Casos de Estudio |
 | CER | Caso de Estudio Resuelto |
-| EJ | Ejercicio |
+| EJ | Ejercicios |
 | ER | Ejercicio Resuelto |
 
 | Variable | Descripción |

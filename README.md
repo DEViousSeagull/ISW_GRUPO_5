@@ -29,8 +29,10 @@
 | Resumen | RES_&lt;tema_res&gt;.docx | Resumen para el &lt;tema_res&gt; indicado | /Material Teórico/Material de elaboración propia/Resúmenes |
 | Consigna de Trabajo Practico | CONS_TP_&lt;nro_tp&gt;.pdf | Consigna del Trabajo Práctico numero &lt;nro_tp&gt; a realizar | /Material Práctico/Trabajo Practicos/TP_&lt;nro_tp&gt; |
 | Resolución de Trabajo Practico | RESOL_TP_&lt;nro_tp&gt;.&lt;pdf&gt; | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /Material Práctico/Trabajo Practicos/TP_&lt;nro_tp&gt; |
-| Caso de Estudio | CE_&lt;nombre_caso&gt;.pdf | Descripción de un Caso de estudio | /Material Practico/Ejercitación/Casos de Estudio |
-| Ejercicio Resuelto | ER_&lt;nombre_ejercicio&gt;.pdf | Descripción y resolución de un ejercicio | /Material Practico/Ejercitación/Ejercicios Resueltos |
+| Casos de Estudio | CE.pdf | Descripción de todos los Casos de estudio | /Material Practico/Ejercitación/Casos de Estudio |
+| Caso de Estudio Resuelto | CER_&lt;nombre_caso&gt;.pdf | Resolución de un Caso de estudio | /Material Practico/Ejercitación/Casos de Estudio |
+| Ejercicios | EJ.pdf | Descripción de todos los ejercicios a resolver | /Material Practico/Ejercitación/Ejercicios Resueltos |
+| Ejercicio Resuelto | ER_&lt;nombre_ejercicio&gt;.pdf | Resolución de un ejercicio | /Material Practico/Ejercitación/Ejercicios Resueltos |
 
 
 ## Glosario
@@ -45,6 +47,8 @@
 | CONS | Consigna |
 | RESOL | Resolucion |
 | CE | Caso de Estudio |
+| CER | Caso de Estudio Resuelto |
+| EJ | Ejercicio |
 | ER | Ejercicio Resuelto |
 
 | Variable | Descripción |

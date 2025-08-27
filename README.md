@@ -35,7 +35,7 @@
 | Plan de Gestión de Configuración | README.md | Definición de la estructura del repositorio | / |
 | Material Bibliografico | BIBLIO_&lt;nombre_libro&gt;.pdf | Material de referencia académico | /material_teorico/material_de_la_uv/bibliografia |
 | Presentacion de Clase | PPT_&lt;nombre_presentacion&gt;.&lt;pdf/ppt/pptx&gt; | Diapositivas elaboradas por los docentes de la cátedra | /material_teorico/material_de_la_uv/presentacion_de_clases |
-| Notas de Clase | NOTA_&lt;dd/mm/aa&gt;.docx | Notas tomadas para la clase de la fecha (dd//mm/aa) indicada | /material_teorico/material_de_elaboracion_propia/notas_de_clases |
+| Notas de Clase | NOTA_&lt;dd-mm-aa&gt;.docx | Notas tomadas para la clase de la fecha (dd//mm/aa) indicada | /material_teorico/material_de_elaboracion_propia/notas_de_clases |
 | Resumen | RES_&lt;tema_res&gt;.docx | Resumen para el &lt;tema_res&gt; indicado | /material_teorico/material_de_elaboracion_propia/resumenes |
 | Trabajos Practicos | TPS.pdf | Consignas de Trabajos Prácticos a realizar | /material_practico/trabajos_practicos |
 | Resolución de Trabajo Practico | RESOL_TP_&lt;nro_tp&gt;.&lt;pdf&gt; | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /material_practico/trabajos_practicos/tp_&lt;nro_tp&gt; |
@@ -66,7 +66,7 @@
 |-----------------------|--------------|
 | &lt;nombre_libro&gt; | Nombre del libro referenciado en material bibliográfico |
 | &lt;nombre_presentacion&gt; | Nombre asignado a una presentación |
-| &lt;dd/mm/aa&gt; | Fecha en el formato día/mes/año |
+| &lt;dd-mm-aa&gt; | Fecha en el formato día/mes/año |
 | &lt;tema_res&gt; | Tema al que corresponde el resumen |
 | &lt;nro_tp&gt; | Número del Trabajo Práctico |
 | &lt;nombre_caso&gt; | Nombre del caso de estudio |

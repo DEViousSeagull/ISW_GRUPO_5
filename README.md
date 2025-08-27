@@ -24,7 +24,7 @@
   - Utilizar el estilo snake_case.
   - No usar caracteres especiales ni espacios.
 - Para Archivos:
-  - Considerar la nomenclatura disponible en el glosario. 
+  - Respetar la nomenclatura respectiva a cada Item. 
   - Separar palabras utilizando "_".
   - Se permiten mayúsculas, minúsculas y números.
   - No usar caracteres especiales ni espacios.

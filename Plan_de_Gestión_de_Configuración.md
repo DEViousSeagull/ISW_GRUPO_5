@@ -68,3 +68,7 @@
 | &lt;nro_tp&gt; | Número del Trabajo Práctico |
 | &lt;nombre_caso&gt; | Nombre del caso de estudio |
 | &lt;nombre_ejercicio&gt; | Nombre del ejercicio |
+
+## Criterio de Línea Base
+Definimos como criterio de línea base del repositorio, que la misma se establecerá luego de la corrección de dos trabajos prácticos, considerando únicamente los prácticos evaluables. Decidimos este criterio, ya que, consideramos que luego de la corrección de dos trabajos prácticos, contaremos con ítems de configuración validados y estables.
+Como equipo, decidimos identificar de manera única las líneas bases, definiendo que los nombres con los que vamos a identificar cada una de las líneas bases serán con sabores de helado. 

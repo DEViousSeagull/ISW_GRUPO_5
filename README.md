@@ -20,12 +20,11 @@
 <img width="881" height="689" alt="estructura_repo_grupo_5" src="https://github.com/user-attachments/assets/c5b47685-5b78-4328-9462-ba41f03fbb48" />
 
 ## Convención de Nombrado de Items de Configuración
-- Para todo Item:
-  - Considerar la nomenclatura disponible en el glosario. 
 - Para Carpetas:
   - Utilizar el estilo snake_case.
   - No usar caracteres especiales ni espacios.
 - Para Archivos:
+  - Considerar la nomenclatura disponible en el glosario. 
   - Separar palabras utilizando "_".
   - Se permiten mayúsculas, minúsculas y números.
   - No usar caracteres especiales ni espacios.

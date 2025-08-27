@@ -21,7 +21,7 @@
 
 ## Convención de Nombrado de Items de Configuración
 - Para todo Item:
-  - Considerar todo termino disponible en el glosario. 
+  - Considerar la nomenclatura disponible en el glosario. 
 - Para Carpetas:
   - Utilizar el estilo snake_case.
   - No usar caracteres especiales ni espacios.

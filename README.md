@@ -40,7 +40,7 @@
 | Trabajos Practicos | TPS.pdf | Consignas de Trabajos Prácticos a realizar | /Material_Práctico/Trabajos_Prácticos |
 | Resolución de Trabajo Practico | RESOL_TP_&lt;nro_tp&gt;.&lt;pdf&gt; | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /Material_Práctico/Trabajos_Prácticos/TP_&lt;nro_tp&gt; |
 | Casos de Estudio | CE.pdf | Descripción de todos los Casos de Estudio | /Material_Práctico/Ejercitación/Casos_de_Estudio |
-| Caso de Estudio Resuelto | CER_&lt;nombre_caso&gt;.pdf | Resolución de un Caso de estudio | /Material_Práctico/Ejercitación/Casos_de_Estudio |
+| Casos de Estudio Resueltos | CER.pdf | Resolución de Casos de estudio | /Material_Práctico/Ejercitación/Casos_de_Estudio |
 | Ejercicios | EJ.pdf | Descripción de todos los ejercicios a resolver | /Material_Práctico/Ejercitación/Ejercicios_Resueltos |
 | Ejercicio Resuelto | ER_&lt;nombre_ejercicio&gt;.pdf | Resolución de un ejercicio | /Material_Práctico/Ejercitación/Ejercicios_Resueltos |
 
@@ -56,7 +56,7 @@
 | TP | Trabajo Práctico |
 | RESOL | Resolucion |
 | CE | Casos de Estudio |
-| CER | Caso de Estudio Resuelto |
+| CER | Casos de Estudio Resueltos |
 | EJ | Ejercicios |
 | ER | Ejercicio Resuelto |
 

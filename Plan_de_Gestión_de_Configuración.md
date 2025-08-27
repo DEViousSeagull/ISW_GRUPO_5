@@ -46,7 +46,7 @@
 ## Glosario
 | Termino | Descripción |
 |-----------------------|--------------|
-| README | Plan de Gestión de Configuración de Software |
+| Plan_de_Gestión_de_Configuración | Plan de Gestión de Configuración de Software |
 | BIBLIO | Material Bibliográfico |
 | PPT | Presentación |
 | NOTA | Nota de clases |
@@ -71,4 +71,6 @@
 
 ## Criterio de Línea Base
 Definimos como criterio de línea base del repositorio, que la misma se establecerá luego de la corrección de dos trabajos prácticos, considerando únicamente los prácticos evaluables. Decidimos este criterio, ya que, consideramos que luego de la corrección de dos trabajos prácticos, contaremos con ítems de configuración validados y estables.
-Como equipo, decidimos identificar de manera única las líneas bases, definiendo que los nombres con los que vamos a identificar cada una de las líneas bases serán con sabores de helado. 
+Como equipo, decidimos identificar de manera única cada versión de la línea base, definiendo que los nombres con los que vamos a identificar a cada una de las versiones serán con sabores de helado. 
+
+

@@ -2,7 +2,7 @@
 ## Curso 4K1 - Turno Mañana
 ## Docentes:
 - Titular: Judith Meles
-- Auxiliares de Trabajos Prácticos: Mickaela Crespo, Valeria Abdala y ???
+- Auxiliares de Trabajos Prácticos: Mickaela Crespo, Valeria Abdala y Salvador Barbera
 
 ## Grupo N°: 5
 | Apellido y Nombre | Legajo |
@@ -29,7 +29,7 @@
 | Resumen | RES_&lt;tema_res&gt;.docx | Resumen para el &lt;tema_res&gt; indicado | /Material_Teórico/Material_de_Elaboración_Propia/Resúmenes |
 | Consigna de Trabajo Practico | CONS_TP_&lt;nro_tp&gt;.pdf | Consigna del Trabajo Práctico numero &lt;nro_tp&gt; a realizar | /Material_Práctico/Trabajos_Prácticos/TP_&lt;nro_tp&gt; |
 | Resolución de Trabajo Practico | RESOL_TP_&lt;nro_tp&gt;.&lt;pdf&gt; | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /Material_Práctico/Trabajos_Prácticos/TP_&lt;nro_tp&gt; |
-| Casos_de_Estudio | CE.pdf | Descripción de todos los Casos_de_Estudio | /Material_Práctico/Ejercitación/Casos_de_Estudio |
+| Casos de Estudio | CE.pdf | Descripción de todos los Casos de Estudio | /Material_Práctico/Ejercitación/Casos_de_Estudio |
 | Caso de Estudio Resuelto | CER_&lt;nombre_caso&gt;.pdf | Resolución de un Caso de estudio | /Material_Práctico/Ejercitación/Casos_de_Estudio |
 | Ejercicios | EJ.pdf | Descripción de todos los ejercicios a resolver | /Material_Práctico/Ejercitación/Ejercicios_Resueltos |
 | Ejercicio Resuelto | ER_&lt;nombre_ejercicio&gt;.pdf | Resolución de un ejercicio | /Material_Práctico/Ejercitación/Ejercicios_Resueltos |
@@ -46,7 +46,7 @@
 | TP | Trabajo Práctico |
 | CONS | Consigna |
 | RESOL | Resolucion |
-| CE | Casos_de_Estudio |
+| CE | Casos de Estudio |
 | CER | Caso de Estudio Resuelto |
 | EJ | Ejercicios |
 | ER | Ejercicio Resuelto |

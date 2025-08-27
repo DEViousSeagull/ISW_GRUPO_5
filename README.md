@@ -23,16 +23,16 @@
 | Item de Configuracion | Nomenclatura | Definición | Ubicación |
 |-----------------------|--------------|------------|-----------|
 | Plan de Gestión de Configuración | README.md | Definición de la estructura del repositorio | / |
-| Material Bibliografico | BIBLIO_&lt;nombre_libro&gt;.pdf | Material de referencia académico | /Material Teórico/Material de la UV/Bibliografía |
-| Presentacion de Clase | PPT_&lt;nombre_presentacion&gt;.&lt;pdf/ppt/pptx&gt; | Diapositivas elaboradas por los docentes de la cátedra | /Material Teórico/Material de la UV/Presentación de Clases |
-| Notas de Clase | NOTA_&lt;dd/mm/aa&gt;.docx | Notas tomadas para la clase de la fecha (dd//mm/aa) indicada | /Material Teórico/Material de elaboración propia/Notas de clases |
-| Resumen | RES_&lt;tema_res&gt;.docx | Resumen para el &lt;tema_res&gt; indicado | /Material Teórico/Material de elaboración propia/Resúmenes |
-| Consigna de Trabajo Practico | CONS_TP_&lt;nro_tp&gt;.pdf | Consigna del Trabajo Práctico numero &lt;nro_tp&gt; a realizar | /Material Práctico/Trabajo Practicos/TP_&lt;nro_tp&gt; |
-| Resolución de Trabajo Practico | RESOL_TP_&lt;nro_tp&gt;.&lt;pdf&gt; | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /Material Práctico/Trabajo Practicos/TP_&lt;nro_tp&gt; |
-| Casos de Estudio | CE.pdf | Descripción de todos los Casos de estudio | /Material Practico/Ejercitación/Casos de Estudio |
-| Caso de Estudio Resuelto | CER_&lt;nombre_caso&gt;.pdf | Resolución de un Caso de estudio | /Material Practico/Ejercitación/Casos de Estudio |
-| Ejercicios | EJ.pdf | Descripción de todos los ejercicios a resolver | /Material Practico/Ejercitación/Ejercicios Resueltos |
-| Ejercicio Resuelto | ER_&lt;nombre_ejercicio&gt;.pdf | Resolución de un ejercicio | /Material Practico/Ejercitación/Ejercicios Resueltos |
+| Material Bibliografico | BIBLIO_&lt;nombre_libro&gt;.pdf | Material de referencia académico | /Material_Teórico/Material_de_la_UV/Bibliografía |
+| Presentacion de Clase | PPT_&lt;nombre_presentacion&gt;.&lt;pdf/ppt/pptx&gt; | Diapositivas elaboradas por los docentes de la cátedra | /Material_Teórico/Material_de_la_UV/Presentación_de_Clases |
+| Notas de Clase | NOTA_&lt;dd/mm/aa&gt;.docx | Notas tomadas para la clase de la fecha (dd//mm/aa) indicada | /Material_Teórico/Material_de_Elaboración_Propia/Notas_de_Clases |
+| Resumen | RES_&lt;tema_res&gt;.docx | Resumen para el &lt;tema_res&gt; indicado | /Material_Teórico/Material_de_Elaboración_Propia/Resúmenes |
+| Consigna de Trabajo Practico | CONS_TP_&lt;nro_tp&gt;.pdf | Consigna del Trabajo Práctico numero &lt;nro_tp&gt; a realizar | /Material_Práctico/Trabajos_Prácticos/TP_&lt;nro_tp&gt; |
+| Resolución de Trabajo Practico | RESOL_TP_&lt;nro_tp&gt;.&lt;pdf&gt; | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /Material_Práctico/Trabajos_Prácticos/TP_&lt;nro_tp&gt; |
+| Casos_de_Estudio | CE.pdf | Descripción de todos los Casos_de_Estudio | /Material_Práctico/Ejercitación/Casos_de_Estudio |
+| Caso de Estudio Resuelto | CER_&lt;nombre_caso&gt;.pdf | Resolución de un Caso de estudio | /Material_Práctico/Ejercitación/Casos_de_Estudio |
+| Ejercicios | EJ.pdf | Descripción de todos los ejercicios a resolver | /Material_Práctico/Ejercitación/Ejercicios_Resueltos |
+| Ejercicio Resuelto | ER_&lt;nombre_ejercicio&gt;.pdf | Resolución de un ejercicio | /Material_Práctico/Ejercitación/Ejercicios_Resueltos |
 
 
 ## Glosario
@@ -46,7 +46,7 @@
 | TP | Trabajo Práctico |
 | CONS | Consigna |
 | RESOL | Resolucion |
-| CE | Casos de Estudio |
+| CE | Casos_de_Estudio |
 | CER | Caso de Estudio Resuelto |
 | EJ | Ejercicios |
 | ER | Ejercicio Resuelto |

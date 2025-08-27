@@ -1,10 +1,6 @@
-# ISW_GRUPO_5
-## Curso 4K1 - Turno Mañana
-## Docentes:
-- Titular: Judith Meles
-- Auxiliares de Trabajos Prácticos: Mickaela Crespo, Valeria Abdala y Salvador Barbera
+# Equipo 5: Ingeniería y Calidad de Software 4k1
 
-## Grupo N°: 5
+## Integrantes del equipo
 | Apellido y Nombre | Legajo |
 |--------------|------|
 | Bacchin, Rosario | 90229 |

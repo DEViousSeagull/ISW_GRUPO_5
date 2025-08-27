@@ -29,7 +29,7 @@
 ## Ítems de Configuración
 | Item de Configuracion | Nomenclatura | Definición | Ubicación |
 |-----------------------|--------------|------------|-----------|
-| Plan de Gestión de Configuración | Plan_de_Gestíon_de_Configuracíon.md | Definición de la estructura del repositorio | / |
+| Plan de Gestión de Configuración | PGC.md | Definición de la estructura del repositorio | / |
 | Material Bibliografico | BIBLIO_&lt;nombre_libro&gt;.pdf | Material de referencia académico | /material_teorico/material_de_la_uv/bibliografia |
 | Presentacion de Clase | PPT_&lt;nombre_presentacion&gt;.&lt;pdf/ppt/pptx&gt; | Diapositivas elaboradas por los docentes de la cátedra | /material_teorico/material_de_la_uv/presentacion_de_clases |
 | Notas de Clase | NOTA_&lt;dd-mm-aa&gt;.docx | Notas tomadas para la clase de la fecha (dd//mm/aa) indicada | /material_teorico/material_de_elaboracion_propia/notas_de_clases |

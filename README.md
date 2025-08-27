@@ -27,7 +27,7 @@
 | Presentacion de Clase | PPT_&lt;nombre_presentacion&gt;.&lt;pdf/ppt/pptx&gt; | Diapositivas elaboradas por los docentes de la cátedra | /Material_Teórico/Material_de_la_UV/Presentación_de_Clases |
 | Notas de Clase | NOTA_&lt;dd/mm/aa&gt;.docx | Notas tomadas para la clase de la fecha (dd//mm/aa) indicada | /Material_Teórico/Material_de_Elaboración_Propia/Notas_de_Clases |
 | Resumen | RES_&lt;tema_res&gt;.docx | Resumen para el &lt;tema_res&gt; indicado | /Material_Teórico/Material_de_Elaboración_Propia/Resúmenes |
-| Consigna de Trabajo Practico | CONS_TP_&lt;nro_tp&gt;.pdf | Consigna del Trabajo Práctico numero &lt;nro_tp&gt; a realizar | /Material_Práctico/Trabajos_Prácticos/TP_&lt;nro_tp&gt; |
+| Trabajos Practicos | TPS.pdf | Consignas de Trabajos Prácticos a realizar | /Material_Práctico/Trabajos_Prácticos |
 | Resolución de Trabajo Practico | RESOL_TP_&lt;nro_tp&gt;.&lt;pdf&gt; | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /Material_Práctico/Trabajos_Prácticos/TP_&lt;nro_tp&gt; |
 | Casos de Estudio | CE.pdf | Descripción de todos los Casos de Estudio | /Material_Práctico/Ejercitación/Casos_de_Estudio |
 | Caso de Estudio Resuelto | CER_&lt;nombre_caso&gt;.pdf | Resolución de un Caso de estudio | /Material_Práctico/Ejercitación/Casos_de_Estudio |
@@ -44,7 +44,6 @@
 | NOTA | Nota de clases |
 | RES | Resumen |
 | TP | Trabajo Práctico |
-| CONS | Consigna |
 | RESOL | Resolucion |
 | CE | Casos de Estudio |
 | CER | Caso de Estudio Resuelto |

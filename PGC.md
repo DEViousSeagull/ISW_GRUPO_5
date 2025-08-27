@@ -13,8 +13,8 @@
 | Osella, Lourdes | 97245 |
 
 ## Estructura
-<img width="829" height="711" alt="Estructura_PCG drawio (1)" src="https://github.com/user-attachments/assets/ac8cfab3-20a1-471b-a50e-3dab671e6aac" />
 
+<img width="829" height="711" alt="Estructura_PCG drawio (2)" src="https://github.com/user-attachments/assets/c61f2907-63dd-4470-a24f-d2ce583191c2" />
 
 ## Convención de Nombrado de Items de Configuración
 - Para Carpetas:

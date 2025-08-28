@@ -50,7 +50,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 ## Glosario
 | Termino | Descripción |
 |-----------------------|--------------|
-| Plan_de_Gestión_de_Configuración | Plan de Gestión de Configuración de Software |
+| PGC | Plan de Gestión de Configuración de Software |
 | BIBLIO | Material Bibliográfico |
 | PPT | Presentación |
 | NOTA | Nota de clases |

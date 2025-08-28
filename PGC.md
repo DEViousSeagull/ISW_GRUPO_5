@@ -1,4 +1,7 @@
 # Equipo 5: Ingeniería y Calidad de Software 4k1
+El presente documento tiene como propósito definir los lineamientos para la gestión de la configuración de la materia Ingeniería y Calidad de Software durante todo su desarrollo.
+El plan de gestión de configuración estará disponible en el directorio raíz del repositorio, bajo el nombre “PGC.md”, lo que permitirá su consulta y modificación de manera sencilla.
+De esta forma, los integrantes tendrán acceso rápido y centralizado a la información necesaria.
 
 ## Integrantes del equipo
 | Apellido y Nombre | Legajo |

@@ -20,6 +20,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 
 <img width="829" height="711" alt="Estructura_PCG drawio" src="https://github.com/user-attachments/assets/e048678d-b030-476f-8a3b-2198c421d1b2" />
 
+
 ## Convención de Nombrado de Items de Configuración
 - Para Carpetas:
   - Utilizar el estilo snake_case.

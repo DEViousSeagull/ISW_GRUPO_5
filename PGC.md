@@ -46,7 +46,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | Casos de Estudio Resueltos Cátedra | CERC_CATEDRA.pdf | Resolución de Casos de Estudio de la Cátedra | /material_practico/ejercitacion/casos_de_estudio |
 | Ejercicios | EJ.pdf | Descripción de todos los ejercicios a resolver | /material_practico/ejercitacion/ejercicios_resueltos |
 | Ejercicio Resuelto | ER_&lt;nombre_ejercicio&gt;.pdf | Resolución de un ejercicio | /material_practico/ejercitacion/ejercicios_resueltos |
-| Minutas | MIN_&lt;dd-mm-aa&gt;.pdf | Registro de acuerdos y tareas de cada reunión del TP <nro_tp> | /material_practico/trabajos_practicos/tp_<nro_tp> |
+| Minutas | MIN_&lt;dd-mm-aa&gt;.pdf | Registro de acuerdos y tareas de cada reunión del TP <nro_tp> | /material_practico/trabajos_practicos/tp_<nro_tp>/minutas |
 
 
 

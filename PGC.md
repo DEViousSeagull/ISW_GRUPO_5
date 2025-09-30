@@ -58,7 +58,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | PGC | Plan de Gestión de Configuración de Software |
 | BIBLIO | Material Bibliográfico |
 | PPT | Presentación |
-| NOTA | Nota de clases |
+| NOTA | Nota de clases teóricas |
 | RES | Resumen |
 | TP | Trabajo Práctico |
 | RESOL | Resolucion |
@@ -68,6 +68,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | EJ | Ejercicios |
 | ER | Ejercicio Resuelto |
 | MIN | Minuta |
+| NOTACLASES | Nota de clases prácticas |
 
 | Variable | Descripción |
 |-----------------------|--------------|
@@ -78,6 +79,8 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | &lt;nro_tp&gt; | Número del Trabajo Práctico |
 | &lt;nombre_caso&gt; | Nombre del caso de estudio |
 | &lt;nombre_ejercicio&gt; | Nombre del ejercicio |
+| &lt;nombre_persona&gt; | Nombre de la persona que creó el contenido |
+| &lt;nro_archivo&gt; | Número de secuencia del archivo |
 
 ## Criterio de Línea Base
 Definimos como criterio de línea base del repositorio, que la misma se establecerá luego de la corrección de dos trabajos prácticos, considerando únicamente los prácticos evaluables. Decidimos este criterio, ya que, consideramos que luego de la corrección de dos trabajos prácticos, contaremos con ítems de configuración validados y estables.

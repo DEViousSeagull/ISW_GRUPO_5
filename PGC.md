@@ -46,7 +46,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | Ejercicios | EJ.pdf | Descripción de todos los ejercicios a resolver | /material_practico/ejercitacion/ejercicios_resueltos |
 | Ejercicio Resuelto | ER_&lt;nombre_ejercicio&gt;.pdf | Resolución de un ejercicio | /material_practico/ejercitacion/ejercicios_resueltos |
 | Minutas | MIN_&lt;dd-mm-aa&gt;.pdf | Registro de acuerdos y tareas de cada reunión del TP <nro_tp> | /material_practico/trabajos_practicos/tp_<nro_tp>/minutas |
-| Notas de clase Práctico | NOTACLASES_&lt;dd-mm-aa&gt;_&lt;nombre_persona&gt;_&lt;nro_archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase de la fecha (dd/mm/aa) indicada |
+| Notas de clase Práctico | NOTACLASES_&lt;dd-mm-aa&gt;_&lt;nombre_persona&gt;_&lt;nro_archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase de la fecha (dd/mm/aa) indicada | /material_practico/notas_de_clases |
 
 
 

@@ -71,7 +71,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | &lt;nombre&#95;caso&gt; | Nombre del caso de estudio |
 | &lt;nombre&#95;ejercicio&gt; | Nombre del ejercicio |
 | &lt;nombre&#95;persona&gt; | Nombre de la persona que creó el contenido |
-| &lt;nro&#95;archivo&gt; | Número de secuencia del archivo |
+| &lt;nro&#95;archivo&gt; | Número de secuencia del archivo, respetando el formato "nn", por ej.: "01", "02", "03"... |
 
 ## Criterio de Línea Base
 Definimos como criterio de línea base del repositorio, que la misma se establecerá luego de la corrección de dos trabajos prácticos, considerando únicamente los prácticos evaluables. Decidimos este criterio, ya que, consideramos que luego de la corrección de dos trabajos prácticos, contaremos con ítems de configuración validados y estables.

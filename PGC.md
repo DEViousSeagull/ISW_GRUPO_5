@@ -36,7 +36,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | Plan de Gestión de Configuración | PGC.md | Definición de la estructura del repositorio | / |
 | Material Bibliografico | BIBLIO_&lt;nombre_libro&gt;.pdf | Material de referencia académico | /material_teorico/material_de_la_uv/bibliografia |
 | Presentacion de Clase | PPT_&lt;nombre_presentacion&gt;.&lt;pdf/ppt/pptx&gt; | Diapositivas elaboradas por los docentes de la cátedra | /material_teorico/material_de_la_uv/presentacion_de_clases |
-| Notas de Clase | NOTA_&lt;dd-mm-aa&gt;.pdf | Notas tomadas para la clase de la fecha (dd//mm/aa) indicada | /material_teorico/material_de_elaboracion_propia/notas_de_clases |
+| Notas de Clase Teórico | NOTA_&lt;dd-mm-aa&gt;.pdf | Notas tomadas para la clase de la fecha (dd//mm/aa) indicada | /material_teorico/material_de_elaboracion_propia/notas_de_clases |
 | Resumen | RES_&lt;tema_res&gt;.&lt;docx/pdf&gt; | Resumen para el &lt;tema_res&gt; indicado | /material_teorico/material_de_elaboracion_propia/resumenes |
 | Trabajos Practicos | TPS.pdf | Consignas de Trabajos Prácticos a realizar | /material_practico/trabajos_practicos |
 | Resolución de Trabajo Practico | RESOL_TP_&lt;nro_tp&gt;.pdf | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /material_practico/trabajos_practicos/tp_&lt;nro_tp&gt; |
@@ -46,6 +46,8 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | Ejercicios | EJ.pdf | Descripción de todos los ejercicios a resolver | /material_practico/ejercitacion/ejercicios_resueltos |
 | Ejercicio Resuelto | ER_&lt;nombre_ejercicio&gt;.pdf | Resolución de un ejercicio | /material_practico/ejercitacion/ejercicios_resueltos |
 | Minutas | MIN_&lt;dd-mm-aa&gt;.pdf | Registro de acuerdos y tareas de cada reunión del TP <nro_tp> | /material_practico/trabajos_practicos/tp_<nro_tp>/minutas |
+| Notas de clase Práctico | NOTACLASES_&lt;dd-mm-aa&gt;_&lt;nombre_persona&gt;_&lt;nro_archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase de la fecha (dd/mm/aa) indicada | /material_practico/notas_de_clases |
+
 
 
 

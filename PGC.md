@@ -40,7 +40,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | Trabajos Practicos | TPS.pdf | Consignas de Trabajos Prácticos a realizar | /material_practico/trabajos_practicos |
 | Resolución de Trabajo Practico | RESOL_TP_&lt;nro_tp&gt;.pdf | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /material_practico/trabajos_practicos/tp_&lt;nro_tp&gt; |
 | Casos de Estudio | CE.pdf | Descripción de todos los Casos de Estudio | /material_practico/ejercitacion/casos_de_estudio |
-| Casos de Estudio Resueltos | CER_<nombre_caso>.pdf | Resolución de Casos de estudio | /material_practico/ejercitacion/casos_de_estudio |
+| Casos de Estudio de Resolución Propia | CERP_<nombre_caso>.pdf | Resolución de Casos de estudio resueltos por el Grupo 5 | /material_practico/ejercitacion/casos_de_estudio |
 | Casos de Estudio Resueltos Cátedra | CERC_CATEDRA.pdf | Resolución de Casos de Estudio de la Cátedra | /material_practico/ejercitacion/casos_de_estudio |
 | Ejercicios | EJ.pdf | Descripción de todos los ejercicios a resolver | /material_practico/ejercitacion/ejercicios_resueltos |
 | Ejercicio Resuelto | ER_&lt;nombre_ejercicio&gt;.pdf | Resolución de un ejercicio | /material_practico/ejercitacion/ejercicios_resueltos |
@@ -60,7 +60,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | TP | Trabajo Práctico |
 | RESOL | Resolucion |
 | CE | Casos de Estudio |
-| CER | Casos de Estudio Resueltos |
+| CERP | Casos de Estudio de Resolución Propia |
 | CERC | Casos de Estudio Resueltos Cátedra|
 | EJ | Ejercicios |
 | ER | Ejercicio Resuelto |

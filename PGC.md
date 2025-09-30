@@ -36,14 +36,14 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | Plan de Gestión de Configuración | PGC.md | Definición de la estructura del repositorio | / |
 | Material Bibliografico | BIBLIO_&lt;nombre_libro&gt;.pdf | Material de referencia académico | /material_teorico/material_de_la_uv/bibliografia |
 | Presentacion de Clase | PPT_&lt;nombre_presentacion&gt;.&lt;pdf/ppt/pptx&gt; | Diapositivas elaboradas por los docentes de la cátedra | /material_teorico/material_de_la_uv/presentacion_de_clases |
-| Notas de Clase Teórico | NOTA_&lt;dd-mm-aa&gt;_&lt;nombre_persona&gt;_&lt;nro_archivo&gt;.pdf | Notas tomadas para la clase de la fecha (dd//mm/aa) indicada | /material_teorico/material_de_elaboracion_propia/notas_de_clases |
+| Notas de Clase Teórico | NOTA_&lt;dd-mm-aa&gt;_&lt;nombre_persona&gt;_&lt;nro_archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase teórica de la fecha (dd//mm/aa) indicada | /material_teorico/material_de_elaboracion_propia/notas_de_clases |
 | Resumen | RES_&lt;tema_res&gt;.&lt;docx/pdf&gt; | Resumen para el &lt;tema_res&gt; indicado | /material_teorico/material_de_elaboracion_propia/resumenes |
 | Trabajos Practicos Evaluables | TPS.pdf | Consignas de Trabajos Prácticos a realizar | /material_practico/trabajos_practicos_evaluables |
 | Resolución de Trabajo Practico | tp_&lt;nro_tp&gt;.pdf | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /material_practico/trabajos_practicos/tp_&lt;nro_tp&gt; |
 | Minutas | MIN_&lt;dd-mm-aa&gt;.pdf | Registro de acuerdos y tareas de cada reunión del TP <nro_tp> | /material_practico/trabajos_practicos_evaluables/tp_<nro_tp>/minutas |
 | Casos de Estudio | CE.pdf | Descripción de todos los Casos de Estudio | /material_practico/ejercitacion/casos_de_estudio |
 | Casos de Estudio de Resolución Propia | CERP_<nombre_caso>.pdf | Resolución de Casos de estudio resueltos por el Grupo 5 | /material_practico/ejercitacion/casos_de_estudio |
-| Notas de clase Práctico | NOTA_&lt;dd-mm-aa&gt;_&lt;nombre_persona&gt;_&lt;nro_archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase de la fecha (dd/mm/aa) indicada | /material_practico/notas_de_clases |
+| Notas de clase Práctico | NOTA_&lt;dd-mm-aa&gt;_&lt;nombre_persona&gt;_&lt;nro_archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase práctica de la fecha (dd/mm/aa) indicada | /material_practico/notas_de_clases |
 
 
 

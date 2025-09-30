@@ -18,15 +18,15 @@ De esta forma, los integrantes tendrán acceso rápido y centralizado a la infor
 ## Estructura
 Hemos definido la siguiente estructura de directorios, organizada en función del desarrollo y gestión del cursado de la materia Ingeniería y Calidad de Software.
 
-<img width="829" height="864" alt="Estructura_PCG drawio" src="https://github.com/user-attachments/assets/dc0e8708-e188-44e4-b0b7-de860c1d8fbb" />
+<img width="829" height="864" alt="Estructura&#95;PCG drawio" src="https://github.com/user-attachments/assets/dc0e8708-e188-44e4-b0b7-de860c1d8fbb" />
 
 ## Convención de Nombrado de Items de Configuración
 - Para Carpetas:
-  - Utilizar el estilo snake_case.
+  - Utilizar el estilo snake&#95;case.
   - No usar caracteres especiales ni espacios.
 - Para Archivos:
   - Respetar la nomenclatura respectiva a cada Item. 
-  - Separar palabras utilizando "_".
+  - Separar palabras utilizando "&#95;".
   - Se permiten mayúsculas, minúsculas y números.
   - No usar caracteres especiales.
 
@@ -34,16 +34,16 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | Item de Configuracion | Nomenclatura | Definición | Ubicación |
 |-----------------------|--------------|------------|-----------|
 | Plan de Gestión de Configuración | PGC.md | Definición de la estructura del repositorio | / |
-| Material Bibliografico | BIBLIO_&lt;nombre_libro&gt;.pdf | Material de referencia académico | /material_teorico/material_de_la_uv/bibliografia |
-| Presentacion de Clase | PPT_&lt;nombre_presentacion&gt;.&lt;pdf/ppt/pptx&gt; | Diapositivas elaboradas por los docentes de la cátedra | /material_teorico/material_de_la_uv/presentacion_de_clases |
-| Notas de Clase Teórico | NOTA_&lt;dd-mm-aa&gt;_&lt;nombre_persona&gt;_&lt;nro_archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase teórica de la fecha (dd//mm/aa) indicada | /material_teorico/material_de_elaboracion_propia/notas_de_clases |
-| Resumen | RES_&lt;tema_res&gt;.&lt;docx/pdf&gt; | Resumen para el &lt;tema_res&gt; indicado | /material_teorico/material_de_elaboracion_propia/resumenes |
-| Trabajos Practicos Evaluables | TPS.pdf | Consignas de Trabajos Prácticos a realizar | /material_practico/trabajos_practicos_evaluables |
-| Resolución de Trabajo Practico | TP_&lt;nro_tp&gt;.pdf | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /material_practico/trabajos_practicos/tp_&lt;nro_tp&gt; |
-| Minutas | MIN_&lt;dd-mm-aa&gt;.pdf | Registro de acuerdos y tareas de cada reunión del TP <nro_tp> | /material_practico/trabajos_practicos_evaluables/tp_<nro_tp>/minutas |
-| Casos de Estudio | CE.pdf | Descripción de todos los Casos de Estudio | /material_practico/ejercitacion/casos_de_estudio |
-| Casos de Estudio de Resolución Propia | CERP_<nombre_caso>.pdf | Resolución de Casos de estudio resueltos por el Grupo 5 | /material_practico/ejercitacion/casos_de_estudio |
-| Notas de clase Práctico | NOTA_&lt;dd-mm-aa&gt;_&lt;nombre_persona&gt;_&lt;nro_archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase práctica de la fecha (dd/mm/aa) indicada | /material_practico/notas_de_clases |
+| Material Bibliografico | BIBLIO&#95;&lt;nombre&#95;libro&gt;.pdf | Material de referencia académico | /material&#95;teorico/material&#95;de&#95;la&#95;uv/bibliografia |
+| Presentacion de Clase | PPT&#95;&lt;nombre&#95;presentacion&gt;.&lt;pdf/ppt/pptx&gt; | Diapositivas elaboradas por los docentes de la cátedra | /material&#95;teorico/material&#95;de&#95;la&#95;uv/presentacion&#95;de&#95;clases |
+| Notas de Clase Teórico | NOTA&#95;&lt;dd-mm-aa&gt;&#95;&lt;nombre&#95;persona&gt;&#95;&lt;nro&#95;archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase teórica de la fecha (dd//mm/aa) indicada | /material&#95;teorico/material&#95;de&#95;elaboracion&#95;propia/notas&#95;de&#95;clases |
+| Resumen | RES&#95;&lt;tema&#95;res&gt;.&lt;docx/pdf&gt; | Resumen para el &lt;tema&#95;res&gt; indicado | /material&#95;teorico/material&#95;de&#95;elaboracion&#95;propia/resumenes |
+| Trabajos Practicos Evaluables | TPS.pdf | Consignas de Trabajos Prácticos a realizar | /material&#95;practico/trabajos&#95;practicos&#95;evaluables |
+| Resolución de Trabajo Practico | TP&#95;&lt;nro&#95;tp&gt;.pdf | Resolucion del Trabajo Práctico numero &lt;nro&#95;tp&gt; realizado | /material&#95;practico/trabajos&#95;practicos/tp&#95;&lt;nro&#95;tp&gt; |
+| Minutas | MIN&#95;&lt;dd-mm-aa&gt;.pdf | Registro de acuerdos y tareas de cada reunión del TP <nro&#95;tp> | /material&#95;practico/trabajos&#95;practicos&#95;evaluables/tp&#95;<nro&#95;tp>/minutas |
+| Casos de Estudio | CE.pdf | Descripción de todos los Casos de Estudio | /material&#95;practico/ejercitacion/casos&#95;de&#95;estudio |
+| Casos de Estudio de Resolución Propia | CERP&#95;<nombre&#95;caso>.pdf | Resolución de Casos de estudio resueltos por el Grupo 5 | /material&#95;practico/ejercitacion/casos&#95;de&#95;estudio |
+| Notas de clase Práctico | NOTA&#95;&lt;dd-mm-aa&gt;&#95;&lt;nombre&#95;persona&gt;&#95;&lt;nro&#95;archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase práctica de la fecha (dd/mm/aa) indicada | /material&#95;practico/notas&#95;de&#95;clases |
 
 
 
@@ -63,15 +63,15 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 
 | Variable | Descripción |
 |-----------------------|--------------|
-| &lt;nombre_libro&gt; | Nombre del libro referenciado en material bibliográfico |
-| &lt;nombre_presentacion&gt; | Nombre asignado a una presentación |
+| &lt;nombre&#95;libro&gt; | Nombre del libro referenciado en material bibliográfico |
+| &lt;nombre&#95;presentacion&gt; | Nombre asignado a una presentación |
 | &lt;dd-mm-aa&gt; | Fecha en el formato día-mes-año |
-| &lt;tema_res&gt; | Tema al que corresponde el resumen |
-| &lt;nro_tp&gt; | Número del Trabajo Práctico |
-| &lt;nombre_caso&gt; | Nombre del caso de estudio |
-| &lt;nombre_ejercicio&gt; | Nombre del ejercicio |
-| &lt;nombre_persona&gt; | Nombre de la persona que creó el contenido |
-| &lt;nro_archivo&gt; | Número de secuencia del archivo |
+| &lt;tema&#95;res&gt; | Tema al que corresponde el resumen |
+| &lt;nro&#95;tp&gt; | Número del Trabajo Práctico |
+| &lt;nombre&#95;caso&gt; | Nombre del caso de estudio |
+| &lt;nombre&#95;ejercicio&gt; | Nombre del ejercicio |
+| &lt;nombre&#95;persona&gt; | Nombre de la persona que creó el contenido |
+| &lt;nro&#95;archivo&gt; | Número de secuencia del archivo |
 
 ## Criterio de Línea Base
 Definimos como criterio de línea base del repositorio, que la misma se establecerá luego de la corrección de dos trabajos prácticos, considerando únicamente los prácticos evaluables. Decidimos este criterio, ya que, consideramos que luego de la corrección de dos trabajos prácticos, contaremos con ítems de configuración validados y estables.

@@ -36,9 +36,9 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | Material Bibliografico | BIBLIO_&lt;nombre_libro&gt;.pdf | Material de referencia académico | /material_teorico/material_de_la_uv/bibliografia |
 | Presentacion de Clase | PPT_&lt;nombre_presentacion&gt;.&lt;pdf/ppt/pptx&gt; | Diapositivas elaboradas por los docentes de la cátedra | /material_teorico/material_de_la_uv/presentacion_de_clases |
 | Notas de Clase | NOTA_&lt;dd-mm-aa&gt;.pdf | Notas tomadas para la clase de la fecha (dd//mm/aa) indicada | /material_teorico/material_de_elaboracion_propia/notas_de_clases |
-| Resumen | RES_&lt;tema_res&gt;.docx | Resumen para el &lt;tema_res&gt; indicado | /material_teorico/material_de_elaboracion_propia/resumenes |
+| Resumen | RES_&lt;tema_res&gt;.&lt;docx/pdf&gt; | Resumen para el &lt;tema_res&gt; indicado | /material_teorico/material_de_elaboracion_propia/resumenes |
 | Trabajos Practicos | TPS.pdf | Consignas de Trabajos Prácticos a realizar | /material_practico/trabajos_practicos |
-| Resolución de Trabajo Practico | RESOL_TP_&lt;nro_tp&gt;.&lt;pdf&gt; | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /material_practico/trabajos_practicos/tp_&lt;nro_tp&gt; |
+| Resolución de Trabajo Practico | RESOL_TP_&lt;nro_tp&gt;.pdf | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /material_practico/trabajos_practicos/tp_&lt;nro_tp&gt; |
 | Casos de Estudio | CE.pdf | Descripción de todos los Casos de Estudio | /material_practico/ejercitacion/casos_de_estudio |
 | Casos de Estudio Resueltos | CER_<nombre_caso>.pdf | Resolución de Casos de estudio | /material_practico/ejercitacion/casos_de_estudio |
 | Casos de Estudio Resueltos Cátedra | CERC_CATEDRA.pdf | Resolución de Casos de Estudio de la Cátedra | /material_practico/ejercitacion/casos_de_estudio |

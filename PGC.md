@@ -39,7 +39,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | Notas de Clase Teórico | NOTA_&lt;dd-mm-aa&gt;_&lt;nombre_persona&gt;_&lt;nro_archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase teórica de la fecha (dd//mm/aa) indicada | /material_teorico/material_de_elaboracion_propia/notas_de_clases |
 | Resumen | RES_&lt;tema_res&gt;.&lt;docx/pdf&gt; | Resumen para el &lt;tema_res&gt; indicado | /material_teorico/material_de_elaboracion_propia/resumenes |
 | Trabajos Practicos Evaluables | TPS.pdf | Consignas de Trabajos Prácticos a realizar | /material_practico/trabajos_practicos_evaluables |
-| Resolución de Trabajo Practico | tp_&lt;nro_tp&gt;.pdf | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /material_practico/trabajos_practicos/tp_&lt;nro_tp&gt; |
+| Resolución de Trabajo Practico | TP_&lt;nro_tp&gt;.pdf | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /material_practico/trabajos_practicos/tp_&lt;nro_tp&gt; |
 | Minutas | MIN_&lt;dd-mm-aa&gt;.pdf | Registro de acuerdos y tareas de cada reunión del TP <nro_tp> | /material_practico/trabajos_practicos_evaluables/tp_<nro_tp>/minutas |
 | Casos de Estudio | CE.pdf | Descripción de todos los Casos de Estudio | /material_practico/ejercitacion/casos_de_estudio |
 | Casos de Estudio de Resolución Propia | CERP_<nombre_caso>.pdf | Resolución de Casos de estudio resueltos por el Grupo 5 | /material_practico/ejercitacion/casos_de_estudio |
@@ -55,8 +55,8 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | PPT | Presentación |
 | NOTA | Nota de clases |
 | RES | Resumen |
-| TP | Trabajo Práctico |
-| RESOL | Resolucion |
+| TPS | Trabajos Prácticos Evaluables|
+| TP | Trabajos Prácticos Evaluables Resueltos |
 | CE | Casos de Estudio |
 | CERP | Casos de Estudio de Resolución Propia |
 | MIN | Minuta |

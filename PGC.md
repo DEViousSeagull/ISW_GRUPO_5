@@ -38,17 +38,12 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | Presentacion de Clase | PPT_&lt;nombre_presentacion&gt;.&lt;pdf/ppt/pptx&gt; | Diapositivas elaboradas por los docentes de la cátedra | /material_teorico/material_de_la_uv/presentacion_de_clases |
 | Notas de Clase Teórico | NOTA_&lt;dd-mm-aa&gt;.pdf | Notas tomadas para la clase de la fecha (dd//mm/aa) indicada | /material_teorico/material_de_elaboracion_propia/notas_de_clases |
 | Resumen | RES_&lt;tema_res&gt;.&lt;docx/pdf&gt; | Resumen para el &lt;tema_res&gt; indicado | /material_teorico/material_de_elaboracion_propia/resumenes |
-| Trabajos Practicos | TPS.pdf | Consignas de Trabajos Prácticos a realizar | /material_practico/trabajos_practicos |
-| Resolución de Trabajo Practico | RESOL_TP_&lt;nro_tp&gt;.pdf | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /material_practico/trabajos_practicos/tp_&lt;nro_tp&gt; |
+| Trabajos Practicos Evaluables | TPS.pdf | Consignas de Trabajos Prácticos a realizar | /material_practico/trabajos_practicos_evaluables |
+| Resolución de Trabajo Practico | tp_&lt;nro_tp&gt;.pdf | Resolucion del Trabajo Práctico numero &lt;nro_tp&gt; realizado | /material_practico/trabajos_practicos/tp_&lt;nro_tp&gt; |
+| Minutas | MIN_&lt;dd-mm-aa&gt;.pdf | Registro de acuerdos y tareas de cada reunión del TP <nro_tp> | /material_practico/trabajos_practicos_evaluables/tp_<nro_tp>/minutas |
 | Casos de Estudio | CE.pdf | Descripción de todos los Casos de Estudio | /material_practico/ejercitacion/casos_de_estudio |
 | Casos de Estudio de Resolución Propia | CERP_<nombre_caso>.pdf | Resolución de Casos de estudio resueltos por el Grupo 5 | /material_practico/ejercitacion/casos_de_estudio |
-| Casos de Estudio Resueltos Cátedra | CERC_CATEDRA.pdf | Resolución de Casos de Estudio de la Cátedra | /material_practico/ejercitacion/casos_de_estudio |
-| Ejercicios | EJ.pdf | Descripción de todos los ejercicios a resolver | /material_practico/ejercitacion/ejercicios_resueltos |
-| Ejercicio Resuelto | ER_&lt;nombre_ejercicio&gt;.pdf | Resolución de un ejercicio | /material_practico/ejercitacion/ejercicios_resueltos |
-| Minutas | MIN_&lt;dd-mm-aa&gt;.pdf | Registro de acuerdos y tareas de cada reunión del TP <nro_tp> | /material_practico/trabajos_practicos/tp_<nro_tp>/minutas |
-| Notas de clase Práctico | NOTACLASES_&lt;dd-mm-aa&gt;_&lt;nombre_persona&gt;_&lt;nro_archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase de la fecha (dd/mm/aa) indicada | /material_practico/notas_de_clases |
-
-
+| Notas de clase Práctico | NOTA_&lt;dd-mm-aa&gt;_&lt;nombre_persona&gt;_&lt;nro_archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase de la fecha (dd/mm/aa) indicada | /material_practico/notas_de_clases |
 
 
 
@@ -58,17 +53,13 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | PGC | Plan de Gestión de Configuración de Software |
 | BIBLIO | Material Bibliográfico |
 | PPT | Presentación |
-| NOTA | Nota de clases teóricas |
+| NOTA | Nota de clases |
 | RES | Resumen |
 | TP | Trabajo Práctico |
 | RESOL | Resolucion |
 | CE | Casos de Estudio |
 | CERP | Casos de Estudio de Resolución Propia |
-| CERC | Casos de Estudio Resueltos Cátedra|
-| EJ | Ejercicios |
-| ER | Ejercicio Resuelto |
 | MIN | Minuta |
-| NOTACLASES | Nota de clases prácticas |
 
 | Variable | Descripción |
 |-----------------------|--------------|

@@ -27,7 +27,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
   - Respetar la nomenclatura respectiva a cada Item. 
   - Separar palabras utilizando "_".
   - Se permiten mayúsculas, minúsculas y números.
-  - No usar caracteres especiales ni espacios.
+  - No usar caracteres especiales.
 
 ## Ítems de Configuración
 | Item de Configuracion | Nomenclatura | Definición | Ubicación |

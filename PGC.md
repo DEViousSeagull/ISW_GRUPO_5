@@ -5,7 +5,7 @@ De esta forma, los integrantes tendrán acceso rápido y centralizado a la infor
 
 ## Integrantes del equipo
 | Apellido y Nombre | Legajo |
-|--------------|------|
+|--------------|-------|
 | Bacchin, Rosario | 90229 |
 | Barrios, Martina | 98678 |
 | De Giorgi, Matteo | 90056 |

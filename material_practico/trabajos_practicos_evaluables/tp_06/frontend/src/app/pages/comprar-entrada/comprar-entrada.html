@@ -1,0 +1,35 @@
+<form [formGroup]="formEntrada" (ngSubmit)="submitForm()">
+    <label>Fecha de visita</label>
+    <input type="date" formControlName="fechaVisita" (change)="actualizarEdades()" />
+
+    <label>Cantidad de entradas</label>
+    <input type="number" formControlName="cantidadEntradas" (change)="actualizarEdades()" />
+
+    <div formArrayName="edades">
+        <div *ngFor="let edadCtrl of edades.controls; let i = index">
+            <label>Edad {{ i + 1 }}</label>
+            <input [formControlName]="i" type="number" />
+        </div>
+    </div>
+
+    <label>Tipo de pase</label>
+    <select formControlName="tipoPase">
+        <option value="">Seleccione</option>
+        <option value="regular">Regular</option>
+        <option value="VIP">VIP</option>
+    </select>
+
+    <label>Forma de pago</label>
+    <select formControlName="formaPago">
+        <option value="">Seleccione</option>
+        <option value="efectivo">Efectivo</option>
+        <option value="tarjeta">Tarjeta</option>
+    </select>
+
+    <button type="submit">Comprar</button>
+</form>
+
+<div *ngIf="resumenCompraVisible" class="resumen-compra">
+    <p>Cantidad de entradas: {{ cantidadEntradasResumen }}</p>
+    <p>Fecha de visita: {{ fechaResumen | date: 'dd/MM/yy' }}</p>
+</div>

@@ -1,13 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-comprar-entrada',
     templateUrl: './comprar-entrada.html',
     styleUrls: ['./comprar-entrada.scss'],
     standalone: true,
-    imports: [DatePipe, FormsModule]
+    imports: [DatePipe, ReactiveFormsModule]
 })
 export class ComprarEntrada {
     formEntrada: FormGroup;

@@ -1,35 +1,51 @@
-<form [formGroup]="formEntrada" (ngSubmit)="submitForm()">
-    <label>Fecha de visita</label>
-    <input type="date" formControlName="fechaVisita" (change)="actualizarEdades()" />
+<form [formGroup]="formEntrada" (ngSubmit)="submitForm()" class="form-card">
+    <h2>Compra de Entradas</h2>
 
-    <label>Cantidad de entradas</label>
-    <input type="number" formControlName="cantidadEntradas" (change)="actualizarEdades()" />
-
-    <div formArrayName="edades">
-        <div *ngFor="let edadCtrl of edades.controls; let i = index">
-            <label>Edad {{ i + 1 }}</label>
-            <input [formControlName]="i" type="number" />
-        </div>
+    <div class="form-group">
+        <label>Fecha de visita</label>
+        <input type="date" formControlName="fechaVisita" (change)="actualizarEdades()" />
     </div>
 
-    <label>Tipo de pase</label>
-    <select formControlName="tipoPase">
-        <option value="">Seleccione</option>
-        <option value="regular">Regular</option>
-        <option value="VIP">VIP</option>
-    </select>
+    <div class="form-group">
+        <label>Cantidad de entradas</label>
+        <input type="number" formControlName="cantidadEntradas" (change)="actualizarEdades()" min="1" />
+    </div>
 
-    <label>Forma de pago</label>
-    <select formControlName="formaPago">
-        <option value="">Seleccione</option>
-        <option value="efectivo">Efectivo</option>
-        <option value="tarjeta">Tarjeta</option>
-    </select>
+    <div formArrayName="edades" class="form-group edades-group">
+        <label>Edades de los visitantes</label>
+        @for (edadCtrl of edades.controls; track $index; let i = $index) {
 
-    <button type="submit">Comprar</button>
+        <div class="edad-item">
+            <input [formControlName]="i" type="number" placeholder="Edad {{ i + 1 }}" min="0" />
+        </div>
+        }
+    </div>
+
+    <div class="form-group">
+        <label>Tipo de pase</label>
+        <select formControlName="tipoPase">
+            <option value="">Seleccione</option>
+            <option value="regular">Regular</option>
+            <option value="VIP">VIP</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Forma de pago</label>
+        <select formControlName="formaPago">
+            <option value="">Seleccione</option>
+            <option value="efectivo">Efectivo</option>
+            <option value="tarjeta">Tarjeta</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn-comprar">Comprar</button>
 </form>
 
-<div *ngIf="resumenCompraVisible" class="resumen-compra">
-    <p>Cantidad de entradas: {{ cantidadEntradasResumen }}</p>
-    <p>Fecha de visita: {{ fechaResumen | date: 'dd/MM/yy' }}</p>
+@if (resumenCompraVisible) {
+<div class="resumen-compra">
+    <h3>Resumen de compra</h3>
+    <p><strong>Cantidad de entradas:</strong> {{ cantidadEntradasResumen }}</p>
+    <p><strong>Fecha de visita:</strong> {{ fechaResumen | date: 'dd/MM/yy' }}</p>
 </div>
+}

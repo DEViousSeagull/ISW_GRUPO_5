@@ -1,23 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ComprarEntrada } from './comprar-entrada';
+import { ComprarEntradaComponent } from './comprar-entrada';
 
 describe('ComprarEntrada', () => {
-  let component: ComprarEntrada;
-  let fixture: ComponentFixture<ComprarEntrada>;
+    let component: ComprarEntradaComponent;
+    let fixture: ComponentFixture<ComprarEntradaComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ComprarEntrada]
-    })
-    .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [ComprarEntradaComponent]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(ComprarEntrada);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(ComprarEntradaComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

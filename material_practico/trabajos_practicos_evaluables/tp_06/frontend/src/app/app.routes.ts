@@ -1,9 +1,19 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home';
-import { ComprarEntradaComponent } from './pages/comprar-entrada/comprar-entrada';
-
+import { Home } from './pages/home/home';
+import { ComprarEntrada } from './pages/comprar-entrada/comprar-entrada';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'comprar-ticket', component: ComprarEntradaComponent },
+    {
+        path: '',
+        component: Home,
+        pathMatch: 'full',
+    },
+    {
+        path: 'comprar-entrada',
+        component: ComprarEntrada,
+    },
+    {
+        path: '**',
+        redirectTo: '', // fallback to home
+    },
 ];

@@ -153,7 +153,15 @@ def test_fecha_compra_es_futura_PASA():
 def test_fecha_compra_es_dia_festivo_FALLA():
     tipo = TipoEntrada(nombre="Regular")
     entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
-    compra = Compra(fecha=date(2025, 12, 25), cantidad_entradas=1, entradas=entradas, monto_total=5000)
+    compra = Compra(fecha=date(2026, 12, 25), cantidad_entradas=1, entradas=entradas, monto_total=5000)
+    with pytest.raises(ValueError) as e:
+        compra.validar_fecha()
+    assert "fecha" in str(e.value).lower()
+
+def test_fecha_compra_lunes_FALLA():
+    tipo = TipoEntrada(nombre="Regular")
+    entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+    compra = Compra(fecha=date(2024, 1, 1), cantidad_entradas=1, entradas=entradas, monto_total=5000)
     with pytest.raises(ValueError) as e:
         compra.validar_fecha()
     assert "fecha" in str(e.value).lower()

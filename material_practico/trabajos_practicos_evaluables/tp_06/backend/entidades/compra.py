@@ -2,14 +2,17 @@ from dataclasses import dataclass
 from typing import List
 from datetime import date
 from entidades.entrada import Entrada
+from entidades.formaPago import FormaPago
 
 
 class Compra:
-    def __init__(self, fecha: date, cantidad_entradas: int, entradas: List[Entrada], monto_total: float = 0):
+    def __init__(self, fecha: date, cantidad_entradas: int, entradas: List[Entrada], formaPago: FormaPago, monto_total: float = 0):
         self.fecha = fecha
         self.cantidad_entradas = cantidad_entradas
         self.entradas = entradas or []
         self.monto_total = monto_total
+        self.formaPago = formaPago
+
 
     def cantidad_entradas_validas(self):
         if self.cantidad_entradas > 10:
@@ -33,4 +36,6 @@ class Compra:
         if self.fecha.weekday() == 0:  # 0 = lunes
             raise ValueError("La fecha de la compra no puede caer en lunes.")
         return True
+    
+    
     

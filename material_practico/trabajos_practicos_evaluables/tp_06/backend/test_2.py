@@ -210,3 +210,9 @@ def test_redireccion_mercado_pago_PASA():
             gateway = MercadoPagoClient()
             redirect_url = compra.obtener_redirect_pago(gateway)
             assert redirect_url.startswith("https://sandbox.mercadopago.com/checkout/v1/redirect?pref_id=MOCK_")
+
+# FORMATOS
+def test_formato_edad_decimal_FALLA():
+            tipo = TipoEntrada(nombre="Regular")
+            with pytest.raises(TypeError):
+                Entrada(id=1, precio=5000, edad=25.5, tipo_Entrada=tipo)

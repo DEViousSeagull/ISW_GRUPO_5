@@ -6,7 +6,7 @@ class Entrada:
         self.edad = edad
         self.precio = precio
 
-        if not isinstance(self.edad, int) or self.edad < 0:
+        if not isinstance(self.edad, int) or self.edad < 0 or isinstance(self.edad, str):
             raise ValueError("La edad es inválida; debe ser un entero")
 
     def calcular_precio(self):

@@ -27,6 +27,7 @@ def test_compra_cantidad_entradas_valida():
 #         _ = compra.cantidad_entradas
 #     assert "entrad" in str(e.value).lower()
 
+# PRECIO ENTRADAS SEGUN EDAD
 def test_menor_de_diez_paga_mitad():
             tipo = TipoEntrada(nombre="Regular")
             entrada_menor = Entrada(id=1, precio=5000, edad=9, tipo_Entrada=tipo)
@@ -73,6 +74,7 @@ def test_VIP_entre_10_y_60_paga_completo():
             entrada_adulto.calcular_precio()
             assert entrada_adulto.precio == 10000
 
+# CREACION DE OBJETOS
 def test_crear_entrada_tiene_todos_sus_atributos_PASA():
                 tipo = TipoEntrada(nombre="Regular")
                 entrada = Entrada(id=10, precio=5000, edad=25, tipo_Entrada=tipo)
@@ -130,6 +132,7 @@ def test_crear_compra_con_cantidad_entradas_no_coincidente_FALLA():
                 with pytest.raises(ValueError) :
                     compra.validar_cantidad_entradas_coincide()
 
+# FECHA COMPRA
 def test_fecha_compra_es_dia_actual_PASA():
                 tipo = TipoEntrada(nombre="Regular")
                 entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
@@ -166,3 +169,10 @@ def test_fecha_compra_lunes_FALLA():
         compra.validar_fecha()
     assert "fecha" in str(e.value).lower()
 
+# FORMAS DE PAGO
+def test_compra_con_efectivo_PASA():
+            tipo = TipoEntrada(nombre="Regular")
+            formaPago = "efectivo"
+            entrada = Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)
+            compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaDePago=formaPago)
+            assert compra.formaDePago == formaPago

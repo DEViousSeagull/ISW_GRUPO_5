@@ -212,7 +212,8 @@ def test_redireccion_mercado_pago_PASA():
             assert redirect_url.startswith("https://sandbox.mercadopago.com/checkout/v1/redirect?pref_id=MOCK_")
 
 # FORMATOS
-def test_formato_edad_decimal_FALLA():
-            tipo = TipoEntrada(nombre="Regular")
-            with pytest.raises(TypeError):
-                Entrada(id=1, precio=5000, edad=25.5, tipo_Entrada=tipo)
+def test_edad_decimal_FALLA():
+    tipo = TipoEntrada(nombre="Regular")
+    with pytest.raises(ValueError) as e:
+        Entrada(id=1, precio=5000, edad=5.5, tipo_Entrada=tipo)
+    assert "edad" in str(e.value).lower()

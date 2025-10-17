@@ -172,7 +172,8 @@ def test_fecha_compra_lunes_FALLA():
 # FORMAS DE PAGO
 def test_compra_con_efectivo_PASA():
             tipo = TipoEntrada(nombre="Regular")
-            formaPago = "efectivo"
+            formaDePago = "efectivo"
             entrada = Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)
-            compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaDePago=formaPago)
-            assert compra.formaDePago == formaPago
+            compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaPago=formaDePago)
+            assert compra.formaPago == formaDePago
+            

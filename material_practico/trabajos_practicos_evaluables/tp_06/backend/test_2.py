@@ -9,16 +9,16 @@ from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades.tip
 def test_compra_cantidad_entradas_invalida():
         tipo=TipoEntrada(nombre="Regular")
         entradas = [Entrada(id=i, precio=5000, tipo_Entrada=tipo, edad=18) for i in range(11)]
-        compra = Compra(fecha=date.today(), entradas=entradas, monto_total=1100)
+        compra = Compra(fecha=date.today(),cantidad_entradas=11, entradas=entradas, monto_total=1100)
         with pytest.raises(ValueError) as e:
-            compra.cantidad_entradas
+            compra.cantidad_entradas_validas()
         assert str(e.value) == "Cantidad inválida; máximo 10"
 
 def test_compra_cantidad_entradas_valida():
         tipo = TipoEntrada(nombre="Regular")
-        entradas = [Entrada(id=i, precio=5000, tipo_Entrada=tipo, edad=18) for i in range(5)]
-        compra = Compra(fecha=date.today(), entradas=entradas, monto_total=5000)
-        assert compra.cantidad_entradas == 5
+        entradas = [Entrada(id=i, precio=5000, tipo_Entrada=tipo, edad=18) for i in range(10)]
+        compra = Compra(fecha=date.today(),cantidad_entradas=10, entradas=entradas, monto_total=5000)
+        assert compra.cantidad_entradas == 10
 
 # def test_compra_sin_entradas_levanta_error():
 #     compra = Compra(fecha=date.today(), monto_total=1100)
@@ -94,10 +94,11 @@ def test_crear_entrada_tiene_todos_sus_atributos_PASA():
 def test_crear_compra_tiene_atributos_y_valores_PASA():
                 tipo = TipoEntrada(nombre="Regular")
                 entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
-                compra = Compra(fecha=date.today(), entradas=entradas, monto_total=5000)
+                compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=entradas, monto_total=5000)
 
                 assert hasattr(compra, "fecha")
                 assert hasattr(compra, "entradas")
+                assert hasattr(compra, "cantidad_entradas")
                 assert hasattr(compra, "monto_total")
 
                 assert compra.entradas is entradas
@@ -111,4 +112,8 @@ def test_crear_entrada_no_tiene_edad_FALLA():
                     Entrada(id=10, precio=5000, tipo_Entrada=tipo)
 def test_crear_entrada_no_tiene_tipoEntrada_FALLA():
                 with pytest.raises(TypeError) :
-                    Entrada(id=10, precio=5000, edad=25)                  
+                    Entrada(id=10, precio=5000, edad=25)  
+
+def test_crear_compra_no_tiene_entradas_FALLA():
+                with pytest.raises(TypeError) :
+                    Compra(fecha=date.today(),cantidad_entradas=0, monto_total=5000)              

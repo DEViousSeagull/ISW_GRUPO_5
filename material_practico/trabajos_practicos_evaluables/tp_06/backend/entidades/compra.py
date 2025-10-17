@@ -14,6 +14,12 @@ class Compra:
     def cantidad_entradas_validas(self):
         if self.cantidad_entradas > 10:
             raise ValueError("Cantidad inválida; máximo 10")
-       
-    
+
+    def validar_cantidad_entradas_coincide(self):
+        """Valida que self.cantidad_entradas coincida con len(self.entradas)."""
+        if self.cantidad_entradas != len(self.entradas):
+            raise ValueError(
+                f"Cantidad inválida: el atributo cantidad_entradas={self.cantidad_entradas} no coincide con la cantidad de entradas asignadas a la compra ({len(self.entradas)})"
+            )
+        return True
     

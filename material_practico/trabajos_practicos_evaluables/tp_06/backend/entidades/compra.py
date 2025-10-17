@@ -22,4 +22,9 @@ class Compra:
                 f"Cantidad inválida: el atributo cantidad_entradas={self.cantidad_entradas} no coincide con la cantidad de entradas asignadas a la compra ({len(self.entradas)})"
             )
         return True
-    
+
+    def validar_fecha(self):
+        """Valida que la fecha de la compra no sea menor a la fecha actual."""
+        if self.fecha < date.today():
+            raise ValueError("La fecha de la compra no puede ser menor a la fecha actual.")
+        return True

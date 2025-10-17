@@ -3,6 +3,7 @@ from entidades.compra import Compra
 from entidades.entrada import Entrada
 from entidades.tipoEntrada import TipoEntrada
 from datetime import date
+from entidades.formaPago import FormaPago
 
 from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades import entrada
 from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades.tipoEntrada import TipoEntrada
@@ -10,7 +11,8 @@ from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades.tip
 def test_compra_cantidad_entradas_invalida():
         tipo=TipoEntrada(nombre="Regular")
         entradas = [Entrada(id=i, precio=5000, tipo_Entrada=tipo, edad=18) for i in range(11)]
-        compra = Compra(fecha=date.today(),cantidad_entradas=11, entradas=entradas, monto_total=1100)
+        forma_pago = FormaPago(nombre="efectivo")
+        compra = Compra(fecha=date.today(),cantidad_entradas=11, entradas=entradas, formaPago=forma_pago, monto_total=1100)
         with pytest.raises(ValueError) as e:
             compra.cantidad_entradas_validas()
         assert str(e.value) == "Cantidad inválida; máximo 10"
@@ -18,7 +20,8 @@ def test_compra_cantidad_entradas_invalida():
 def test_compra_cantidad_entradas_valida():
         tipo = TipoEntrada(nombre="Regular")
         entradas = [Entrada(id=i, precio=5000, tipo_Entrada=tipo, edad=18) for i in range(10)]
-        compra = Compra(fecha=date.today(),cantidad_entradas=10, entradas=entradas, monto_total=5000)
+        forma_pago = FormaPago(nombre="efectivo")
+        compra = Compra(fecha=date.today(),cantidad_entradas=10, entradas=entradas, formaPago=forma_pago, monto_total=5000)
         assert compra.cantidad_entradas == 10
 
 # def test_compra_sin_entradas_levanta_error():
@@ -97,12 +100,14 @@ def test_crear_entrada_tiene_todos_sus_atributos_PASA():
 def test_crear_compra_tiene_atributos_y_valores_PASA():
                 tipo = TipoEntrada(nombre="Regular")
                 entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
-                compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=entradas, monto_total=5000)
+                forma_pago = FormaPago(nombre="efectivo")
+                compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, monto_total=5000)
 
                 assert hasattr(compra, "fecha")
                 assert hasattr(compra, "entradas")
                 assert hasattr(compra, "cantidad_entradas")
                 assert hasattr(compra, "monto_total")
+                assert hasattr(compra, "formaPago")
 
                 assert compra.entradas is entradas
                 assert compra.monto_total == 5000
@@ -119,16 +124,17 @@ def test_crear_entrada_no_tiene_tipoEntrada_FALLA():
 
 def test_crear_compra_no_tiene_entradas_FALLA():
                 with pytest.raises(TypeError) :
-                    Compra(fecha=date.today(),cantidad_entradas=0, monto_total=5000)        
+                    Compra(fecha=date.today(),cantidad_entradas=0, monto_total=5000, formaPago="efectivo")        
 def test_crear_compra_no_tiene_fecha_FALLA():
                 tipo = TipoEntrada(nombre="Regular")
                 entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
                 with pytest.raises(TypeError) :
-                    Compra(cantidad_entradas=1, entradas=entradas, monto_total=5000)      
+                    Compra(cantidad_entradas=1, entradas=entradas, monto_total=5000, formaPago="efectivo")      
 def test_crear_compra_con_cantidad_entradas_no_coincidente_FALLA():
                 tipo = TipoEntrada(nombre="Regular")
                 entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
-                compra = Compra(fecha=date.today(),cantidad_entradas=2, entradas=entradas, monto_total=5000)
+                forma_pago = FormaPago(nombre="efectivo")
+                compra = Compra(fecha=date.today(),cantidad_entradas=2, entradas=entradas, formaPago=forma_pago, monto_total=5000)
                 with pytest.raises(ValueError) :
                     compra.validar_cantidad_entradas_coincide()
 
@@ -136,13 +142,15 @@ def test_crear_compra_con_cantidad_entradas_no_coincidente_FALLA():
 def test_fecha_compra_es_dia_actual_PASA():
                 tipo = TipoEntrada(nombre="Regular")
                 entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
-                compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=entradas, monto_total=5000)
+                forma_pago = FormaPago(nombre="efectivo")
+                compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, monto_total=5000)
                 assert compra.fecha == date.today()
 
 def test_fecha_compra_es_menor_actual_FALLA():
     tipo = TipoEntrada(nombre="Regular")
     entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
-    compra = Compra(fecha=date(2020, 1, 1), cantidad_entradas=1, entradas=entradas, monto_total=5000)
+    forma_pago = FormaPago(nombre=" efectivo")
+    compra = Compra(fecha=date(2020, 1, 1), cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, monto_total=5000)
     with pytest.raises(ValueError) as e:
         compra.validar_fecha()
     assert "fecha" in str(e.value).lower()
@@ -150,13 +158,15 @@ def test_fecha_compra_es_menor_actual_FALLA():
 def test_fecha_compra_es_futura_PASA():
     tipo = TipoEntrada(nombre="Regular")
     entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
-    compra = Compra(fecha=date(2026, 5, 1), cantidad_entradas=1, entradas=entradas, monto_total=5000)
+    forma_pago = FormaPago(nombre="efectivo")
+    compra = Compra(fecha=date(2026, 5, 1), cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, monto_total=5000)
     assert compra.validar_fecha()
 
 def test_fecha_compra_es_dia_festivo_FALLA():
     tipo = TipoEntrada(nombre="Regular")
     entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
-    compra = Compra(fecha=date(2026, 12, 25), cantidad_entradas=1, entradas=entradas, monto_total=5000)
+    forma_pago = FormaPago(nombre="efectivo")
+    compra = Compra(fecha=date(2026, 12, 25), cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, monto_total=5000)
     with pytest.raises(ValueError) as e:
         compra.validar_fecha()
     assert "fecha" in str(e.value).lower()
@@ -164,16 +174,29 @@ def test_fecha_compra_es_dia_festivo_FALLA():
 def test_fecha_compra_lunes_FALLA():
     tipo = TipoEntrada(nombre="Regular")
     entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
-    compra = Compra(fecha=date(2025, 10, 20), cantidad_entradas=1, entradas=entradas, monto_total=5000)
+    forma_pago = FormaPago(nombre="efectivo")
+    compra = Compra(fecha=date(2025, 10, 20), cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, monto_total=5000)
     with pytest.raises(ValueError) as e:
         compra.validar_fecha()
     assert "fecha" in str(e.value).lower()
 
 # FORMAS DE PAGO
+def test_crear_compra_no_tiene_formaPago_FALLA():
+                tipo = TipoEntrada(nombre="Regular")
+                entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+                with pytest.raises(TypeError) :
+                    Compra(fecha=date.today(),cantidad_entradas=1, entradas=entradas, monto_total=5000)
+
 def test_compra_con_efectivo_PASA():
             tipo = TipoEntrada(nombre="Regular")
             formaDePago = "efectivo"
             entrada = Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)
             compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaPago=formaDePago)
-            assert compra.formaPago == formaDePago
-            
+            assert compra.validar_formaPago == formaDePago
+
+def test_compra_con_tarjeta_PASA():
+            tipo = TipoEntrada(nombre="Regular")
+            formaDePago = "tarjeta"
+            entrada = Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)
+            compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaPago=formaDePago)
+            assert compra.validar_formaPago == formaDePago

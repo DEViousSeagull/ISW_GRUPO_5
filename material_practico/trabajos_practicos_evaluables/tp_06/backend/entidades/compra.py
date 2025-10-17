@@ -3,6 +3,7 @@ from typing import List
 from datetime import date
 from entidades.entrada import Entrada
 from entidades.formaPago import FormaPago
+import uuid
 
 
 class Compra:
@@ -12,6 +13,7 @@ class Compra:
         self.entradas = entradas or []
         self.monto_total = monto_total
         self.formaPago = formaPago
+        self.mercado_pago_redirect_url = None  # URL de redirección a Mercado Pago (si aplica)
 
 
     def cantidad_entradas_validas(self):
@@ -37,5 +39,15 @@ class Compra:
             raise ValueError("La fecha de la compra no puede caer en lunes.")
         return True
     
-    
-    
+    def validar_formaPago(self):
+        self.formaPago.validate()
+        return self.formaPago.nombre
+
+    def obtener_redirect_pago(self, gateway):
+        # solo se usa si la forma necesita redirección (p.ej. tarjeta)
+        if self.formaPago.nombre != "tarjeta":
+            return None
+        if gateway is None:
+            raise TypeError("Gateway no proporcionado para forma de pago con redirección")
+        self.mercado_pago_redirect_url = gateway.generate_redirect(self)
+        return self.mercado_pago_redirect_url

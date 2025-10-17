@@ -4,6 +4,7 @@ from entidades.entrada import Entrada
 from entidades.tipoEntrada import TipoEntrada
 from datetime import date
 
+from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades import entrada
 from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades.tipoEntrada import TipoEntrada
 def test_compra_cantidad_entradas_invalida():
         tipo=TipoEntrada(nombre="Regular")
@@ -28,53 +29,86 @@ def test_compra_cantidad_entradas_valida():
 def test_menor_de_diez_paga_mitad():
             tipo = TipoEntrada(nombre="Regular")
             entrada_menor = Entrada(id=1, precio=5000, edad=9, tipo_Entrada=tipo)
-            # Suponemos que el método calcular_precio aplica el descuento
             entrada_menor.calcular_precio()
             assert entrada_menor.precio == 2500
 def test_menor_de_tres_no_paga():
             tipo = TipoEntrada(nombre="Regular")
             entrada_bebe = Entrada(id=2, precio=5000, edad=2, tipo_Entrada=tipo)
-            # Suponemos que el método calcular_precio aplica el descuento
             entrada_bebe.calcular_precio()
             assert entrada_bebe.precio == 0
 
 def test_mayor_de_sesenta_paga_mitad():
             tipo = TipoEntrada(nombre="Regular")
             entrada_mayor = Entrada(id=3, precio=5000, edad=61, tipo_Entrada=tipo)
-            # Suponemos que el método calcular_precio aplica el descuento
             entrada_mayor.calcular_precio()
             assert entrada_mayor.precio == 2500
 
 def test_entre_10_y_60_paga_completo():
             tipo = TipoEntrada(nombre="Regular")
             entrada_adulto = Entrada(id=4, precio=5000, edad=30, tipo_Entrada=tipo)
-            # Suponemos que el método calcular_precio no aplica descuento
             entrada_adulto.calcular_precio()
             assert entrada_adulto.precio == 5000
 
 def test_VIP_menor_de_diez_paga_mitad():
             tipo = TipoEntrada(nombre="VIP")
             entrada_menor = Entrada(id=1, precio=5000, edad=9, tipo_Entrada=tipo)
-            # Suponemos que el método calcular_precio aplica el descuento
             entrada_menor.calcular_precio()
             assert entrada_menor.precio == 5000  # Porque VIP siempre es 10000, no importa la edad
 def test_VIP_menor_de_tres_no_paga():
             tipo = TipoEntrada(nombre="VIP")
             entrada_bebe = Entrada(id=2, precio=5000, edad=2, tipo_Entrada=tipo)
-            # Suponemos que el método calcular_precio aplica el descuento
             entrada_bebe.calcular_precio()
             assert entrada_bebe.precio == 0
 
 def test_VIP_mayor_de_sesenta_paga_mitad():
             tipo = TipoEntrada(nombre="VIP")
             entrada_mayor = Entrada(id=3, precio=5000, edad=61, tipo_Entrada=tipo)
-            # Suponemos que el método calcular_precio aplica el descuento
             entrada_mayor.calcular_precio()
             assert entrada_mayor.precio == 5000  
 
 def test_VIP_entre_10_y_60_paga_completo():
             tipo = TipoEntrada(nombre="VIP")
             entrada_adulto = Entrada(id=4, precio=5000, edad=30, tipo_Entrada=tipo)
-            # Suponemos que el método calcular_precio no aplica descuento
             entrada_adulto.calcular_precio()
             assert entrada_adulto.precio == 10000
+
+def test_crear_entrada_tiene_todos_sus_atributos_PASA():
+                tipo = TipoEntrada(nombre="Regular")
+                entrada = Entrada(id=10, precio=5000, edad=25, tipo_Entrada=tipo)
+
+                # Atributos presentes
+                assert hasattr(entrada, "id")
+                assert hasattr(entrada, "precio")
+                assert hasattr(entrada, "edad")
+                assert hasattr(entrada, "tipo_Entrada")
+
+                # Valores correctos
+                assert entrada.id == 10
+                assert entrada.precio == 5000
+                assert entrada.edad == 25
+                assert entrada.tipo_Entrada is tipo
+                assert isinstance(entrada.tipo_Entrada, TipoEntrada)
+                assert isinstance(entrada, Entrada)
+
+
+def test_crear_compra_tiene_atributos_y_valores_PASA():
+                tipo = TipoEntrada(nombre="Regular")
+                entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+                compra = Compra(fecha=date.today(), entradas=entradas, monto_total=5000)
+
+                assert hasattr(compra, "fecha")
+                assert hasattr(compra, "entradas")
+                assert hasattr(compra, "monto_total")
+
+                assert compra.entradas is entradas
+                assert compra.monto_total == 5000
+                assert isinstance(compra, Compra)
+                assert all(isinstance(e, Entrada) for e in compra.entradas)
+
+def test_crear_entrada_no_tiene_todos_sus_atributos_FALLA():
+                tipo = TipoEntrada(nombre="Regular")
+                with pytest.raises(TypeError) as e:
+                    Entrada(id=10, precio=5000, tipo_Entrada=tipo)
+
+               # Atributos ausentes: debe fallar por falta de argumento 'edad'
+                assert "No se puede crear una Entrada sin especificar la edad" in str(e.value)

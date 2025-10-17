@@ -4,6 +4,7 @@ from entidades.entrada import Entrada
 from entidades.tipoEntrada import TipoEntrada
 from datetime import date
 from entidades.formaPago import FormaPago
+from entidades.mercado_pago import MercadoPagoClient
 
 from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades import entrada
 from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades.tipoEntrada import TipoEntrada
@@ -189,14 +190,23 @@ def test_crear_compra_no_tiene_formaPago_FALLA():
 
 def test_compra_con_efectivo_PASA():
             tipo = TipoEntrada(nombre="Regular")
-            formaDePago = "efectivo"
+            formaDePago = FormaPago(nombre="efectivo")
             entrada = Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)
             compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaPago=formaDePago)
-            assert compra.validar_formaPago == formaDePago
+            assert compra.validar_formaPago() == "efectivo"
 
 def test_compra_con_tarjeta_PASA():
             tipo = TipoEntrada(nombre="Regular")
-            formaDePago = "tarjeta"
+            formaDePago = FormaPago(nombre="tarjeta")
             entrada = Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)
             compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaPago=formaDePago)
-            assert compra.validar_formaPago == formaDePago
+            assert compra.validar_formaPago() == "tarjeta"
+
+def test_redireccion_mercado_pago_PASA():
+            tipo = TipoEntrada(nombre="Regular")
+            formaDePago = FormaPago(nombre="tarjeta")
+            entrada = Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)
+            compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaPago=formaDePago)
+            gateway = MercadoPagoClient()
+            redirect_url = compra.obtener_redirect_pago(gateway)
+            assert redirect_url.startswith("https://sandbox.mercadopago.com/checkout/v1/redirect?pref_id=MOCK_")

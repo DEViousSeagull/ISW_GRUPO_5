@@ -7,5 +7,7 @@ class Entrada:
         self.precio = precio
 
     def calcular_precio(self):
-        if self.edad < 10:
+        if 3 < self.edad < 10:
             self.precio = self.precio / 2
+        elif self.edad < 3:
+            self.precio = 0

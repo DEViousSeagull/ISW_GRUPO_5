@@ -125,5 +125,6 @@ def test_crear_compra_no_tiene_fecha_FALLA():
 def test_crear_compra_con_cantidad_entradas_no_coincidente_FALLA():
                 tipo = TipoEntrada(nombre="Regular")
                 entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+                compra = Compra(fecha=date.today(),cantidad_entradas=2, entradas=entradas, monto_total=5000)
                 with pytest.raises(ValueError) :
-                    Compra(fecha=date.today(),cantidad_entradas=2, entradas=entradas, monto_total=5000)
+                    compra.validar_cantidad_entradas_coincide()

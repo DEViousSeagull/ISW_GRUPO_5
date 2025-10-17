@@ -15,4 +15,5 @@ class Compra:
         if self.cantidad_entradas > 10:
             raise ValueError("Cantidad inválida; máximo 10")
        
-  
+    
+    

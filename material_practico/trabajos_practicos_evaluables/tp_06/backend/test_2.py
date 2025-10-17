@@ -6,6 +6,7 @@ from datetime import date
 
 from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades import entrada
 from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades.tipoEntrada import TipoEntrada
+
 def test_compra_cantidad_entradas_invalida():
         tipo=TipoEntrada(nombre="Regular")
         entradas = [Entrada(id=i, precio=5000, tipo_Entrada=tipo, edad=18) for i in range(11)]
@@ -128,3 +129,17 @@ def test_crear_compra_con_cantidad_entradas_no_coincidente_FALLA():
                 compra = Compra(fecha=date.today(),cantidad_entradas=2, entradas=entradas, monto_total=5000)
                 with pytest.raises(ValueError) :
                     compra.validar_cantidad_entradas_coincide()
+
+def test_fecha_compra_es_dia_actual_PASA():
+                tipo = TipoEntrada(nombre="Regular")
+                entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+                compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=entradas, monto_total=5000)
+                assert compra.fecha == date.today()
+
+def test_fecha_compra_es_menor_actual_FALLA():
+    tipo = TipoEntrada(nombre="Regular")
+    entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+    compra = Compra(fecha=date(2020, 1, 1), cantidad_entradas=1, entradas=entradas, monto_total=5000)
+    with pytest.raises(ValueError) as e:
+        compra.validar_fecha()
+    assert "fecha" in str(e.value).lower()

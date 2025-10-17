@@ -31,3 +31,9 @@ def test_menor_de_diez_paga_mitad():
             # Suponemos que el método calcular_precio aplica el descuento
             entrada_menor.calcular_precio()
             assert entrada_menor.precio == 50
+def test_menor_de_tres_no_paga():
+            tipo = TipoEntrada(nombre="Regular")
+            entrada_bebe = Entrada(id=2, precio=100, edad=2, tipo_Entrada=tipo)
+            # Suponemos que el método calcular_precio aplica el descuento
+            entrada_bebe.calcular_precio()
+            assert entrada_bebe.precio == 0

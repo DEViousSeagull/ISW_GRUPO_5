@@ -109,3 +109,6 @@ def test_crear_entrada_no_tiene_edad_FALLA():
                 tipo = TipoEntrada(nombre="Regular")
                 with pytest.raises(TypeError) :
                     Entrada(id=10, precio=5000, tipo_Entrada=tipo)
+def test_crear_entrada_no_tiene_tipoEntrada_FALLA():
+                with pytest.raises(TypeError) :
+                    Entrada(id=10, precio=5000, edad=25)                  

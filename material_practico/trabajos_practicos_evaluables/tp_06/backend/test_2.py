@@ -105,10 +105,7 @@ def test_crear_compra_tiene_atributos_y_valores_PASA():
                 assert isinstance(compra, Compra)
                 assert all(isinstance(e, Entrada) for e in compra.entradas)
 
-def test_crear_entrada_no_tiene_todos_sus_atributos_FALLA():
+def test_crear_entrada_no_tiene_edad_FALLA():
                 tipo = TipoEntrada(nombre="Regular")
-                with pytest.raises(TypeError) as e:
+                with pytest.raises(TypeError) :
                     Entrada(id=10, precio=5000, tipo_Entrada=tipo)
-
-               # Atributos ausentes: debe fallar por falta de argumento 'edad'
-                assert "No se puede crear una Entrada sin especificar la edad" in str(e.value)

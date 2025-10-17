@@ -6,6 +6,7 @@ class Entrada:
         self.edad = edad
         self.precio = precio
 
+
     def calcular_precio(self):
         if self.tipo_Entrada.nombre == "VIP":
             self.precio = 10000
@@ -13,3 +14,5 @@ class Entrada:
             self.precio = self.precio / 2
         elif self.edad < 3:
             self.precio = 0
+    
+        

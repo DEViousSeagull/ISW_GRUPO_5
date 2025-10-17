@@ -116,4 +116,14 @@ def test_crear_entrada_no_tiene_tipoEntrada_FALLA():
 
 def test_crear_compra_no_tiene_entradas_FALLA():
                 with pytest.raises(TypeError) :
-                    Compra(fecha=date.today(),cantidad_entradas=0, monto_total=5000)              
+                    Compra(fecha=date.today(),cantidad_entradas=0, monto_total=5000)        
+def test_crear_compra_no_tiene_fecha_FALLA():
+                tipo = TipoEntrada(nombre="Regular")
+                entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+                with pytest.raises(TypeError) :
+                    Compra(cantidad_entradas=1, entradas=entradas, monto_total=5000)      
+def test_crear_compra_con_cantidad_entradas_no_coincidente_FALLA():
+                tipo = TipoEntrada(nombre="Regular")
+                entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+                with pytest.raises(ValueError) :
+                    Compra(fecha=date.today(),cantidad_entradas=2, entradas=entradas, monto_total=5000)

@@ -226,7 +226,7 @@ def test_edad_negativa_FALLA():
 
 def test_edad_string_FALLA():
     tipo = TipoEntrada(nombre="Regular")
-    with pytest.raises(TypeError) as e:
+    with pytest.raises((ValueError)) as e:
         Entrada(id=1, precio=5000, edad="veinte", tipo_Entrada=tipo)
     assert "edad" in str(e.value).lower()
 

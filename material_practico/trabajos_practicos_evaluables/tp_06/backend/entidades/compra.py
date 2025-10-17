@@ -44,7 +44,7 @@ class Compra:
         return self.formaPago.nombre
 
     def obtener_redirect_pago(self, gateway):
-        # solo se usa si la forma necesita redirección (p.ej. tarjeta)
+        # solo se usa si la forma necesita redirección (tarjeta)
         if self.formaPago.nombre != "tarjeta":
             return None
         if gateway is None:

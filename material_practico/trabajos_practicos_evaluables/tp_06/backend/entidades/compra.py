@@ -24,11 +24,13 @@ class Compra:
         return True
 
     def validar_fecha(self):
-        """Valida que la fecha de la compra no sea menor a la fecha actual y que no coincida con un día festivo (mes/día)."""
+        """Valida que la fecha de la compra no sea menor a la fecha actual, que no coincida con un día festivo (mes/día) y que no sea lunes."""
         dias_festivos_md = {(1, 1), (12, 25)}  # (mes, día): Año Nuevo, Navidad (cualquier año)
         if self.fecha < date.today():
             raise ValueError("La fecha de la compra no puede ser menor a la fecha actual.")
         if (self.fecha.month, self.fecha.day) in dias_festivos_md:
-            raise ValueError("La fecha de la compra no puede ser un día festivo.")
+            raise ValueError("La fecha de la compra no puede coincidir con un día festivo.")
+        if self.fecha.weekday() == 0:  # 0 = lunes
+            raise ValueError("La fecha de la compra no puede caer en lunes.")
         return True
     

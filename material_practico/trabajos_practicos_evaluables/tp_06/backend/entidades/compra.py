@@ -65,6 +65,11 @@ class Compra:
             "cantidad_entradas": self.cantidad_entradas,
             "monto_total": self.monto_total,
             "formaPago": self.formaPago.nombre,
+            "Destinatario": {
+                "nombre": self.usuario.nombre,
+                "apellido": self.usuario.apellido,
+                "email": self.usuario.email
+            }
         }
         # Aquí se enviaría la confirmación, por ejemplo, a un servicio de mensajería
         return True

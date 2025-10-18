@@ -276,3 +276,10 @@ def test_confirmacion_compra_enviar_mail_PASA():
             compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaPago=formaDePago, usuario=usuario)
             resultado = compra.enviar_confirmacion_email()
             assert resultado == True
+
+
+def test_crear_compra_no_tiene_usuario_FALLA():
+                tipo = TipoEntrada(nombre="Regular")
+                entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+                with pytest.raises(TypeError) :
+                    Compra(fecha=date.today(), cantidad_entradas=1, entradas=entradas, monto_total=5000, formaPago="efectivo")

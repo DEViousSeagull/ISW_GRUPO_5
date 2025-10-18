@@ -311,3 +311,27 @@ def test_compra_tres_entradas_monto_y_confirmacion_PASA():
         assert compra.monto_total == 12500
         assert compra.validar_formaPago() == "tarjeta"
         assert compra.enviar_confirmacion_email() is True
+
+
+def test_crear_usuario_sin_nombre_FALLA():
+        with pytest.raises(TypeError):
+                Usuario(apellido="Gomez", email="gomez@example.com", password="pwd123")
+
+def test_crear_usuario_sin_email_FALLA():
+        with pytest.raises(TypeError):
+                Usuario(nombre="Juan", apellido="Gomez", password="pwd123")
+
+def test_crear_usuario_sin_password_FALLA():
+        with pytest.raises(TypeError):
+                Usuario(nombre="Juan", apellido="Gomez", email="gomez@example.com")
+
+def test_crear_usuario_sin_apellido_FALLA():
+        with pytest.raises(TypeError):
+                Usuario(nombre="Juan", email="gomez@example.com", password="pwd123")
+
+def test_crear_usuario_con_todos_los_atributos_PASA():
+        usuario = Usuario(nombre="Juan", apellido="Gomez", email="gomez@example.com", password="pwd123")
+        assert usuario.nombre == "Juan"
+        assert usuario.apellido == "Gomez"
+        assert usuario.email == "gomez@example.com"
+        assert usuario.password == "pwd123"

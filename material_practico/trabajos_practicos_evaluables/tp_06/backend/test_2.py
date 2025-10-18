@@ -268,6 +268,17 @@ def test_crear_compra_con_cantidad_entradas_negativo_FALLA():
             compra.validar_cantidad_entradas()
         assert "cantidad" in str(e.value).lower()
 
+def test_crear_compra_cantidad_entradas_string_FALLA():
+        tipo = TipoEntrada(nombre="Regular")
+        entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+        forma_pago = FormaPago(nombre="efectivo")
+        usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
+        compra = Compra(fecha=date.today(), cantidad_entradas="dos", entradas=entradas, formaPago=forma_pago, monto_total=5000, usuario=usuario)
+        with pytest.raises((TypeError, ValueError)):
+                compra.validar_cantidad_entradas() 
+                
+
+
 #ENVIO DE EMAIL
 def test_confirmacion_compra_enviar_mail_PASA():
             tipo = TipoEntrada(nombre="Regular")
@@ -335,3 +346,4 @@ def test_crear_usuario_con_todos_los_atributos_PASA():
         assert usuario.apellido == "Gomez"
         assert usuario.email == "gomez@example.com"
         assert usuario.password == "pwd123"
+

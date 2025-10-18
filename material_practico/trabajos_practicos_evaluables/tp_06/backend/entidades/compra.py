@@ -3,16 +3,17 @@ from typing import List
 from datetime import date
 from entidades.entrada import Entrada
 from entidades.formaPago import FormaPago
-import uuid
+from entidades.usuario import Usuario   
 
 
 class Compra:
-    def __init__(self, fecha: date, cantidad_entradas: int, entradas: List[Entrada], formaPago: FormaPago, monto_total: float = 0):
+    def __init__(self, fecha: date, cantidad_entradas: int, entradas: List[Entrada], formaPago: FormaPago, usuario: Usuario, monto_total: float = 0):
         self.fecha = fecha
         self.cantidad_entradas = cantidad_entradas
         self.entradas = entradas or []
         self.monto_total = monto_total
         self.formaPago = formaPago
+        self.usuario = usuario
         self.mercado_pago_redirect_url = None  # URL de redirección a Mercado Pago (si aplica)
 
 
@@ -57,3 +58,14 @@ class Compra:
         if not isinstance(self.cantidad_entradas, int) or self.cantidad_entradas < 0:
             raise ValueError("La cantidad de entradas debe ser un número entero sin decimales y mayor o igual a 0.")
         return True
+
+    def enviar_confirmacion_email(self):
+        datos = {
+            "fecha": self.fecha,
+            "cantidad_entradas": self.cantidad_entradas,
+            "monto_total": self.monto_total,
+            "formaPago": self.formaPago.nombre,
+        }
+        # Aquí se enviaría la confirmación, por ejemplo, a un servicio de mensajería
+        return True
+

@@ -6,6 +6,7 @@ from datetime import date
 from entidades.formaPago import FormaPago
 from entidades.mercado_pago import MercadoPagoClient
 
+
 from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades import entrada
 from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades.tipoEntrada import TipoEntrada
 
@@ -247,3 +248,13 @@ def test_crear_compra_con_cantidad_entradas_negativo_FALLA():
         with pytest.raises(ValueError) as e:
             compra.validar_cantidad_entradas()
         assert "cantidad" in str(e.value).lower()
+
+#ENVIO DE EMAIL
+def test_confirmacion_compra_enviar_mail_PASA():
+            tipo = TipoEntrada(nombre="Regular")
+            formaDePago = FormaPago(nombre="tarjeta")
+            usuario= Usuario(nombre="Luis", apellido="Gomez", email="luis@gmail.com", password="password123")
+            entrada = Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)
+            compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaPago=formaDePago, usuario=usuario)
+            resultado = compra.enviar_confirmacion_email(usuario.email)
+            assert resultado == True

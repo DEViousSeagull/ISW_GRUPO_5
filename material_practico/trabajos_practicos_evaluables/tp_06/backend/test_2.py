@@ -145,13 +145,13 @@ def test_fecha_compra_es_dia_actual_PASA():
                 entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
                 forma_pago = FormaPago(nombre="efectivo")
                 compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, monto_total=5000)
-                assert compra.fecha == date.today()
+                assert compra.validar_fecha()
 
 def test_fecha_compra_es_menor_actual_FALLA():
     tipo = TipoEntrada(nombre="Regular")
     entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
     forma_pago = FormaPago(nombre=" efectivo")
-    compra = Compra(fecha=date(2020, 1, 1), cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, monto_total=5000)
+    compra = Compra(fecha=date(2020, 3, 1), cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, monto_total=5000)
     with pytest.raises(ValueError) as e:
         compra.validar_fecha()
     assert "fecha" in str(e.value).lower()
@@ -176,7 +176,7 @@ def test_fecha_compra_lunes_FALLA():
     tipo = TipoEntrada(nombre="Regular")
     entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
     forma_pago = FormaPago(nombre="efectivo")
-    compra = Compra(fecha=date(2025, 10, 20), cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, monto_total=5000)
+    compra = Compra(fecha=date(2026, 7, 6), cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, monto_total=5000)
     with pytest.raises(ValueError) as e:
         compra.validar_fecha()
     assert "fecha" in str(e.value).lower()
@@ -230,3 +230,10 @@ def test_edad_string_FALLA():
         Entrada(id=1, precio=5000, edad="veinte", tipo_Entrada=tipo)
     assert "edad" in str(e.value).lower()
 
+def test_crear_compra_con_cantidad_entradas_decimal_FALLA():
+        tipo = TipoEntrada(nombre="Regular")
+        entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+        forma_pago = FormaPago(nombre="efectivo")
+        with pytest.raises(ValueError) as e:
+                Compra(fecha=date.today(), cantidad_entradas=1.5, entradas=entradas, formaPago=forma_pago, monto_total=5000)
+        assert "cantidad" in str(e.value).lower()

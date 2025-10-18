@@ -51,3 +51,9 @@ class Compra:
             raise TypeError("Gateway no proporcionado para forma de pago con redirección")
         self.mercado_pago_redirect_url = gateway.generate_redirect(self)
         return self.mercado_pago_redirect_url
+
+    def validar_cantidad_entradas_entera(self):
+        """Valida que cantidad_entradas sea un entero (no float, Decimal ni bool)."""
+        if not isinstance(self.cantidad_entradas, int):
+            raise ValueError("La cantidad de entradas debe ser un número entero sin decimales.")
+        return True

@@ -234,6 +234,7 @@ def test_crear_compra_con_cantidad_entradas_decimal_FALLA():
         tipo = TipoEntrada(nombre="Regular")
         entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
         forma_pago = FormaPago(nombre="efectivo")
+        compra = Compra(fecha=date.today(), cantidad_entradas=1.5, entradas=entradas, formaPago=forma_pago, monto_total=5000)
         with pytest.raises(ValueError) as e:
-                Compra(fecha=date.today(), cantidad_entradas=1.5, entradas=entradas, formaPago=forma_pago, monto_total=5000)
+            compra.validar_cantidad_entradas_entera()
         assert "cantidad" in str(e.value).lower()

@@ -16,6 +16,7 @@ class Entrada:
             self.precio = self.precio / 2
         elif self.edad < 3:
             self.precio = 0
+        return self.precio
     
 
         

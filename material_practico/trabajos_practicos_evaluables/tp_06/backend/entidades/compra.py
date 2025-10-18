@@ -74,3 +74,12 @@ class Compra:
         # Aquí se enviaría la confirmación, por ejemplo, a un servicio de mensajería
         return True
 
+
+    def calcular_monto_total(self):
+        total = 0.0
+        for entrada in self.entradas or []:
+            precio = entrada.calcular_precio()
+            total += float(precio)
+        self.monto_total = total
+        return self.monto_total
+

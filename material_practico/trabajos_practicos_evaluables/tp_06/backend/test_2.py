@@ -147,6 +147,7 @@ def test_crear_compra_con_cantidad_entradas_no_coincidente_FALLA():
                 with pytest.raises(ValueError) :
                     compra.validar_cantidad_entradas_coincide()
 
+
 # FECHA COMPRA
 def test_fecha_compra_es_dia_actual_PASA():
                 tipo = TipoEntrada(nombre="Regular")
@@ -283,3 +284,30 @@ def test_crear_compra_no_tiene_usuario_FALLA():
                 entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
                 with pytest.raises(TypeError) :
                     Compra(fecha=date.today(), cantidad_entradas=1, entradas=entradas, monto_total=5000, formaPago="efectivo")
+
+
+def test_compra_tres_entradas_monto_y_confirmacion_PASA():
+        tipo_reg = TipoEntrada(nombre="Regular")
+        tipo_vip = TipoEntrada(nombre="VIP")
+
+        entrada_nino = Entrada(id=1, precio=5000, edad=8, tipo_Entrada=tipo_reg)
+        entrada_bebe = Entrada(id=2, precio=5000, edad=1, tipo_Entrada=tipo_reg)
+        entrada_adulto_vip = Entrada(id=3, precio=5000, edad=40, tipo_Entrada=tipo_vip)
+
+        forma_pago = FormaPago(nombre="tarjeta")
+        usuario = Usuario(nombre="Carlos", apellido="Lopez", email="carlos.lopez@example.com", password="password123")
+
+        compra = Compra(
+                fecha=date.today(),
+                cantidad_entradas=3,
+                entradas=[entrada_nino, entrada_bebe, entrada_adulto_vip],
+                formaPago=forma_pago,
+                usuario=usuario,
+                monto_total=0
+        )
+
+        total_calculado = compra.calcular_monto_total()
+        assert total_calculado == 12500
+        assert compra.monto_total == 12500
+        assert compra.validar_formaPago() == "tarjeta"
+        assert compra.enviar_confirmacion_email() is True

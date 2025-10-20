@@ -1,42 +1,101 @@
-<form [formGroup]="formEntrada" (ngSubmit)="submitForm()" class="form-card">
+<form [formGroup]="formEntrada" (ngSubmit)="submitForm()" class="form-card" novalidate>
     <h2>Compra de Entradas</h2>
 
-    <div class="form-group">
+    <!-- Fecha -->
+    <div class="form-group" [ngClass]="{'invalid': isInvalid('fechaVisita')}">
         <label>Fecha de visita</label>
         <input type="date" formControlName="fechaVisita" (change)="actualizarEdades()" />
-    </div>
-
-    <div class="form-group">
-        <label>Cantidad de entradas</label>
-        <input type="number" formControlName="cantidadEntradas" (change)="actualizarEdades()" min="1" />
-    </div>
-
-    <div formArrayName="edades" class="form-group edades-group">
-        <label>Edades de los visitantes</label>
-        @for (edadCtrl of edades.controls; track $index; let i = $index) {
-
-        <div class="edad-item">
-            <input [formControlName]="i" type="number" placeholder="Edad {{ i + 1 }}" min="0" />
-        </div>
+        @if(isInvalid('fechaVisita')){
+        <small class="error" aria-live="polite">
+            @if(hasError('fechaVisita','required')) {
+            La fecha es obligatoria.
+            }
+            @else if (hasError('fechaVisita','fechaPasada')) {
+            La fecha no puede ser anterior a hoy.
+            }
+            @else if (hasError('fechaVisita','parqueCerrado')) {
+            El parque está cerrado ese día. Elegí otra fecha.
+            }
+        </small>
         }
     </div>
 
-    <div class="form-group">
+    <!-- Cantidad de entradas -->
+    <div class="form-group" [ngClass]="{'invalid': isInvalid('cantidadEntradas')}">
+        <label>Cantidad de entradas</label>
+        <input type="number" formControlName="cantidadEntradas" intRange [rangeMin]="1" [rangeMax]="10"
+            inputmode="numeric" autocomplete="off" enterkeyhint="done" (change)="actualizarEdades()" />
+        @if(isInvalid('cantidadEntradas')){
+        <small class="error" aria-live="polite">
+            @if(hasError('cantidadEntradas','required')) {
+            La cantidad es obligatoria.
+            }
+            @else if (hasError('cantidadEntradas','pattern')) {
+            Debe ser un número entero.
+            }
+            @else if (hasError('cantidadEntradas','min') || hasError('cantidadEntradas','max')) {
+            Debe estar entre 1 y 10.
+            }
+        </small>
+        }
+    </div>
+
+    <!-- Edades -->
+    <div formArrayName="edades" class="form-group edades-group"
+        [ngClass]="{'invalid': formEntrada.get('edades')?.invalid && (formEntrada.get('edades')?.touched || formEntrada.get('edades')?.dirty)}">
+        <label>Edades de los visitantes</label>
+
+        @for (edadCtrl of edades.controls; track $index; let i = $index) {
+        <div class="edad-item" [ngClass]="{'invalid': edadInvalid(i)}">
+            <input [formControlName]="i" type="number" placeholder="Edad {{ i + 1 }}" intRange [rangeMin]="0"
+                [rangeMax]="100" inputmode="numeric" autocomplete="off" enterkeyhint="done" />
+
+            @if(edadInvalid(i)) {
+            <small class="error" aria-live="polite">
+                @if(edadHasError(i,'required')) {
+                La edad es obligatoria.
+                }
+                @else if(edadHasError(i,'pattern')) {
+                Usá solo números enteros.
+                }
+                @else if(edadHasError(i,'min')) {
+                La edad mínima es 1.
+                }
+            </small>
+            }
+        </div>
+        }
+        @if(formEntrada.get('edades')?.errors?.['edadesNoCoinciden']) {
+        <small class="error" aria-live="polite">
+            La cantidad de edades debe coincidir con la cantidad de entradas.
+        </small>
+        }
+    </div>
+
+    <!-- Tipo de pase -->
+    <div class="form-group" [ngClass]="{'invalid': isInvalid('tipoPase')}">
         <label>Tipo de pase</label>
         <select formControlName="tipoPase">
             <option value="">Seleccione</option>
             <option value="regular">Regular</option>
             <option value="VIP">VIP</option>
         </select>
+        @if(isInvalid('tipoPase')) {
+        <small class="error">Seleccioná un tipo de pase.</small>
+        }
     </div>
 
-    <div class="form-group">
+    <!-- Forma de pago -->
+    <div class="form-group" [ngClass]="{'invalid': isInvalid('formaPago')}">
         <label>Forma de pago</label>
         <select formControlName="formaPago">
             <option value="">Seleccione</option>
             <option value="efectivo">Efectivo</option>
             <option value="tarjeta">Tarjeta</option>
         </select>
+        @if(isInvalid('formaPago')) {
+        <small class="error">Seleccioná la forma de pago.</small>
+        }
     </div>
 
     <button type="submit" class="btn-comprar">Comprar</button>

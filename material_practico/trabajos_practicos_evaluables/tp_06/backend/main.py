@@ -4,13 +4,17 @@ from routes.tipoEntradaRouter import router as tipoEntrada_router
 import uvicorn
 
 from sqlalchemy.orm import DeclarativeBase
-from setup import bootstrap
-
+from setup import bootstrap, reset_db
 
 app = FastAPI()
 app.include_router(compra_router)
 app.include_router(tipoEntrada_router)
 
+@app.on_event("startup")
+def on_startup():
+    # do this once per worker process so the worker sees the same DB
+    # reset_db()   # <- enable only if you REALLY want to wipe on each start
+    bootstrap()
 
 @app.get('/crear_pago')
 def crear_pago():
@@ -24,10 +28,9 @@ def enviar_mail(payload: dict):
 
 
 
-if __name__ == "__main__":
-    bootstrap()
-    # Ejecuta el backend en localhost:8000
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
-    
-# ...existing code...
-
+# if __name__ == "__main__":
+#     reset_db()
+#     bootstrap()
+#
+#     # Ejecuta el backend en localhost:8000
+#     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

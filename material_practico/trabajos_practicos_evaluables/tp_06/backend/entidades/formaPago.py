@@ -6,7 +6,7 @@ from typing import List
 from entidades.compra import Compra
 
 class FormaPago(Base):
-    tablename = "formas_pago"
+    __tablename__ = "formas_pago"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     nombre: Mapped[str] = mapped_column(String, unique=True, nullable=False)

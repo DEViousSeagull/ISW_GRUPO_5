@@ -1,11 +1,13 @@
 from sqlalchemy import CheckConstraint, ForeignKey, Integer, String, Float, Date, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from entidades.base import Base
-from typing import List
-from entidades.compra import Compra 
+from typing import List, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entidades.compra import Compra
 
 class Usuario(Base):
-    tablename = "usuarios"
+    __tablename__ = "usuarios"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     nombre: Mapped[str] = mapped_column(String, nullable=False)

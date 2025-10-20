@@ -1,13 +1,17 @@
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING
 from datetime import date
-from entidades.entrada import Entrada
-from entidades.formaPago import FormaPago
-from entidades.usuario import Usuario   
+
 from sqlalchemy import CheckConstraint, ForeignKey, Integer, String, Float, Date, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from entidades.base import Base
-from entidades.compraEntrada import CompraEntrada
+
+if TYPE_CHECKING:
+    # Solo para hints; NO se ejecuta en runtime, evita ciclo
+    from entidades.entrada import Entrada
+    from entidades.formaPago import FormaPago
+    from entidades.usuario import Usuario
+
 #class Compra:
 #    def __init__(self, fecha: date, cantidad_entradas: int, entradas: List[Entrada], formaPago: FormaPago, usuario: Usuario, monto_total: float = 0):
 #        self.fecha = fecha
@@ -19,23 +23,28 @@ from entidades.compraEntrada import CompraEntrada
 #        self.mercado_pago_redirect_url = None  # URL de redirección a Mercado Pago (si aplica)
 
 class Compra(Base):
-    tablename = "compras"
+    __tablename__ = "compras"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     fecha: Mapped[date] = mapped_column(Date, nullable=False)
     cantidad_entradas: Mapped[int] = mapped_column(Integer, nullable=False)
     monto_total: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
+
     forma_pago_id: Mapped[int] = mapped_column(ForeignKey("formas_pago.id", onupdate="CASCADE", ondelete="RESTRICT"), nullable=False)
     usuario_id: Mapped[int] = mapped_column(ForeignKey("usuarios.id", onupdate="CASCADE", ondelete="RESTRICT"), nullable=False)
-    mercado_pago_redirect_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    mercado_pago_redirect_url: Mapped[str | None] = mapped_column(Text, nullable=True)
 
-    table_args = (
+    __table_args__ = (
         CheckConstraint("cantidad_entradas BETWEEN 1 AND 10", name="ck_compras_cantidad_1_10"),
     )
 
+    # Relación 1─* con Entrada
+    entradas: Mapped[list["Entrada"]] = relationship(
+        back_populates="compra",
+        cascade="all, delete-orphan"
+    )
     usuario: Mapped["Usuario"] = relationship(back_populates="compras")
     forma_pago: Mapped["FormaPago"] = relationship(back_populates="compras")
-    items: Mapped[List["CompraEntrada"]] = relationship(back_populates="compra", cascade="all, delete-orphan")
 
     def cantidad_entradas_validas(self):
         if self.cantidad_entradas > 10:

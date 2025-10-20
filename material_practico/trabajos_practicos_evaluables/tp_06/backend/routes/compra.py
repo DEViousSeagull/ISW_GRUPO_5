@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 from typing import List, Union, Dict, Any
 from datetime import date
 
-router = APIRouter()
+router = APIRouter() #definir el router para las rutas de compra
 
 
 class TipoEntradaModel(BaseModel):
@@ -40,8 +40,9 @@ class CompraModel(BaseModel):
 # almacenamiento simple en memoria
 COMPRAS: List[Dict[str, Any]] = []
 
+#PASAR LOGICA A UN SERVICE DE COMPRA Y LLAMAR LAS FUNCIONES 
 
-@router.get('/api/compras')
+@router.get('/api/compras') #sacar api/compras
 def list_compras():
     return {"Items": COMPRAS, "RegistrosTotal": len(COMPRAS)}
 

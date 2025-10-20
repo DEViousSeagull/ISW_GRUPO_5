@@ -22,6 +22,7 @@ if TYPE_CHECKING:
 #        self.usuario = usuario
 #        self.mercado_pago_redirect_url = None  # URL de redirección a Mercado Pago (si aplica)
 
+#CONSTRUCTOR DE LA COMPRA + MAPPING A LA BASE DE DATOS
 class Compra(Base):
     __tablename__ = "compras"
 
@@ -35,17 +36,17 @@ class Compra(Base):
     mercado_pago_redirect_url: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     __table_args__ = (
-        CheckConstraint("cantidad_entradas BETWEEN 1 AND 10", name="ck_compras_cantidad_1_10"),
-    )
+        CheckConstraint("cantidad_entradas BETWEEN 1 AND 10", name="ck_compras_cantidad_1_10"),)
 
     # Relación 1─* con Entrada
     entradas: Mapped[list["Entrada"]] = relationship(
         back_populates="compra",
-        cascade="all, delete-orphan"
-    )
+        cascade="all, delete-orphan")
     usuario: Mapped["Usuario"] = relationship(back_populates="compras")
     forma_pago: Mapped["FormaPago"] = relationship(back_populates="compras")
 
+    
+    #FUNCIONES DECLARADAS A PARTIR DE LOS TESTS
     def cantidad_entradas_validas(self):
         if self.cantidad_entradas > 10:
             raise ValueError("Cantidad inválida; máximo 10")
@@ -102,7 +103,6 @@ class Compra(Base):
         }
         # Aquí se enviaría la confirmación, por ejemplo, a un servicio de mensajería
         return True
-
 
     def calcular_monto_total(self):
         total = 0.0

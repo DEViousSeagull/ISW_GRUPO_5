@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from routes.compra import router as compra_router
 from routes.tipoEntradaRouter import router as tipoEntrada_router
+from routes.formaPagoRouter import router as formaPago_router
 import uvicorn
 
 from sqlalchemy.orm import DeclarativeBase
@@ -9,6 +10,8 @@ from setup import bootstrap, reset_db
 app = FastAPI()
 app.include_router(compra_router)
 app.include_router(tipoEntrada_router)
+app.include_router(formaPago_router)
+#app.include_router(compra_router)
 
 @app.on_event("startup")
 def on_startup():
@@ -16,6 +19,11 @@ def on_startup():
     # reset_db()   # <- enable only if you REALLY want to wipe on each start
     bootstrap()
 
+
+
+
+
+#BORRAR ESTAS RUTAS Y HACERLAS POR ROUTER
 @app.get('/crear_pago')
 def crear_pago():
     return {"url_pago": "https://sandbox.mercadopago.com/checkout/v1/redirect?pref_id=MOCK_123"}

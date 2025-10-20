@@ -1,11 +1,25 @@
 # formaPago.py
-class FormaPago:
-    def __init__(self, nombre: str):
-        self.nombre = nombre
+from sqlalchemy import CheckConstraint, ForeignKey, Integer, String, Float, Date, Text
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from entidades.base import Base
+from typing import List
+from entidades.compra import Compra
 
-    def validate(self):
-        if self.nombre not in ("efectivo", "tarjeta"):
-            raise ValueError("Forma de pago inválida")
+class FormaPago(Base):
+    tablename = "formas_pago"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    nombre: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+
+    compras: Mapped[List["Compra"]] = relationship(back_populates="forma_pago")
+    
+#class FormaPago:
+#    def __init__(self, nombre: str):
+#        self.nombre = nombre
+
+#    def validate(self):
+#        if self.nombre not in ("efectivo", "tarjeta"):
+#            raise ValueError("Forma de pago inválida")
 
 
 class Tarjeta(FormaPago):

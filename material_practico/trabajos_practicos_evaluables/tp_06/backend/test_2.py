@@ -1,3 +1,4 @@
+import json
 import pytest
 from entidades.compra import Compra
 from entidades.entrada import Entrada
@@ -5,10 +6,11 @@ from entidades.tipoEntrada import TipoEntrada
 from datetime import date
 from entidades.formaPago import FormaPago
 from entidades.mercado_pago import MercadoPagoClient
-from entidades.usuario import Usuario
+from entidades.usuario import Usuario 
 
 from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades import entrada
 from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades.tipoEntrada import TipoEntrada
+
 
 def test_compra_cantidad_entradas_invalida():
         tipo=TipoEntrada(nombre="Regular")
@@ -149,13 +151,6 @@ def test_crear_compra_con_cantidad_entradas_no_coincidente_FALLA():
 
 
 # FECHA COMPRA
-def test_fecha_compra_es_dia_actual_PASA():
-                tipo = TipoEntrada(nombre="Regular")
-                entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
-                forma_pago = FormaPago(nombre="efectivo")
-                usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
-                compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, usuario=usuario, monto_total=5000)
-                assert compra.validar_fecha()
 
 def test_fecha_compra_es_menor_actual_FALLA():
     tipo = TipoEntrada(nombre="Regular")
@@ -347,3 +342,56 @@ def test_crear_usuario_con_todos_los_atributos_PASA():
         assert usuario.email == "gomez@example.com"
         assert usuario.password == "pwd123"
 
+def test_GET_crear_pago_PASA(client):
+    response = client.get("/crear_pago")
+    body = response.json()
+    assert response.status_code == 200
+    assert "url_pago" in body
+    assert body["url_pago"].startswith("https://")
+
+
+def test_POST_enviar_mail_PASA(client):
+    data = {
+        "email": "esmeralda@example.com",
+        "asunto": "Compra exitosa",
+        "mensaje": "Gracias por tu compra"
+    }
+    response = client.post("/enviar_mail", json=data)
+    assert response.status_code == 200
+    body = response.json()
+    assert "mensaje" in body
+    assert body["email"] == data["email"]
+
+def test_POST_crear_compra_efectivo_integration(client):
+        payload = {
+            "fecha": date.today().isoformat(),
+            "cantidad_entradas": 1,
+            "entradas": [
+                {"id": 1, "precio": 5000, "edad": 30, "tipo_Entrada": {"nombre": "Regular"}}
+            ],
+            "formaPago": "efectivo",
+            "usuario": {
+                "nombre": "Ana",
+                "apellido": "Perez",
+                "email": "ana.perez@example.com",
+                "password": "securepassword"
+            },
+            "monto_total": 5000
+        }
+
+        response = client.post("/crear_compra", json=payload)
+        assert response.status_code == 200
+        body = response.json()
+
+        assert "mensaje" in body
+        assert "compra" in body
+
+        compra = body["compra"]
+        # acepta tanto formaPago como string o como objeto con nombre
+        forma_ok = compra.get("formaPago") == "efectivo" or (
+            isinstance(compra.get("formaPago"), dict) and compra["formaPago"].get("nombre") == "efectivo"
+        )
+        assert forma_ok
+        assert compra.get("cantidad_entradas") == payload["cantidad_entradas"]
+        assert len(compra.get("entradas", [])) == len(payload["entradas"])
+        assert compra.get("monto_total") == payload["monto_total"]

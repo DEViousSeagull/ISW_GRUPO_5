@@ -4,40 +4,41 @@ import { firstValueFrom } from 'rxjs';
 
 
 // entrada.model.ts
-export interface TipoEntrada {
+export interface TipoEntradaDoc {
+    id: number;
     nombre: string;
 }
 
-export interface Entrada {
+export interface EntradaDoc {
     id: number;
-    precio: number;
+    precio_unitario: number;
     edad: number;
-    tipo_entrada: TipoEntrada;
+    tipo_entrada: TipoEntradaDoc;
 }
 
-export interface FormaPago {
+export interface FormaPagoDoc {
     id: number;
     nombre: string;
 }
 
-export interface Usuario {
+export interface UsuarioDoc {
     id: number;
     nombre: string;
     apellido: string;
     email: string;
 }
 
-export interface Compra {
+export interface CompraDoc {
     id: number;
     fecha: string; // ISO date from backend
     cantidad_entradas: number;
     monto_total: number;
-    forma_pago: FormaPago;
-    usuario: Usuario;
-    entradas: Entrada[];
+    forma_pago: FormaPagoDoc;
+    usuario: UsuarioDoc;
+    entradas: EntradaDoc[];
 }
 
-export const MOCK_COMPRAS: Compra[] = [
+export const MOCK_COMPRAS: CompraDoc[] = [
     {
         id: 1,
         fecha: '2025-10-21',
@@ -48,13 +49,33 @@ export const MOCK_COMPRAS: Compra[] = [
         entradas: [
             {
                 id: 1,
-                precio: 5000,
+                precio_unitario: 5000,
                 edad: 30,
-                tipo_entrada: { nombre: 'General' }
+                tipo_entrada: { id: 2, nombre: 'General' }
             }
         ]
     },
 ];
+
+export interface PostBody {
+    fecha: string, // "2025-10-21",
+    cantidad_entradas: number,
+    usuario: {
+        id: number
+    },
+    forma_pago: {
+        id: number
+    },
+    entradas: Array<{
+        edad: number,
+        tipo_entrada: { id: number }
+    }>
+}
+
+interface PostResponse {
+    mensaje: string,
+    compra: CompraDoc
+}
 
 @Injectable({
     providedIn: 'root'
@@ -66,22 +87,27 @@ export class ComprasDb {
 
     constructor(private http: HttpClient) { }
 
-    async getAll(): Promise<Compra[]> {
-        if (this.useMock) {
-            // simulate async delay
-            return new Promise(resolve => setTimeout(() => resolve(MOCK_COMPRAS), 300));
-        }
+    async getAll(): Promise<CompraDoc[]> {
+        // if (this.useMock) {
+        //     // simulate async delay
+        //     return new Promise(resolve => setTimeout(() => resolve(MOCK_COMPRAS), 300));
+        // }
 
-        return firstValueFrom(this.http.get<Compra[]>(this.baseUrl));
+        return firstValueFrom(this.http.get<Array<CompraDoc>>(this.baseUrl));
     }
 
-    async getById(id: number): Promise<Compra | undefined> {
-        if (this.useMock) {
+    async getById(id: number): Promise<CompraDoc | undefined> {
+        if (true) {
             // reuse mock data
             const all = await this.getAll();
             return all.find(c => c.id === id);
         }
 
-        return firstValueFrom(this.http.get<Compra>(`${this.baseUrl}/${id}`));
+        // return firstValueFrom(this.http.get<Compra>(`${this.baseUrl}/${id}`));
     }
+
+    async post(post: PostBody): Promise<PostResponse> {
+        return firstValueFrom(this.http.post<PostResponse>(`${this.baseUrl}/crear_compra`, post));
+    }
+
 }

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { IntRangeDirective } from '../../directives/int-range.directive';
 import { TipoEntrada, TiposPaseDb } from '../../services/tipos-pase/tipos-pase-db';
+import { ComprasDb, PostBody } from '../../services/compras/compras-db';
+import { FormaPago, FormasPagoDb } from '../../services/formas-pago/formas-pago-db';
 
 @Component({
     selector: 'app-comprar-entrada',
@@ -19,16 +21,28 @@ export class ComprarEntrada implements OnInit {
     diasCerrados = ['2025-10-19'];
 
     tiposPase: TipoEntrada[] = [];
+    formasPago: FormaPago[] = [];
 
     constructor(
         private fb: FormBuilder,
-        private tiposPaseDb: TiposPaseDb
+        private tiposPaseDb: TiposPaseDb,
+        private formasPagoDb: FormasPagoDb,
+        private comprasDb: ComprasDb
     ) {
         this.formEntrada = this.buildForm();
     }
 
     async ngOnInit() {
         await this.loadTiposPase();
+        await this.loadFormasPago();
+    }
+
+    private async loadFormasPago() {
+        try {
+            this.formasPago = await this.formasPagoDb.getAll();
+        } catch (error) {
+            console.error('Error cargando formas de pago:', error);
+        }
     }
 
     private async loadTiposPase() {
@@ -54,16 +68,26 @@ export class ComprarEntrada implements OnInit {
     get visitantes(): FormArray {
         return this.formEntrada.get('visitantes') as FormArray;
     }
-
     fechaValida(control: AbstractControl) {
         const fecha = new Date(control.value);
         const hoy = new Date();
         hoy.setHours(0, 0, 0, 0);
+
+        // Check if date is in the past
         if (fecha < hoy) return { fechaPasada: true };
-        if (this.diasCerrados.includes(control.value)) return { parqueCerrado: true };
+
+        // Check if Monday (0 = Monday, ...)
+        if (fecha.getDay() === 0) return { parqueCerrado: true };
+
+        // Check if Christmas or New Year's
+        const month = fecha.getMonth() + 1; // getMonth() 0-11
+        const day = fecha.getDate();
+        if ((month === 12 && day === 25) || (month === 1 && day === 1)) {
+            return { parqueCerrado: true };
+        }
+
         return null;
     }
-
     visitantesCoinciden(control: AbstractControl) {
         const cantidadEntradas = this.formEntrada?.get('cantidadEntradas')?.value || 0;
         const visitantes = (control as FormArray).controls || [];
@@ -73,20 +97,26 @@ export class ComprarEntrada implements OnInit {
 
     actualizarVisitantes() {
         const cantidad = this.formEntrada.get('cantidadEntradas')?.value || 0;
+        const maxEntradas = 10;
 
-        while (this.visitantes.length < cantidad) {
+        const finalCantidad = Math.min(cantidad, maxEntradas); // cap at 10
+
+        // Add missing controls
+        while (this.visitantes.length < finalCantidad) {
             this.visitantes.push(
                 this.fb.group({
-                    edad: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.min(1)]],
+                    edad: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.min(0), Validators.max(100)]],
                     tipoPase: ['', Validators.required]
                 })
             );
         }
 
-        while (this.visitantes.length > cantidad) {
+        // Remove extra controls
+        while (this.visitantes.length > finalCantidad) {
             this.visitantes.removeAt(this.visitantes.length - 1);
         }
     }
+
 
     control(name: string) {
         return this.formEntrada.get(name);
@@ -122,7 +152,28 @@ export class ComprarEntrada implements OnInit {
         return c?.invalid && (c?.touched || c?.dirty);
     }
 
-    submitForm() {
+    private buildPostBody(): PostBody {
+        const fecha = this.formEntrada.get('fechaVisita')?.value;
+        const cantidadEntradas = this.formEntrada.get('cantidadEntradas')?.value;
+        const formaPagoId = Number(this.formEntrada.get('formaPago')?.value); // ensure number
+
+        const entradas = this.visitantes.controls.map(ctrl => ({
+            edad: Number(ctrl.get('edad')?.value),
+            tipo_entrada: { id: Number(ctrl.get('tipoPase')?.value) }
+        }));
+
+        return {
+            fecha,
+            cantidad_entradas: cantidadEntradas,
+            usuario: { id: 1 },
+            forma_pago: { id: formaPagoId },
+            entradas
+        };
+    }
+
+
+
+    async submitForm() {
         if (this.formEntrada.invalid) {
             this.formEntrada.markAllAsTouched();
             const firstError = document.querySelector('.ng-invalid');
@@ -130,10 +181,28 @@ export class ComprarEntrada implements OnInit {
             return;
         }
 
-        this.cantidadEntradasResumen = this.formEntrada.get('cantidadEntradas')?.value;
-        this.fechaResumen = new Date(this.formEntrada.get('fechaVisita')?.value);
-        this.resumenCompraVisible = true;
+        // this.cantidadEntradasResumen = this.formEntrada.get('cantidadEntradas')?.value;
+        // this.fechaResumen = new Date(this.formEntrada.get('fechaVisita')?.value);
+        // this.resumenCompraVisible = true;
 
-        console.log(this.formEntrada.value);
+        // console.log(this.formEntrada.value);
+
+        const postBody = this.buildPostBody();
+        // console.log(postBody);
+
+
+
+        try {
+            const response = await this.comprasDb.post(postBody);
+            console.log('Compra creada:', response.compra);
+            // alert(`Compra exitosa! Monto total: ${response.compra.monto_total}`);
+
+            this.cantidadEntradasResumen = response.compra.cantidad_entradas;
+            this.fechaResumen = new Date(response.compra.fecha);
+            this.resumenCompraVisible = true;
+        } catch (err) {
+            console.error('Error al crear compra:', err);
+            alert('Hubo un error al procesar la compra.');
+        }
     }
 }

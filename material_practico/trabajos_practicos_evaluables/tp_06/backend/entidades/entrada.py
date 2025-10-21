@@ -48,9 +48,12 @@ class Entrada(Base):
     tipo_entrada: Mapped["TipoEntrada"] = relationship(back_populates="entradas")
 
     def calcular_precio(self):
-        if self.tipo_entrada.nombre == "VIP":
+        if self.tipo_entrada_id == 1:
             self.precio_unitario = 10000
-        if 3 < self.edad < 10 or self.edad > 60:
+        else:
+            self.precio_unitario = 5000
+
+        if 3 <= self.edad < 10 or self.edad > 60:
             self.precio_unitario = self.precio_unitario / 2
         elif self.edad < 3:
             self.precio_unitario = 0

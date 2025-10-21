@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
-import { ComprasDb, Compra } from '../../services/compras/compras-db';
+import { ComprasDb, CompraDoc } from '../../services/compras/compras-db';
 
 @Component({
     selector: 'app-mis-compras',
@@ -11,7 +11,7 @@ import { ComprasDb, Compra } from '../../services/compras/compras-db';
     imports: [CommonModule, RouterModule, DatePipe, CurrencyPipe]
 })
 export class MisCompras implements OnInit {
-    compras: Compra[] = [];
+    compras: CompraDoc[] = [];
     loading = true;
     error: string | null = null;
 

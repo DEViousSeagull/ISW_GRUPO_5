@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormaPago } from '../../ts/classes/forma-pago';
 import { firstValueFrom } from 'rxjs';
+
+export interface FormaPago {
+    id: number;
+    nombre: string;
+}
 
 @Injectable({
     providedIn: 'root'

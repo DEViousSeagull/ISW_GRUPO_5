@@ -5,7 +5,7 @@ import { Directive, HostListener, ElementRef, Input } from '@angular/core';
 })
 export class IntRangeDirective {
     @Input() rangeMin = 1;
-    @Input() rangeMax = 10;
+    @Input() rangeMax: number | undefined;
 
     private readonly controlKeys = new Set([
         'Backspace', 'Delete', 'Tab', 'Escape', 'Enter',
@@ -44,7 +44,7 @@ export class IntRangeDirective {
         if (numeric) {
             const num = parseInt(numeric, 10);
             // Only block if definitely above max
-            if (num > this.rangeMax) {
+            if (this.rangeMax && num > this.rangeMax) {
                 e.preventDefault();
             }
         }
@@ -59,7 +59,13 @@ export class IntRangeDirective {
         if (numeric === '') return;
 
         let num = parseInt(numeric, 10);
-        num = Math.min(this.rangeMax, Math.max(this.rangeMin, num));
+
+        num = Math.max(this.rangeMin, num);
+
+        if (this.rangeMax) {
+            num = Math.min(this.rangeMax, num);
+        }
+
         this.setValue(num.toString());
     }
 
@@ -73,7 +79,12 @@ export class IntRangeDirective {
             return;
         }
         let num = parseInt(cleaned, 10);
-        num = Math.min(this.rangeMax, Math.max(this.rangeMin, num));
+        num = Math.max(this.rangeMin, num);
+
+        if (this.rangeMax) {
+            num = Math.min(this.rangeMax, num);
+        }
+        
         if (input.value !== String(num)) {
             this.setValue(String(num));
         }

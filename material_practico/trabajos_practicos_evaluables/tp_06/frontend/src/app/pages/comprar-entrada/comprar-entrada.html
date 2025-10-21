@@ -23,8 +23,8 @@
     <!-- Cantidad de entradas -->
     <div class="form-group" [ngClass]="{'invalid': isInvalid('cantidadEntradas')}">
         <label>Cantidad de entradas</label>
-        <input type="number" formControlName="cantidadEntradas" intRange [rangeMin]="1" [rangeMax]="10"
-            inputmode="numeric" autocomplete="off" enterkeyhint="done" (change)="actualizarVisitantes()" />
+        <input type="number" formControlName="cantidadEntradas" intRange [rangeMin]="1" inputmode="numeric"
+            autocomplete="off" enterkeyhint="done" (change)="actualizarVisitantes()" />
         @if(isInvalid('cantidadEntradas')){
         <small class="error" aria-live="polite">
             @if(hasError('cantidadEntradas','required')) {
@@ -49,7 +49,7 @@
         <div [formGroupName]="i" class="visitante-item">
             <div class="edad-item" [ngClass]="{'invalid': edadInvalid(i)}">
                 <input formControlName="edad" type="number" placeholder="Edad {{ i + 1 }}" intRange [rangeMin]="0"
-                    [rangeMax]="100" inputmode="numeric" autocomplete="off" enterkeyhint="done" />
+                    inputmode="numeric" autocomplete="off" enterkeyhint="done" />
             </div>
 
             <!-- Tipo de pase -->
@@ -57,7 +57,7 @@
                 <select formControlName="tipoPase">
                     <option value="">Tipo de pase</option>
                     @for (tp of tiposPase; track tp.id) {
-                    <option [value]="tp.nombre">{{ tp.nombre }}</option>
+                    <option [value]="tp.id">{{ tp.nombre }}</option>
                     }
                 </select>
             </div>
@@ -96,13 +96,15 @@
         <label>Forma de pago</label>
         <select formControlName="formaPago">
             <option value="">Seleccione</option>
-            <option value="efectivo">Efectivo</option>
-            <option value="tarjeta">Tarjeta</option>
+            @for (fp of formasPago; track fp.id) {
+            <option [value]="fp.id">{{ fp.nombre }}</option>
+            }
         </select>
         @if(isInvalid('formaPago')) {
         <small class="error">Seleccioná la forma de pago.</small>
         }
     </div>
+
 
     <button type="submit" class="btn-comprar">Comprar</button>
 </form>

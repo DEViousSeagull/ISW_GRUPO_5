@@ -56,5 +56,10 @@ class CompraService:
                 })
             return resultado
    
-    
+    def post_compra(compra: Compra) -> Compra:
+        with Session(engine) as session:
+            session.add(compra)
+            session.commit()
+            session.refresh(compra)
+            return compra
        

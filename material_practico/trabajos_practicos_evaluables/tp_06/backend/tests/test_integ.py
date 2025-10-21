@@ -53,7 +53,7 @@ def test_GET_tipos_de_entrada_VIP_PASA(client):
     assert isinstance(body, list)
     assert any(te.get("nombre") == "VIP" for te in body)
 
-def test_POST_crear_compra_efectivo_integration(client):
+def test_POST_crear_compra_efectivo_PASA(client):
         payload = {
             "id"
             "fecha": date.today().isoformat(),

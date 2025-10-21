@@ -5,6 +5,7 @@ from entidades.compra import Compra
 from entidades.entrada import Entrada 
 from sqlalchemy.orm import joinedload  
 from datetime import date
+from typing import List, Optional
 
 
 class CompraService:
@@ -16,7 +17,7 @@ class CompraService:
     #         return [{"id": c.id, "fecha": c.fecha, "cantidad_entradas": c.cantidad_entradas, "monto_total": c.monto_total, "forma_pago": c.forma_pago, "usuario": c.usuario_id, "mercado_pago": c.mercado_pago_redirect_url} for c in compras]
        
     @staticmethod
-    def get_all() -> list[dict]:
+    def get_all() -> List[dict]:
         with Session(engine) as session:
             # Carga todas las relaciones asociadas
             compras = session.query(Compra).options(

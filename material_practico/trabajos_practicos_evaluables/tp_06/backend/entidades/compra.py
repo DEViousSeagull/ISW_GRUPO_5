@@ -39,7 +39,7 @@ class Compra(Base):
         CheckConstraint("cantidad_entradas BETWEEN 1 AND 10", name="ck_compras_cantidad_1_10"),)
 
     # Relación 1─* con Entrada
-    entradas: Mapped[list["Entrada"]] = relationship(
+    entradas: Mapped[List["Entrada"]] = relationship(
         back_populates="compra",
         cascade="all, delete-orphan")
     usuario: Mapped["Usuario"] = relationship(back_populates="compras")

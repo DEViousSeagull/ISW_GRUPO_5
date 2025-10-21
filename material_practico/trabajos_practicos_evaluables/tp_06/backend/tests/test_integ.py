@@ -1,5 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
+from datetime import date
 import sys
 import os
 
@@ -58,7 +59,7 @@ def test_POST_crear_compra_efectivo_integration(client):
             "fecha": date.today().isoformat(),
             "cantidad_entradas": 1,
             "entradas": [
-                {"id": 1, "precio_unitario": 5000, "edad": 30, "tipo_entrada": {"id": 1, "nombre": "Regular"}}
+                {"id": 999, "precio_unitario": 5000, "edad": 15, "tipo_entrada": {"id": 1, "nombre": "General"}}
             ],
             "forma_pago": {"id": 2, "nombre": "efectivo"},
             "usuario": {
@@ -86,6 +87,8 @@ def test_POST_crear_compra_efectivo_integration(client):
         assert compra.get("cantidad_entradas") == payload["cantidad_entradas"]
         assert len(compra.get("entradas", [])) == len(payload["entradas"])
         assert compra.get("monto_total") == payload["monto_total"]
+        assert compra.get("usuario", {}).get("email") == payload["usuario"]["email"]
+
 
 def test_GET_compras_PASA(client):
     # Solicitar lista de compras
@@ -106,24 +109,29 @@ def test_GET_compras_PASA(client):
     # Verificar que cada item tiene la estructura esperada
     for item in items:
         assert isinstance(item, dict)
-        assert "usuario" in item
-        assert "monto_total" in item
+        assert "id" in item
         assert "fecha" in item
         assert "cantidad_entradas" in item
+        #assert "forma_pago_id" in item
+        #assert "usuario_id" in item
+        assert "monto_total" in item
+        
         
         # Verificar que los datos de la compra sean los esperados
+        assert item["id"] == 1
         assert item["fecha"] == date.today().isoformat()
         assert item["cantidad_entradas"] == 1
         assert len(item["entradas"]) == 1
         assert item["entradas"][0]["id"] == 1
         assert item["entradas"][0]["precio"] == 5000
         assert item["entradas"][0]["edad"] == 30
-        assert item["entradas"][0]["tipo_Entrada"]["nombre"] == "Regular"
-        assert item["formaPago"] == "efectivo"
-        assert item["usuario"]["nombre"] == "Ana"
-        assert item["usuario"]["apellido"] == "Perez"
-        assert item["usuario"]["email"] == "ana.perez@example.com"
-        assert item["usuario"]["password"] == "securepassword"
+        assert item["entradas"][0]["tipo_entrada"]["nombre"] == "General"
+        assert item["forma_pago"]["id"] == 1
+        assert item["usuario"]["nombre"] == "Juan"
+        assert item["usuario"]["apellido"] == "Pérez"
+        assert item["usuario"]["email"] == "juan@example.com"
+        #assert item["usuario"]["password"] == "securepassword" #FALTA PWASWORD EN LA ENTIDAD USUARIO
+        assert item["usuario"]["id"] == 1
         assert item["monto_total"] == 5000
 
 

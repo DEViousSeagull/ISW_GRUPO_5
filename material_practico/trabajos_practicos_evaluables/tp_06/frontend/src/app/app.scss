@@ -1,0 +1,80 @@
+/* Header */
+.app-header {
+    background-color: var(--green-main);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px var(--shadow);
+    font-family: 'Arial', sans-serif;
+    position: relative;
+
+    .logo h1 {
+        margin: 0;
+        font-size: 1.8rem;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 1.5rem;
+
+        a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+
+            &:hover {
+                color: var(--green-light);
+            }
+
+            &.active {
+                color: var(--green-light);
+                font-weight: 600;
+                border-bottom: 2px solid var(--green-light);
+                padding-bottom: 2px;
+            }
+        }
+    }
+
+    /* User display */
+    .user-display {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 500;
+
+        span {
+            color: white;
+        }
+
+        img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid white;
+        }
+    }
+}
+
+/* Main content */
+.app-content {
+    min-height: calc(100vh - 120px); // header + footer
+    padding: 2rem;
+    color: var(--text-main);
+}
+
+/* Footer */
+.app-footer {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--green-dark);
+    color: white;
+    text-align: center;
+    padding: 1rem 2rem;
+    font-size: 0.9rem;
+
+    .footer-info p {
+        margin: 0.2rem 0;
+    }
+}

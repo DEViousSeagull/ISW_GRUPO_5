@@ -11,7 +11,7 @@ app = FastAPI()
 app.include_router(compra_router)
 app.include_router(tipoEntrada_router)
 app.include_router(formaPago_router)
-#app.include_router(compra_router)
+app.include_router(compra_router)
 
 @app.on_event("startup")
 def on_startup():

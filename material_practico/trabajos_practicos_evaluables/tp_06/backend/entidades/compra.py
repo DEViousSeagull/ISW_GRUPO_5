@@ -33,7 +33,7 @@ class Compra(Base):
 
     forma_pago_id: Mapped[int] = mapped_column(ForeignKey("formas_pago.id", onupdate="CASCADE", ondelete="RESTRICT"), nullable=False)
     usuario_id: Mapped[int] = mapped_column(ForeignKey("usuarios.id", onupdate="CASCADE", ondelete="RESTRICT"), nullable=False)
-    mercado_pago_redirect_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    mercado_pago_redirect_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
 
     __table_args__ = (
         CheckConstraint("cantidad_entradas BETWEEN 1 AND 10", name="ck_compras_cantidad_1_10"),)

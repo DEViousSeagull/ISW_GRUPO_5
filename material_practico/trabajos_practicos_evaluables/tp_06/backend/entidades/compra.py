@@ -71,12 +71,12 @@ class Compra(Base):
         return True
     
     def validar_formaPago(self):
-        self.formaPago.validate()
-        return self.formaPago.nombre
+        self.forma_pago.validate()
+        return self.forma_pago.nombre
 
     def obtener_redirect_pago(self, gateway):
         # solo se usa si la forma necesita redirección (tarjeta)
-        if self.formaPago.nombre != "tarjeta":
+        if self.forma_pago.nombre != "tarjeta":
             return None
         if gateway is None:
             raise TypeError("Gateway no proporcionado para forma de pago con redirección")
@@ -94,7 +94,7 @@ class Compra(Base):
             "fecha": self.fecha,
             "cantidad_entradas": self.cantidad_entradas,
             "monto_total": self.monto_total,
-            "formaPago": self.formaPago.nombre,
+            "formaPago": self.forma_pago.nombre,
             "Destinatario": {
                 "nombre": self.usuario.nombre,
                 "apellido": self.usuario.apellido,
@@ -111,4 +111,45 @@ class Compra(Base):
             total += float(precio)
         self.monto_total = total
         return self.monto_total
+    
+    def validar_atributos_presentes(self):
+        """
+        Valida que la compra tenga los atributos mínimos requeridos.
+        Lanza ValueError con un mensaje indicando qué atributos faltan o son inválidos.
+        """
+        checks = {
+            "fecha": lambda v: v is not None,
+            "cantidad_entradas": lambda v: isinstance(v, int) and v >= 1,
+            "entradas": lambda v: isinstance(v, list) and len(v) > 0,
+            "forma_pago": lambda v: v is not None,
+            "usuario": lambda v: v is not None,
+            "monto_total": lambda v: v is not None,
+            "forma_pago_id": lambda v: isinstance(v, int) and v >= 1,
+            "usuario_id": lambda v: isinstance(v, int) and v >= 1,
+        }
 
+        faltantes = []
+        invalidos = []
+
+        for nombre, pred in checks.items():
+            valor = getattr(self, nombre, None)
+            if valor is None:
+                faltantes.append(nombre)
+            else:
+                try:
+                    ok = pred(valor)
+                except Exception:
+                    ok = False
+                if not ok:
+                    invalidos.append(nombre)
+
+        mensajes = []
+        if faltantes:
+            mensajes.append("Atributos ausentes: " + ", ".join(faltantes))
+        if invalidos:
+            mensajes.append("Atributos inválidos o en formato incorrecto: " + ", ".join(invalidos))
+
+        if mensajes:
+            raise ValueError("; ".join(mensajes))
+
+        return True

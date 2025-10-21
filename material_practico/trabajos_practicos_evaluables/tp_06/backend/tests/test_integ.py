@@ -68,17 +68,18 @@ def test_POST_enviar_mail_PASA(client):
 
 def test_POST_crear_compra_efectivo_integration(client):
         payload = {
+            "id"
             "fecha": date.today().isoformat(),
             "cantidad_entradas": 1,
             "entradas": [
-                {"id": 1, "precio": 5000, "edad": 30, "tipo_Entrada": {"nombre": "Regular"}}
+                {"id": 1, "precio_unitario": 5000, "edad": 30, "tipo_entrada": {"id": 1, "nombre": "Regular"}}
             ],
-            "formaPago": "efectivo",
+            "forma_pago": {"id": 2, "nombre": "efectivo"},
             "usuario": {
+                "id": 9,
                 "nombre": "Ana",
                 "apellido": "Perez",
                 "email": "ana.perez@example.com",
-                "password": "securepassword"
             },
             "monto_total": 5000
         }
@@ -92,8 +93,8 @@ def test_POST_crear_compra_efectivo_integration(client):
 
         compra = body["compra"]
         # acepta tanto formaPago como string o como objeto con nombre
-        forma_ok = compra.get("formaPago") == "efectivo" or (
-            isinstance(compra.get("formaPago"), dict) and compra["formaPago"].get("nombre") == "efectivo"
+        forma_ok = compra.get("forma_pago") == "efectivo" or (
+            isinstance(compra.get("forma_pago"), dict) and compra["forma_pago"].get("nombre") == "efectivo"
         )
         assert forma_ok
         assert compra.get("cantidad_entradas") == payload["cantidad_entradas"]

@@ -87,6 +87,45 @@ def test_POST_crear_compra_efectivo_integration(client):
         assert len(compra.get("entradas", [])) == len(payload["entradas"])
         assert compra.get("monto_total") == payload["monto_total"]
 
+def test_GET_compras_PASA(client):
+    # Solicitar lista de compras
+    response = client.get("/compras", params={"page": 1, "pageSize": 50})
+    
+    # Verificar respuesta exitosa
+    assert response.status_code == 200
+    
+    # Obtener body de la respuesta
+    body = response.json()
+    
+    # Manejar tanto respuesta como lista directa o dentro de "Items"
+    items = body.get("Items") if isinstance(body, dict) and "Items" in body else body
+    
+    # Verificar que es una lista
+    assert isinstance(items, list)
+    
+    # Verificar que cada item tiene la estructura esperada
+    for item in items:
+        assert isinstance(item, dict)
+        assert "usuario" in item
+        assert "monto_total" in item
+        assert "fecha" in item
+        assert "cantidad_entradas" in item
+        
+        # Verificar que los datos de la compra sean los esperados
+        assert item["fecha"] == date.today().isoformat()
+        assert item["cantidad_entradas"] == 1
+        assert len(item["entradas"]) == 1
+        assert item["entradas"][0]["id"] == 1
+        assert item["entradas"][0]["precio"] == 5000
+        assert item["entradas"][0]["edad"] == 30
+        assert item["entradas"][0]["tipo_Entrada"]["nombre"] == "Regular"
+        assert item["formaPago"] == "efectivo"
+        assert item["usuario"]["nombre"] == "Ana"
+        assert item["usuario"]["apellido"] == "Perez"
+        assert item["usuario"]["email"] == "ana.perez@example.com"
+        assert item["usuario"]["password"] == "securepassword"
+        assert item["monto_total"] == 5000
+
 
 def test_GET_crear_pago_PASA(client):
     response = client.get("/crear_pago")

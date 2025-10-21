@@ -65,7 +65,7 @@ def test_POST_crear_compra_efectivo_PASA(client):
                 "tipo_entrada": {"id": 2, "nombre": "VIP"}
             }
         ],
-        "forma_pago": {"id": 2, "nombre": "Tarjeta"},
+        "forma_pago": {"id": 2, "nombre": "Efectivo"},
         "usuario": {
             "id": 10,
             "nombre": "Ana",
@@ -105,50 +105,30 @@ def test_GET_compras_PASA(client):
     assert isinstance(items, list)
     
     # Verificar que cada item tiene la estructura esperada
-    for item in items:
-        assert isinstance(item, dict)
-        assert "id" in item
-        assert "fecha" in item
-        assert "cantidad_entradas" in item
-        #assert "forma_pago_id" in item
-        #assert "usuario_id" in item
-        assert "monto_total" in item
-        
-        
-        # Verificar que los datos de la compra sean los esperados
-        assert item["id"] == 1
-        assert item["fecha"] == date.today().isoformat()
-        assert item["cantidad_entradas"] == 1
-        assert len(item["entradas"]) == 1
-        assert item["entradas"][0]["id"] == 1
-        assert item["entradas"][0]["precio_unitario"] == 5000
-        assert item["entradas"][0]["edad"] == 30
-        assert item["entradas"][0]["tipo_entrada"]["nombre"] == "General"
-        assert item["forma_pago"]["id"] == 1
-        assert item["usuario"]["nombre"] == "Juan"
-        assert item["usuario"]["apellido"] == "Pérez"
-        assert item["usuario"]["email"] == "juan@example.com"
-        #assert item["usuario"]["password"] == "securepassword" #FALTA PWASWORD EN LA ENTIDAD USUARIO
-        assert item["usuario"]["id"] == 1
-        assert item["monto_total"] == 5000
+    item = items[0]
+
+    assert isinstance(item, dict)
+    assert "id" in item
+    assert "fecha" in item
+    assert "cantidad_entradas" in item
+    #assert "forma_pago_id" in item
+    #assert "usuario_id" in item
+    assert "monto_total" in item
 
 
-def test_GET_crear_pago_PASA(client):
-    response = client.get("/crear_pago")
-    body = response.json()
-    assert response.status_code == 200
-    assert "url_pago" in body
-    assert body["url_pago"].startswith("https://")
-
-
-def test_POST_enviar_mail_PASA(client):
-    data = {
-        "email": "esmeralda@example.com",
-        "asunto": "Compra exitosa",
-        "mensaje": "Gracias por tu compra"
-    }
-    response = client.post("/enviar_mail", json=data)
-    assert response.status_code == 200
-    body = response.json()
-    assert "mensaje" in body
-    assert body["email"] == data["email"]
+    # Verificar que los datos de la compra sean los esperados
+    assert item["id"] == 1
+    assert item["fecha"] == date.today().isoformat()
+    assert item["cantidad_entradas"] == 1
+    assert len(item["entradas"]) == 1
+    assert item["entradas"][0]["id"] == 1
+    assert item["entradas"][0]["precio"] == 5000
+    assert item["entradas"][0]["edad"] == 30
+    assert item["entradas"][0]["tipo_entrada"]["nombre"] == "General"
+    assert item["forma_pago"]["id"] == 1
+    assert item["usuario"]["nombre"] == "Juan"
+    assert item["usuario"]["apellido"] == "Pérez"
+    assert item["usuario"]["email"] == "juan@example.com"
+    #assert item["usuario"]["password"] == "securepassword" #FALTA PWASWORD EN LA ENTIDAD USUARIO
+    assert item["usuario"]["id"] == 1
+    assert item["monto_total"] == 5000

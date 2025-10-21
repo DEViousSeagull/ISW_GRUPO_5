@@ -18,3 +18,31 @@ class TipoEntrada(Base):
 #class TipoEntrada:
 #    def __init__(self, nombre: str):
 #        self.nombre = nombre
+
+    def validar_Atributos(self) -> None:
+
+        errores = []
+
+        # nombre: obligatorio, str no vacío
+        if not hasattr(self, "nombre"):
+            errores.append("falta el atributo 'nombre'")
+        else:
+            nombre = getattr(self, "nombre")
+            if not isinstance(nombre, str):
+                errores.append("'nombre' debe ser str")
+            elif not nombre.strip():
+                errores.append("'nombre' no puede estar vacío")
+
+        # id: obligatorio, debe existir, no ser None y ser int
+        if not hasattr(self, "id"):
+            errores.append("falta el atributo 'id'")
+        else:
+            id_val = getattr(self, "id")
+            if id_val is None:
+                errores.append("'id' no puede ser None")
+            elif not isinstance(id_val, int):
+                errores.append("'id' debe ser int")
+
+        if errores:
+            raise ValueError("; ".join(errores))
+

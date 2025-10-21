@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 export interface TipoEntrada {
     id: number;
@@ -11,11 +11,11 @@ export interface TipoEntrada {
     providedIn: 'root'
 })
 export class TiposPaseDb {
-    private baseUrl = 'http://localhost:8000/tipos-entrada';
+    private baseUrl = 'http://localhost:8000/tipos_entrada';
 
     constructor(private httpClient: HttpClient) { }
 
-    getAll(): Observable<TipoEntrada[]> {
-        return this.httpClient.get<TipoEntrada[]>(this.baseUrl);
+    getAll(): Promise<TipoEntrada[]> {
+        return firstValueFrom(this.httpClient.get<TipoEntrada[]>(this.baseUrl));
     }
 }

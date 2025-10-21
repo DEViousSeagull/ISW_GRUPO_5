@@ -40,6 +40,11 @@ select {
     background-color: #fff;
 }
 
+
+select {
+    width: 160px;
+}
+
 input:focus,
 select:focus {
     border-color: var(--green-main);
@@ -53,10 +58,11 @@ select:focus {
     border-radius: 8px;
     padding: 0.8rem 0.8rem;
     color: var(--green-darkest);
-}
 
-.edad-item {
-    margin-bottom: 0.5rem;
+    .visitante-item {
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 /* === Button === */
@@ -119,4 +125,8 @@ select:focus {
 /* Prevent layout jump when error appears */
 .form-group .error:empty {
     display: none;
+}
+
+.error-visitante {
+    margin-bottom: 12px;
 }

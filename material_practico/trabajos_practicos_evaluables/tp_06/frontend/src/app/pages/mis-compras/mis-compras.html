@@ -1,0 +1,26 @@
+<div class="compras-container">
+    <h2>Mis Compras</h2>
+
+    @if (loading) {
+    <div class="loading">Cargando compras...</div>
+    }
+    @else if (error) {
+    <div class="error">{{ error }}</div>
+    }
+    @else if (compras.length === 0) {
+    <div class="empty">No tenés compras registradas.</div>
+    }
+    @else {
+    <div class="compras-list">
+        @for (compra of compras; track compra.id) {
+        <div class="compra-card" (click)="irAMisEntradas(compra.id)">
+            <p><strong>ID:</strong> {{ compra.id }}</p>
+            <p><strong>Fecha:</strong> {{ compra.fecha | date:'dd/MM/yyyy' }}</p>
+            <p><strong>Cantidad de entradas:</strong> {{ compra.cantidad_entradas }}</p>
+            <p><strong>Monto Total:</strong> {{ compra.monto_total | currency:'ARS':'symbol':'1.0-0' }}</p>
+            <p><strong>Forma de Pago:</strong> {{ compra.forma_pago.nombre }}</p>
+        </div>
+        }
+    </div>
+    }
+</div>

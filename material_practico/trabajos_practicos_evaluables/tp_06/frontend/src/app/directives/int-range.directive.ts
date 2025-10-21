@@ -17,30 +17,39 @@ export class IntRangeDirective {
     @HostListener('keydown', ['$event'])
     onKeyDown(e: KeyboardEvent) {
         const key = e.key;
+        const input = this.el.nativeElement;
 
-        // Allow control keys
-        if (this.controlKeys.has(key) || (e.ctrlKey || e.metaKey)) return;
+        // Allow control keys and shortcuts
+        if (this.controlKeys.has(key) || e.ctrlKey || e.metaKey) return;
 
-        // Only digits 0-9
+        // Only allow digits
         if (!/^\d$/.test(key)) {
             e.preventDefault();
             return;
         }
 
-        // Predict resulting value to proactively block > max
-        const input = this.el.nativeElement;
+        // Predict the next value (accounting for replacement)
         const selStart = input.selectionStart ?? input.value.length;
         const selEnd = input.selectionEnd ?? input.value.length;
+        let next: string;
+        console.log("INPUT", selStart, selEnd)
 
-        const next = input.value.slice(0, selStart) + key + input.value.slice(selEnd);
+        if (selStart === 0 && selEnd === input.value.length) {
+            next = key; // replace all
+        } else {
+            next = input.value.slice(0, selStart) + key + input.value.slice(selEnd);
+        }
+
         const numeric = next.replace(/\D+/g, '');
-        if (numeric.length > 0) {
+        if (numeric) {
             const num = parseInt(numeric, 10);
-            if (num < this.rangeMin || num > this.rangeMax) {
+            // Only block if definitely above max
+            if (num > this.rangeMax) {
                 e.preventDefault();
             }
         }
     }
+
 
     @HostListener('paste', ['$event'])
     onPaste(e: ClipboardEvent) {

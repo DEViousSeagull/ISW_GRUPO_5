@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes.compra import router as compra_router
+from material_practico.trabajos_practicos_evaluables.tp_06.backend.routes.compraRouter import router as compra_router
 from routes.tipoEntradaRouter import router as tipoEntrada_router
 from routes.formaPagoRouter import router as formaPago_router
 import uvicorn

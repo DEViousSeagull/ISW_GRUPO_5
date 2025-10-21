@@ -45,26 +45,28 @@ def client():
     yield client
     # Aquí podrías agregar limpieza si es necesario
 
-
-def test_GET_crear_pago_PASA(client):
-    response = client.get("/crear_pago")
-    body = response.json()
-    assert response.status_code == 200
-    assert "url_pago" in body
-    assert body["url_pago"].startswith("https://")
-
-
-def test_POST_enviar_mail_PASA(client):
-    data = {
-        "email": "esmeralda@example.com",
-        "asunto": "Compra exitosa",
-        "mensaje": "Gracias por tu compra"
-    }
-    response = client.post("/enviar_mail", json=data)
+#TEST FORMAS DE PAGO
+def test_GET_formas_de_pago_efectivo_PASA(client):
+    response = client.get("/formas_pago")
     assert response.status_code == 200
     body = response.json()
-    assert "mensaje" in body
-    assert body["email"] == data["email"]
+    assert isinstance(body, list)
+    assert any(fp.get("nombre") == "efectivo" for fp in body)
+
+#TEST TIPOS DE ENTRADA
+def test_GET_tipos_de_entrada_regular_PASA(client):
+    response = client.get("/tipos_entrada")
+    assert response.status_code == 200
+    body = response.json()
+    assert isinstance(body, list)
+    assert any(te.get("nombre") == "Regular" for te in body)
+
+def test_GET_tipos_de_entrada_VIP_PASA(client):
+    response = client.get("/tipos_entrada")
+    assert response.status_code == 200
+    body = response.json()
+    assert isinstance(body, list)
+    assert any(te.get("nombre") == "VIP" for te in body)
 
 def test_POST_crear_compra_efectivo_integration(client):
         payload = {
@@ -100,3 +102,24 @@ def test_POST_crear_compra_efectivo_integration(client):
         assert compra.get("cantidad_entradas") == payload["cantidad_entradas"]
         assert len(compra.get("entradas", [])) == len(payload["entradas"])
         assert compra.get("monto_total") == payload["monto_total"]
+
+
+def test_GET_crear_pago_PASA(client):
+    response = client.get("/crear_pago")
+    body = response.json()
+    assert response.status_code == 200
+    assert "url_pago" in body
+    assert body["url_pago"].startswith("https://")
+
+
+def test_POST_enviar_mail_PASA(client):
+    data = {
+        "email": "esmeralda@example.com",
+        "asunto": "Compra exitosa",
+        "mensaje": "Gracias por tu compra"
+    }
+    response = client.post("/enviar_mail", json=data)
+    assert response.status_code == 200
+    body = response.json()
+    assert "mensaje" in body
+    assert body["email"] == data["email"]

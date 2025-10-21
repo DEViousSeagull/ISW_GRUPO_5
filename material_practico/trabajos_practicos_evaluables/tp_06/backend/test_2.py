@@ -13,8 +13,8 @@ from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades.tip
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
- @pytest.fixture
- def client():
+@pytest.fixture
+def client():
 
 
      # intentar importar la app existente de lugares comunes

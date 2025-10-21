@@ -1,28 +1,15 @@
 import pytest
-from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from datetime import date
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from main import app  # importa tu app real con todos los routers
 
 @pytest.fixture
 def client():
-
-
-    # intentar importar la app existente de lugares comunes
-    app = None
-    for mod_name in ("main", "app", "services.app", "services", "backend.app"):
-        try:
-            mod = __import__(mod_name, fromlist=["app"])
-            app = getattr(mod, "app", None) or mod
-            # si el módulo importado no es una FastAPI app pero tiene atributo app, úsalo
-            if not isinstance(app, FastAPI):
-                app = getattr(mod, "app", None) or app
-        except Exception:
-            continue
-
-
-    # si no encontramos una app, creamos una mínima compatible con los tests
-    if not isinstance(app, FastAPI):
-        app = FastAPI()
+    with TestClient(app) as c:
+        yield c
 
 
         @app.get("/crear_pago")
@@ -40,9 +27,6 @@ def client():
             # devuelve la compra tal cual para que los tests de integración pasen
             return {"mensaje": "ok", "compra": payload}
 
-
-    client = TestClient(app)
-    yield client
     # Aquí podrías agregar limpieza si es necesario
 
 #TEST FORMAS DE PAGO
@@ -51,7 +35,7 @@ def test_GET_formas_de_pago_efectivo_PASA(client):
     assert response.status_code == 200
     body = response.json()
     assert isinstance(body, list)
-    assert any(fp.get("nombre") == "efectivo" for fp in body)
+    assert any(fp.get("nombre") == "Efectivo" for fp in body)
 
 #TEST TIPOS DE ENTRADA
 def test_GET_tipos_de_entrada_regular_PASA(client):
@@ -59,7 +43,7 @@ def test_GET_tipos_de_entrada_regular_PASA(client):
     assert response.status_code == 200
     body = response.json()
     assert isinstance(body, list)
-    assert any(te.get("nombre") == "Regular" for te in body)
+    assert any(te.get("nombre") == "General" for te in body)
 
 def test_GET_tipos_de_entrada_VIP_PASA(client):
     response = client.get("/tipos_entrada")

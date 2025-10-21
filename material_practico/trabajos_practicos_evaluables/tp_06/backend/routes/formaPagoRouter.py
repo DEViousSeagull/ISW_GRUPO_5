@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from services.formaPagoService import FormaPagoService
 
-router = APIRouter(prefix="/formas-pago", tags=["Formas de Pago"])
+router = APIRouter(prefix="/formas_pago", tags=["Formas de Pago"])
 
 @router.get("/", summary="Obtener todas las formas de pago")
 def get_formas_pago():

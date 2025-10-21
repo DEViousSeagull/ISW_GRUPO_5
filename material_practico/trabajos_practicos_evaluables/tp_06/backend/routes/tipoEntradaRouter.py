@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from services.tipoEntradaService import TipoEntradaService
 
-router = APIRouter(prefix="/tipos-entrada", tags=["Tipos de Entrada"])
+router = APIRouter(prefix="/tipos_entrada", tags=["Tipos de Entrada"])
 
 @router.get("/", summary="Obtener todos los tipos de entrada")
 def get_tipos_entrada():

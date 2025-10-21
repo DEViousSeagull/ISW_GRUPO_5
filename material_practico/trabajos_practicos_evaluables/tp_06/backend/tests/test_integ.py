@@ -1,28 +1,15 @@
 import pytest
-from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from datetime import date
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from main import app  # importa tu app real con todos los routers
 
 @pytest.fixture
 def client():
-
-
-    # intentar importar la app existente de lugares comunes
-    app = None
-    for mod_name in ("main", "app", "services.app", "services", "backend.app"):
-        try:
-            mod = __import__(mod_name, fromlist=["app"])
-            app = getattr(mod, "app", None) or mod
-            # si el módulo importado no es una FastAPI app pero tiene atributo app, úsalo
-            if not isinstance(app, FastAPI):
-                app = getattr(mod, "app", None) or app
-        except Exception:
-            continue
-
-
-    # si no encontramos una app, creamos una mínima compatible con los tests
-    if not isinstance(app, FastAPI):
-        app = FastAPI()
+    with TestClient(app) as c:
+        yield c
 
 
         @app.get("/crear_pago")
@@ -40,31 +27,30 @@ def client():
             # devuelve la compra tal cual para que los tests de integración pasen
             return {"mensaje": "ok", "compra": payload}
 
-
-    client = TestClient(app)
-    yield client
     # Aquí podrías agregar limpieza si es necesario
 
-
-def test_GET_crear_pago_PASA(client):
-    response = client.get("/crear_pago")
-    body = response.json()
-    assert response.status_code == 200
-    assert "url_pago" in body
-    assert body["url_pago"].startswith("https://")
-
-
-def test_POST_enviar_mail_PASA(client):
-    data = {
-        "email": "esmeralda@example.com",
-        "asunto": "Compra exitosa",
-        "mensaje": "Gracias por tu compra"
-    }
-    response = client.post("/enviar_mail", json=data)
+#TEST FORMAS DE PAGO
+def test_GET_formas_de_pago_efectivo_PASA(client):
+    response = client.get("/formas_pago")
     assert response.status_code == 200
     body = response.json()
-    assert "mensaje" in body
-    assert body["email"] == data["email"]
+    assert isinstance(body, list)
+    assert any(fp.get("nombre") == "Efectivo" for fp in body)
+
+#TEST TIPOS DE ENTRADA
+def test_GET_tipos_de_entrada_regular_PASA(client):
+    response = client.get("/tipos_entrada")
+    assert response.status_code == 200
+    body = response.json()
+    assert isinstance(body, list)
+    assert any(te.get("nombre") == "General" for te in body)
+
+def test_GET_tipos_de_entrada_VIP_PASA(client):
+    response = client.get("/tipos_entrada")
+    assert response.status_code == 200
+    body = response.json()
+    assert isinstance(body, list)
+    assert any(te.get("nombre") == "VIP" for te in body)
 
 def test_POST_crear_compra_efectivo_integration(client):
         payload = {
@@ -100,3 +86,63 @@ def test_POST_crear_compra_efectivo_integration(client):
         assert compra.get("cantidad_entradas") == payload["cantidad_entradas"]
         assert len(compra.get("entradas", [])) == len(payload["entradas"])
         assert compra.get("monto_total") == payload["monto_total"]
+
+def test_GET_compras_PASA(client):
+    # Solicitar lista de compras
+    response = client.get("/compras", params={"page": 1, "pageSize": 50})
+    
+    # Verificar respuesta exitosa
+    assert response.status_code == 200
+    
+    # Obtener body de la respuesta
+    body = response.json()
+    
+    # Manejar tanto respuesta como lista directa o dentro de "Items"
+    items = body.get("Items") if isinstance(body, dict) and "Items" in body else body
+    
+    # Verificar que es una lista
+    assert isinstance(items, list)
+    
+    # Verificar que cada item tiene la estructura esperada
+    for item in items:
+        assert isinstance(item, dict)
+        assert "usuario" in item
+        assert "monto_total" in item
+        assert "fecha" in item
+        assert "cantidad_entradas" in item
+        
+        # Verificar que los datos de la compra sean los esperados
+        assert item["fecha"] == date.today().isoformat()
+        assert item["cantidad_entradas"] == 1
+        assert len(item["entradas"]) == 1
+        assert item["entradas"][0]["id"] == 1
+        assert item["entradas"][0]["precio"] == 5000
+        assert item["entradas"][0]["edad"] == 30
+        assert item["entradas"][0]["tipo_Entrada"]["nombre"] == "Regular"
+        assert item["formaPago"] == "efectivo"
+        assert item["usuario"]["nombre"] == "Ana"
+        assert item["usuario"]["apellido"] == "Perez"
+        assert item["usuario"]["email"] == "ana.perez@example.com"
+        assert item["usuario"]["password"] == "securepassword"
+        assert item["monto_total"] == 5000
+
+
+def test_GET_crear_pago_PASA(client):
+    response = client.get("/crear_pago")
+    body = response.json()
+    assert response.status_code == 200
+    assert "url_pago" in body
+    assert body["url_pago"].startswith("https://")
+
+
+def test_POST_enviar_mail_PASA(client):
+    data = {
+        "email": "esmeralda@example.com",
+        "asunto": "Compra exitosa",
+        "mensaje": "Gracias por tu compra"
+    }
+    response = client.post("/enviar_mail", json=data)
+    assert response.status_code == 200
+    body = response.json()
+    assert "mensaje" in body
+    assert body["email"] == data["email"]

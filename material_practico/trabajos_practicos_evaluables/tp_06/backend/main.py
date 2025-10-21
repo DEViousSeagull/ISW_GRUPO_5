@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from material_practico.trabajos_practicos_evaluables.tp_06.backend.routes.compraRouter import router as compra_router
+from routes.compraRouter import router as compra_router
 from routes.tipoEntradaRouter import router as tipoEntrada_router
 from routes.formaPagoRouter import router as formaPago_router
 import uvicorn
@@ -36,9 +36,8 @@ def enviar_mail(payload: dict):
 
 
 
-# if __name__ == "__main__":
-#     reset_db()
-#     bootstrap()
-#
-#     # Ejecuta el backend en localhost:8000
-#     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+if __name__ == "__main__":
+    reset_db()
+    bootstrap()
+    # Ejecuta el backend en localhost:8000
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

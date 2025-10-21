@@ -8,8 +8,8 @@ from entidades.formaPago import FormaPago
 from entidades.mercado_pago import MercadoPagoClient
 from entidades.usuario import Usuario
 
-from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades import entrada
-from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades.tipoEntrada import TipoEntrada
+
+
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
@@ -58,7 +58,7 @@ def client():
 
 def test_compra_cantidad_entradas_invalida():
         tipo=TipoEntrada(nombre="Regular")
-        entradas = [Entrada(id=i, precio=5000, tipo_Entrada=tipo, edad=18) for i in range(11)]
+        entradas = [Entrada(id=i, precio_unitario=5000, tipo_Entrada=tipo, edad=18) for i in range(11)]
         forma_pago = FormaPago(nombre="efectivo")
         usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
         compra = Compra(fecha=date.today(),cantidad_entradas=11, entradas=entradas, formaPago=forma_pago, usuario=usuario, monto_total=1100)
@@ -68,7 +68,7 @@ def test_compra_cantidad_entradas_invalida():
 
 def test_compra_cantidad_entradas_valida():
         tipo = TipoEntrada(nombre="Regular")
-        entradas = [Entrada(id=i, precio=5000, tipo_Entrada=tipo, edad=18) for i in range(10)]
+        entradas = [Entrada(id=i, precio_unitario=5000, tipo_Entrada=tipo, edad=18) for i in range(10)]
         forma_pago = FormaPago(nombre="efectivo")
         usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
         compra = Compra(fecha=date.today(),cantidad_entradas=10, entradas=entradas, formaPago=forma_pago, usuario=usuario, monto_total=5000)
@@ -83,64 +83,64 @@ def test_compra_cantidad_entradas_valida():
 # PRECIO ENTRADAS SEGUN EDAD
 def test_menor_de_diez_paga_mitad():
             tipo = TipoEntrada(nombre="Regular")
-            entrada_menor = Entrada(id=1, precio=5000, edad=9, tipo_Entrada=tipo)
+            entrada_menor = Entrada(id=1, precio_unitario=5000, edad=9, tipo_Entrada=tipo)
             entrada_menor.calcular_precio()
-            assert entrada_menor.precio == 2500
+            assert entrada_menor.precio_unitario == 2500
 def test_menor_de_tres_no_paga():
             tipo = TipoEntrada(nombre="Regular")
-            entrada_bebe = Entrada(id=2, precio=5000, edad=2, tipo_Entrada=tipo)
+            entrada_bebe = Entrada(id=2, precio_unitario=5000, edad=2, tipo_Entrada=tipo)
             entrada_bebe.calcular_precio()
-            assert entrada_bebe.precio == 0
+            assert entrada_bebe.precio_unitario == 0
 
 def test_mayor_de_sesenta_paga_mitad():
             tipo = TipoEntrada(nombre="Regular")
-            entrada_mayor = Entrada(id=3, precio=5000, edad=61, tipo_Entrada=tipo)
+            entrada_mayor = Entrada(id=3, precio_unitario=5000, edad=61, tipo_Entrada=tipo)
             entrada_mayor.calcular_precio()
-            assert entrada_mayor.precio == 2500
+            assert entrada_mayor.precio_unitario == 2500
 
 def test_entre_10_y_60_paga_completo():
             tipo = TipoEntrada(nombre="Regular")
-            entrada_adulto = Entrada(id=4, precio=5000, edad=30, tipo_Entrada=tipo)
+            entrada_adulto = Entrada(id=4, precio_unitario=5000, edad=30, tipo_Entrada=tipo)
             entrada_adulto.calcular_precio()
-            assert entrada_adulto.precio == 5000
+            assert entrada_adulto.precio_unitario == 5000
 
 def test_VIP_menor_de_diez_paga_mitad():
             tipo = TipoEntrada(nombre="VIP")
-            entrada_menor = Entrada(id=1, precio=5000, edad=9, tipo_Entrada=tipo)
+            entrada_menor = Entrada(id=1, precio_unitario=5000, edad=9, tipo_Entrada=tipo)
             entrada_menor.calcular_precio()
-            assert entrada_menor.precio == 5000  # Porque VIP siempre es 10000, no importa la edad
+            assert entrada_menor.precio_unitario == 5000  # Porque VIP siempre es 10000, no importa la edad
 def test_VIP_menor_de_tres_no_paga():
             tipo = TipoEntrada(nombre="VIP")
-            entrada_bebe = Entrada(id=2, precio=5000, edad=2, tipo_Entrada=tipo)
+            entrada_bebe = Entrada(id=2, precio_unitario=5000, edad=2, tipo_Entrada=tipo)
             entrada_bebe.calcular_precio()
-            assert entrada_bebe.precio == 0
+            assert entrada_bebe.precio_unitario == 0
 
 def test_VIP_mayor_de_sesenta_paga_mitad():
             tipo = TipoEntrada(nombre="VIP")
-            entrada_mayor = Entrada(id=3, precio=5000, edad=61, tipo_Entrada=tipo)
+            entrada_mayor = Entrada(id=3, precio_unitario=5000, edad=61, tipo_Entrada=tipo)
             entrada_mayor.calcular_precio()
-            assert entrada_mayor.precio == 5000  
+            assert entrada_mayor.precio_unitario == 5000
 
 def test_VIP_entre_10_y_60_paga_completo():
             tipo = TipoEntrada(nombre="VIP")
-            entrada_adulto = Entrada(id=4, precio=5000, edad=30, tipo_Entrada=tipo)
+            entrada_adulto = Entrada(id=4, precio_unitario=5000, edad=30, tipo_Entrada=tipo)
             entrada_adulto.calcular_precio()
-            assert entrada_adulto.precio == 10000
+            assert entrada_adulto.precio_unitario == 10000
 
 # CREACION DE OBJETOS
 def test_crear_entrada_tiene_todos_sus_atributos_PASA():
                 tipo = TipoEntrada(nombre="Regular")
-                entrada = Entrada(id=10, precio=5000, edad=25, tipo_Entrada=tipo)
+                entrada = Entrada(id=10, precio_unitario=5000, edad=25, tipo_Entrada=tipo)
 
                 # Atributos presentes
                 assert hasattr(entrada, "id")
-                assert hasattr(entrada, "precio")
+                assert hasattr(entrada, "precio_unitario")
                 assert hasattr(entrada, "edad")
                 assert hasattr(entrada, "tipo_Entrada")
 
                 # Valores correctos
                 assert entrada.id == 10
-                assert entrada.precio == 5000
+                assert entrada.precio_unitario == 5000
                 assert entrada.edad == 25
                 assert entrada.tipo_Entrada is tipo
                 assert isinstance(entrada.tipo_Entrada, TipoEntrada)
@@ -149,7 +149,7 @@ def test_crear_entrada_tiene_todos_sus_atributos_PASA():
 
 def test_crear_compra_tiene_atributos_y_valores_PASA():
                 tipo = TipoEntrada(nombre="Regular")
-                entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+                entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)]
                 forma_pago = FormaPago(nombre="efectivo")
                 usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
                 compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, usuario=usuario, monto_total=5000)
@@ -169,10 +169,10 @@ def test_crear_compra_tiene_atributos_y_valores_PASA():
 def test_crear_entrada_no_tiene_edad_FALLA():
                 tipo = TipoEntrada(nombre="Regular")
                 with pytest.raises(TypeError) :
-                    Entrada(id=10, precio=5000, tipo_Entrada=tipo)
+                    Entrada(id=10, precio_unitario=5000, tipo_Entrada=tipo)
 def test_crear_entrada_no_tiene_tipoEntrada_FALLA():
                 with pytest.raises(TypeError) :
-                    Entrada(id=10, precio=5000, edad=25)  
+                    Entrada(id=10, precio_unitario=5000, edad=25)  
 
 def test_crear_compra_no_tiene_entradas_FALLA():
                 usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
@@ -180,13 +180,13 @@ def test_crear_compra_no_tiene_entradas_FALLA():
                     Compra(fecha=date.today(),cantidad_entradas=0, monto_total=5000, formaPago="efectivo", usuario=usuario)        
 def test_crear_compra_no_tiene_fecha_FALLA():
                 tipo = TipoEntrada(nombre="Regular")
-                entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+                entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)]
                 usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
                 with pytest.raises(TypeError) :
                     Compra(cantidad_entradas=1, entradas=entradas, monto_total=5000, formaPago="efectivo", usuario=usuario)      
 def test_crear_compra_con_cantidad_entradas_no_coincidente_FALLA():
                 tipo = TipoEntrada(nombre="Regular")
-                entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+                entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)]
                 forma_pago = FormaPago(nombre="efectivo")
                 usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
                 compra = Compra(fecha=date.today(),cantidad_entradas=2, entradas=entradas, formaPago=forma_pago, usuario=usuario, monto_total=5000)
@@ -198,7 +198,7 @@ def test_crear_compra_con_cantidad_entradas_no_coincidente_FALLA():
 
 def test_fecha_compra_es_menor_actual_FALLA():
     tipo = TipoEntrada(nombre="Regular")
-    entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+    entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)]
     forma_pago = FormaPago(nombre=" efectivo")
     usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
     compra = Compra(fecha=date(2020, 3, 1), cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, usuario=usuario, monto_total=5000)
@@ -208,7 +208,7 @@ def test_fecha_compra_es_menor_actual_FALLA():
 
 def test_fecha_compra_es_futura_PASA():
     tipo = TipoEntrada(nombre="Regular")
-    entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+    entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)]
     forma_pago = FormaPago(nombre="efectivo")
     usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
     compra = Compra(fecha=date(2026, 5, 1), cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, usuario=usuario, monto_total=5000)
@@ -216,7 +216,7 @@ def test_fecha_compra_es_futura_PASA():
 
 def test_fecha_compra_es_dia_festivo_FALLA():
     tipo = TipoEntrada(nombre="Regular")
-    entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+    entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)]
     forma_pago = FormaPago(nombre="efectivo")
     usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
     compra = Compra(fecha=date(2026, 12, 25), cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, usuario=usuario, monto_total=5000)
@@ -226,7 +226,7 @@ def test_fecha_compra_es_dia_festivo_FALLA():
 
 def test_fecha_compra_lunes_FALLA():
     tipo = TipoEntrada(nombre="Regular")
-    entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+    entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)]
     forma_pago = FormaPago(nombre="efectivo")
     usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
     compra = Compra(fecha=date(2026, 7, 6), cantidad_entradas=1, entradas=entradas, formaPago=forma_pago, usuario=usuario, monto_total=5000)
@@ -237,7 +237,7 @@ def test_fecha_compra_lunes_FALLA():
 # FORMAS DE PAGO
 def test_crear_compra_no_tiene_formaPago_FALLA():
                 tipo = TipoEntrada(nombre="Regular")
-                entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+                entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)]
                 usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
                 with pytest.raises(TypeError) :
                     Compra(fecha=date.today(),cantidad_entradas=1, entradas=entradas, monto_total=5000, usuario=usuario)
@@ -245,7 +245,7 @@ def test_crear_compra_no_tiene_formaPago_FALLA():
 def test_compra_con_efectivo_PASA():
             tipo = TipoEntrada(nombre="Regular")
             formaDePago = FormaPago(nombre="efectivo")
-            entrada = Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)
+            entrada = Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)
             usuario = Usuario(nombre="Luis", apellido="Gomez", email="luis.gomez@example.com", password="securepassword")
             compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaPago=formaDePago, usuario=usuario)
             assert compra.validar_formaPago() == "efectivo"
@@ -253,7 +253,7 @@ def test_compra_con_efectivo_PASA():
 def test_compra_con_tarjeta_PASA():
             tipo = TipoEntrada(nombre="Regular")
             formaDePago = FormaPago(nombre="tarjeta")
-            entrada = Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)
+            entrada = Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)
             usuario = Usuario(nombre="Luis", apellido="Gomez", email="luis.gomez@example.com", password="securepassword")
             compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaPago=formaDePago, usuario=usuario)
             assert compra.validar_formaPago() == "tarjeta"
@@ -261,7 +261,7 @@ def test_compra_con_tarjeta_PASA():
 def test_redireccion_mercado_pago_PASA():
             tipo = TipoEntrada(nombre="Regular")
             formaDePago = FormaPago(nombre="tarjeta")
-            entrada = Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)
+            entrada = Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)
             usuario = Usuario(nombre="Luis", apellido="Gomez", email="luis.gomez@example.com", password="securepassword")
             compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaPago=formaDePago, usuario=usuario)
             gateway = MercadoPagoClient()
@@ -272,24 +272,24 @@ def test_redireccion_mercado_pago_PASA():
 def test_edad_decimal_FALLA():
     tipo = TipoEntrada(nombre="Regular")
     with pytest.raises(ValueError) as e:
-        Entrada(id=1, precio=5000, edad=5.5, tipo_Entrada=tipo)
+        Entrada(id=1, precio_unitario=5000, edad=5.5, tipo_Entrada=tipo)
     assert "edad" in str(e.value).lower()
 
 def test_edad_negativa_FALLA():
     tipo = TipoEntrada(nombre="Regular")
     with pytest.raises(ValueError) as e:
-        Entrada(id=1, precio=5000, edad=-5, tipo_Entrada=tipo)
+        Entrada(id=1, precio_unitario=5000, edad=-5, tipo_Entrada=tipo)
     assert "edad" in str(e.value).lower()
 
 def test_edad_string_FALLA():
     tipo = TipoEntrada(nombre="Regular")
     with pytest.raises((ValueError)) as e:
-        Entrada(id=1, precio=5000, edad="veinte", tipo_Entrada=tipo)
+        Entrada(id=1, precio_unitario=5000, edad="veinte", tipo_Entrada=tipo)
     assert "edad" in str(e.value).lower()
 
 def test_crear_compra_con_cantidad_entradas_decimal_FALLA():
         tipo = TipoEntrada(nombre="Regular")
-        entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+        entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)]
         forma_pago = FormaPago(nombre="efectivo")
         usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
         compra = Compra(fecha=date.today(), cantidad_entradas=1.5, entradas=entradas, formaPago=forma_pago, monto_total=5000, usuario=usuario)
@@ -299,7 +299,7 @@ def test_crear_compra_con_cantidad_entradas_decimal_FALLA():
 
 def test_crear_compra_con_cantidad_entradas_negativo_FALLA():
         tipo = TipoEntrada(nombre="Regular")
-        entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+        entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)]
         forma_pago = FormaPago(nombre="efectivo")
         usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
         compra = Compra(fecha=date.today(), cantidad_entradas=-1, entradas=entradas, formaPago=forma_pago, monto_total=5000, usuario=usuario)
@@ -309,7 +309,7 @@ def test_crear_compra_con_cantidad_entradas_negativo_FALLA():
 
 def test_crear_compra_cantidad_entradas_string_FALLA():
         tipo = TipoEntrada(nombre="Regular")
-        entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+        entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)]
         forma_pago = FormaPago(nombre="efectivo")
         usuario = Usuario(nombre="Ana", apellido="Perez", email="ana.perez@example.com", password="securepassword")
         compra = Compra(fecha=date.today(), cantidad_entradas="dos", entradas=entradas, formaPago=forma_pago, monto_total=5000, usuario=usuario)
@@ -323,7 +323,7 @@ def test_confirmacion_compra_enviar_mail_PASA():
             tipo = TipoEntrada(nombre="Regular")
             formaDePago = FormaPago(nombre="tarjeta")
             usuario= Usuario(nombre="Luis", apellido="Gomez", email="luis@gmail.com", password="password123")
-            entrada = Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)
+            entrada = Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)
             compra = Compra(fecha=date.today(),cantidad_entradas=1, entradas=[entrada], monto_total=5000, formaPago=formaDePago, usuario=usuario)
             resultado = compra.enviar_confirmacion_email()
             assert resultado == True
@@ -331,7 +331,7 @@ def test_confirmacion_compra_enviar_mail_PASA():
 
 def test_crear_compra_no_tiene_usuario_FALLA():
                 tipo = TipoEntrada(nombre="Regular")
-                entradas = [Entrada(id=1, precio=5000, edad=30, tipo_Entrada=tipo)]
+                entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_Entrada=tipo)]
                 with pytest.raises(TypeError) :
                     Compra(fecha=date.today(), cantidad_entradas=1, entradas=entradas, monto_total=5000, formaPago="efectivo")
 
@@ -340,9 +340,9 @@ def test_compra_tres_entradas_monto_y_confirmacion_PASA():
         tipo_reg = TipoEntrada(nombre="Regular")
         tipo_vip = TipoEntrada(nombre="VIP")
 
-        entrada_nino = Entrada(id=1, precio=5000, edad=8, tipo_Entrada=tipo_reg)
-        entrada_bebe = Entrada(id=2, precio=5000, edad=1, tipo_Entrada=tipo_reg)
-        entrada_adulto_vip = Entrada(id=3, precio=5000, edad=40, tipo_Entrada=tipo_vip)
+        entrada_nino = Entrada(id=1, precio_unitario=5000, edad=8, tipo_Entrada=tipo_reg)
+        entrada_bebe = Entrada(id=2, precio_unitario=5000, edad=1, tipo_Entrada=tipo_reg)
+        entrada_adulto_vip = Entrada(id=3, precio_unitario=5000, edad=40, tipo_Entrada=tipo_vip)
 
         forma_pago = FormaPago(nombre="tarjeta")
         usuario = Usuario(nombre="Carlos", apellido="Lopez", email="carlos.lopez@example.com", password="password123")
@@ -411,7 +411,7 @@ def test_POST_crear_compra_efectivo_integration(client):
             "fecha": date.today().isoformat(),
             "cantidad_entradas": 1,
             "entradas": [
-                {"id": 1, "precio": 5000, "edad": 30, "tipo_Entrada": {"nombre": "Regular"}}
+                {"id": 1, "precio_unitario": 5000, "edad": 30, "tipo_Entrada": {"nombre": "Regular"}}
             ],
             "formaPago": "efectivo",
             "usuario": {

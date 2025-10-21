@@ -8,52 +8,50 @@ from entidades.formaPago import FormaPago
 from entidades.mercado_pago import MercadoPagoClient
 from entidades.usuario import Usuario
 
-from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades import entrada
-from material_practico.trabajos_practicos_evaluables.tp_06.backend.entidades.tipoEntrada import TipoEntrada
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-@pytest.fixture
-def client():
+# @pytest.fixture
+# def client():
 
 
-    # intentar importar la app existente de lugares comunes
-    app = None
-    for mod_name in ("main", "app", "services.app", "services", "backend.app"):
-        try:
-            mod = __import__(mod_name, fromlist=["app"])
-            app = getattr(mod, "app", None) or mod
-            # si el módulo importado no es una FastAPI app pero tiene atributo app, úsalo
-            if not isinstance(app, FastAPI):
-                app = getattr(mod, "app", None) or app
-        except Exception:
-            continue
+#     # intentar importar la app existente de lugares comunes
+#     app = None
+#     for mod_name in ("main", "app", "services.app", "services", "backend.app"):
+#         try:
+#             mod = __import__(mod_name, fromlist=["app"])
+#             app = getattr(mod, "app", None) or mod
+#             # si el módulo importado no es una FastAPI app pero tiene atributo app, úsalo
+#             if not isinstance(app, FastAPI):
+#                 app = getattr(mod, "app", None) or app
+#         except Exception:
+#             continue
 
 
-    # si no encontramos una app, creamos una mínima compatible con los tests
-    if not isinstance(app, FastAPI):
-        app = FastAPI()
+#     # si no encontramos una app, creamos una mínima compatible con los tests
+#     if not isinstance(app, FastAPI):
+#         app = FastAPI()
 
 
-        @app.get("/crear_pago")
-        def crear_pago():
-            return {"url_pago": "https://sandbox.mercadopago.com/checkout/v1/redirect?pref_id=MOCK_123"}
+#         @app.get("/crear_pago")
+#         def crear_pago():
+#             return {"url_pago": "https://sandbox.mercadopago.com/checkout/v1/redirect?pref_id=MOCK_123"}
 
 
-        @app.post("/enviar_mail")
-        def enviar_mail(payload: dict):
-            return {"mensaje": "enviado", "email": payload.get("email")}
+#         @app.post("/enviar_mail")
+#         def enviar_mail(payload: dict):
+#             return {"mensaje": "enviado", "email": payload.get("email")}
 
 
-        @app.post("/crear_compra")
-        def crear_compra(payload: dict):
-            # devuelve la compra tal cual para que los tests de integración pasen
-            return {"mensaje": "ok", "compra": payload}
+#         @app.post("/crear_compra")
+#         def crear_compra(payload: dict):
+#             # devuelve la compra tal cual para que los tests de integración pasen
+#             return {"mensaje": "ok", "compra": payload}
 
 
-    client = TestClient(app)
-    yield client
-    # Aquí podrías agregar limpieza si es necesario
+#     client = TestClient(app)
+#     yield client
+#     # Aquí podrías agregar limpieza si es necesario
 
 
 def test_compra_cantidad_entradas_invalida():
@@ -86,6 +84,7 @@ def test_menor_de_diez_paga_mitad():
             entrada_menor = Entrada(id=1, precio=5000, edad=9, tipo_Entrada=tipo)
             entrada_menor.calcular_precio()
             assert entrada_menor.precio == 2500
+
 def test_menor_de_tres_no_paga():
             tipo = TipoEntrada(nombre="Regular")
             entrada_bebe = Entrada(id=2, precio=5000, edad=2, tipo_Entrada=tipo)

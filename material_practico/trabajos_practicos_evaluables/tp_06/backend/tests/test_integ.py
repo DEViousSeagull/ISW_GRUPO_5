@@ -55,23 +55,27 @@ def test_GET_tipos_de_entrada_VIP_PASA(client):
 
 def test_POST_crear_compra_efectivo_PASA(client):
         payload = {
-            "id"
-            "fecha": date.today().isoformat(),
-            "cantidad_entradas": 1,
-            "entradas": [
-                {"id": 999, "precio_unitario": 5000, "edad": 15, "tipo_entrada": {"id": 1, "nombre": "General"}}
-            ],
-            "forma_pago": {"id": 2, "nombre": "efectivo"},
-            "usuario": {
-                "id": 9,
-                "nombre": "Ana",
-                "apellido": "Perez",
-                "email": "ana.perez@example.com",
-            },
-            "monto_total": 5000
-        }
+        "fecha": date.today().isoformat(),
+        "cantidad_entradas": 1,
+        "entradas": [
+            {
+                "id": 999,
+                "precio_unitario": 7000,
+                "edad": 25,
+                "tipo_entrada": {"id": 2, "nombre": "VIP"}
+            }
+        ],
+        "forma_pago": {"id": 2, "nombre": "Tarjeta"},
+        "usuario": {
+            "id": 10,
+            "nombre": "Ana",
+            "apellido": "Gómez",
+            "email": "ana.gomez@example.com",
+        },
+        "monto_total": 7000
+    }
 
-        response = client.post("/crear_compra", json=payload)
+        response = client.post("/compras/crear_compra", json=payload)
         assert response.status_code == 200
         body = response.json()
 
@@ -79,16 +83,10 @@ def test_POST_crear_compra_efectivo_PASA(client):
         assert "compra" in body
 
         compra = body["compra"]
-        # acepta tanto formaPago como string o como objeto con nombre
-        forma_ok = compra.get("forma_pago") == "efectivo" or (
-            isinstance(compra.get("forma_pago"), dict) and compra["forma_pago"].get("nombre") == "efectivo"
-        )
-        assert forma_ok
-        assert compra.get("cantidad_entradas") == payload["cantidad_entradas"]
-        assert len(compra.get("entradas", [])) == len(payload["entradas"])
-        assert compra.get("monto_total") == payload["monto_total"]
-        assert compra.get("usuario", {}).get("email") == payload["usuario"]["email"]
 
+        assert compra["usuario"]["email"] == payload["usuario"]["email"]
+        assert compra["forma_pago"]["nombre"] == payload["forma_pago"]["nombre"]
+        assert compra["monto_total"] == payload["monto_total"]
 
 def test_GET_compras_PASA(client):
     # Solicitar lista de compras

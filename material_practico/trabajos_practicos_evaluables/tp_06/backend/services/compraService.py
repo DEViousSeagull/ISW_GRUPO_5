@@ -4,6 +4,7 @@ from engine import engine
 from entidades.compra import Compra
 from entidades.entrada import Entrada 
 from sqlalchemy.orm import joinedload  
+from datetime import date
 
 
 class CompraService:
@@ -56,10 +57,48 @@ class CompraService:
                 })
             return resultado
    
-    def post_compra(compra: Compra) -> Compra:
+    @staticmethod
+    def post_compra(data: dict) -> dict:
         with Session(engine) as session:
-            session.add(compra)
+            # Crear nueva compra
+            nueva_compra = Compra(
+                fecha=date.fromisoformat(data["fecha"]),
+                cantidad_entradas=data["cantidad_entradas"],
+                monto_total=data["monto_total"],
+                usuario_id=data["usuario"]["id"],
+                forma_pago_id=data["forma_pago"]["id"]
+            )
+            
+            # Agregar entradas
+            for entrada_data in data["entradas"]:
+                entrada = Entrada(
+                    precio_unitario=entrada_data["precio_unitario"],
+                    edad=entrada_data["edad"],
+                    tipo_entrada_id=entrada_data["tipo_entrada"]["id"]
+                )
+                nueva_compra.entradas.append(entrada)
+            
+            session.add(nueva_compra)
             session.commit()
-            session.refresh(compra)
-            return compra
-       
+            session.refresh(nueva_compra)
+            
+            # Retornar respuesta formateada
+            return {
+                "mensaje": "Compra creada exitosamente",
+                "compra": {
+                    "id": nueva_compra.id,
+                    "fecha": nueva_compra.fecha.isoformat(),
+                    "cantidad_entradas": nueva_compra.cantidad_entradas,
+                    "monto_total": nueva_compra.monto_total,
+                    "forma_pago": {
+                        "id": nueva_compra.forma_pago.id,
+                        "nombre": nueva_compra.forma_pago.nombre
+                    },
+                    "usuario": {
+                        "id": nueva_compra.usuario.id,
+                        "nombre": nueva_compra.usuario.nombre,
+                        "apellido": nueva_compra.usuario.apellido,
+                        "email": nueva_compra.usuario.email
+                    }
+                }
+            }

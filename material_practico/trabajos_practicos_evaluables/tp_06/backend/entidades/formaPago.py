@@ -2,8 +2,10 @@
 from sqlalchemy import CheckConstraint, ForeignKey, Integer, String, Float, Date, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from entidades.base import Base
-from typing import List
-from entidades.compra import Compra
+from typing import List, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entidades.compra import Compra
 
 class FormaPago(Base):
     __tablename__ = "formas_pago"

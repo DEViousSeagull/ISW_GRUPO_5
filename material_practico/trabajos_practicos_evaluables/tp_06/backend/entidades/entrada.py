@@ -22,6 +22,8 @@ if TYPE_CHECKING:
 class Entrada(Base):
     __tablename__ = "entradas"
 
+    
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     edad: Mapped[int] = mapped_column(Integer, nullable=False)
     tipo_entrada_id: Mapped[int] = mapped_column(

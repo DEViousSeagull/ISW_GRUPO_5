@@ -38,7 +38,8 @@ def bootstrap():
         # ------------------------------------------------------------------
         # Crear una compra con 1 entrada General (precio 5000)
         # ------------------------------------------------------------------
-
+        if s.scalar(select(func.count(Compra.id))):
+            return  # ya hay compras
         # Obtener las entidades necesarias
         usuario = s.scalar(select(Usuario).where(Usuario.email == "juan@example.com"))
         forma_pago = s.scalar(select(FormaPago).where(FormaPago.nombre == "Efectivo"))

@@ -4,7 +4,7 @@
     <!-- Fecha -->
     <div class="form-group" [ngClass]="{'invalid': isInvalid('fechaVisita')}">
         <label>Fecha de visita</label>
-        <input type="date" formControlName="fechaVisita" (change)="actualizarEdades()" />
+        <input type="date" formControlName="fechaVisita" (change)="actualizarVisitantes()" />
         @if(isInvalid('fechaVisita')){
         <small class="error" aria-live="polite">
             @if(hasError('fechaVisita','required')) {
@@ -24,7 +24,7 @@
     <div class="form-group" [ngClass]="{'invalid': isInvalid('cantidadEntradas')}">
         <label>Cantidad de entradas</label>
         <input type="number" formControlName="cantidadEntradas" intRange [rangeMin]="1" [rangeMax]="10"
-            inputmode="numeric" autocomplete="off" enterkeyhint="done" (change)="actualizarEdades()" />
+            inputmode="numeric" autocomplete="off" enterkeyhint="done" (change)="actualizarVisitantes()" />
         @if(isInvalid('cantidadEntradas')){
         <small class="error" aria-live="polite">
             @if(hasError('cantidadEntradas','required')) {
@@ -40,16 +40,31 @@
         }
     </div>
 
-    <!-- Edades -->
-    <div formArrayName="edades" class="form-group edades-group"
-        [ngClass]="{'invalid': formEntrada.get('edades')?.invalid && (formEntrada.get('edades')?.touched || formEntrada.get('edades')?.dirty)}">
-        <label>Edades de los visitantes</label>
+    <!-- Visitantes: edad + tipo de pase -->
+    <div formArrayName="visitantes" class="form-group edades-group"
+        [ngClass]="{'invalid': formEntrada.get('visitantes')?.invalid && (formEntrada.get('visitantes')?.touched || formEntrada.get('visitantes')?.dirty)}">
+        <label>Datos de los visitantes</label>
 
-        @for (edadCtrl of edades.controls; track $index; let i = $index) {
-        <div class="edad-item" [ngClass]="{'invalid': edadInvalid(i)}">
-            <input [formControlName]="i" type="number" placeholder="Edad {{ i + 1 }}" intRange [rangeMin]="0"
-                [rangeMax]="100" inputmode="numeric" autocomplete="off" enterkeyhint="done" />
+        @for (visitanteCtrl of visitantes.controls; track $index; let i = $index) {
+        <div [formGroupName]="i" class="visitante-item">
+            <div class="edad-item" [ngClass]="{'invalid': edadInvalid(i)}">
+                <input formControlName="edad" type="number" placeholder="Edad {{ i + 1 }}" intRange [rangeMin]="0"
+                    [rangeMax]="100" inputmode="numeric" autocomplete="off" enterkeyhint="done" />
+            </div>
 
+            <!-- Tipo de pase -->
+            <div class="pase-item" [ngClass]="{'invalid': paseInvalid(i)}">
+                <select formControlName="tipoPase">
+                    <option value="">Tipo de pase</option>
+                    @for (tp of tiposPase; track tp.id) {
+                    <option [value]="tp.nombre">{{ tp.nombre }}</option>
+                    }
+                </select>
+            </div>
+
+
+        </div>
+        <div class="error-visitante">
             @if(edadInvalid(i)) {
             <small class="error" aria-live="polite">
                 @if(edadHasError(i,'required')) {
@@ -63,25 +78,16 @@
                 }
             </small>
             }
+            @else if(paseInvalid(i)) {
+            <small class="error">Seleccioná un tipo de pase.</small>
+            }
         </div>
         }
-        @if(formEntrada.get('edades')?.errors?.['edadesNoCoinciden']) {
-        <small class="error" aria-live="polite">
-            La cantidad de edades debe coincidir con la cantidad de entradas.
-        </small>
-        }
-    </div>
 
-    <!-- Tipo de pase -->
-    <div class="form-group" [ngClass]="{'invalid': isInvalid('tipoPase')}">
-        <label>Tipo de pase</label>
-        <select formControlName="tipoPase">
-            <option value="">Seleccione</option>
-            <option value="regular">Regular</option>
-            <option value="VIP">VIP</option>
-        </select>
-        @if(isInvalid('tipoPase')) {
-        <small class="error">Seleccioná un tipo de pase.</small>
+        @if(formEntrada.get('visitantes')?.errors?.['visitantesNoCoinciden']) {
+        <small class="error" aria-live="polite">
+            La cantidad de visitantes debe coincidir con la cantidad de entradas.
+        </small>
         }
     </div>
 

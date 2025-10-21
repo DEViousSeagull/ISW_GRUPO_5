@@ -1,0 +1,45 @@
+<div class="mis-entradas-container">
+    <h2>Compra {{ compra?.id }}</h2>
+
+    @if (loading) {
+    <div class="loading">Cargando tus entradas...</div>
+    }
+    @else if (error) {
+    <div class="error">{{ error }}</div>
+    }
+    @else if (!compra) {
+    <div class="empty">No se encontró la compra.</div>
+    }
+    @else {
+    <div class="compra-info">
+        <p><strong>Fecha:</strong> {{ compra.fecha | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Cantidad de entradas:</strong> {{ compra.cantidad_entradas }}</p>
+        <p><strong>Monto Total:</strong> {{ compra.monto_total | currency:'ARS':'symbol':'1.0-0' }}</p>
+        <p><strong>Forma de Pago:</strong> {{ compra.forma_pago.nombre }}</p>
+        <p><strong>Usuario:</strong> {{ compra.usuario.nombre }} {{ compra.usuario.apellido }}</p>
+    </div>
+
+    <div class="tabla-wrapper">
+        <table class="tabla-compras">
+            <thead>
+                <tr>
+                    <th>ID Entrada</th>
+                    <th>Tipo de Pase</th>
+                    <th>Edad</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (entrada of entradas; track entrada.id) {
+                <tr>
+                    <td>{{ entrada.id }}</td>
+                    <td>{{ entrada.tipo_entrada.nombre }}</td>
+                    <td>{{ entrada.edad }}</td>
+                    <td>{{ entrada.precio | currency:'ARS':'symbol':'1.0-0' }}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+</div>

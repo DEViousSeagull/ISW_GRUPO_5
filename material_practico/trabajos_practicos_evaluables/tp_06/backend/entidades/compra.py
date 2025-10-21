@@ -71,7 +71,6 @@ class Compra(Base):
         return True
     
     def validar_formaPago(self):
-        self.forma_pago.validate()
         return self.forma_pago.nombre
 
     def obtener_redirect_pago(self, gateway):

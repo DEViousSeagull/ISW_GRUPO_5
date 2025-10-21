@@ -129,20 +129,23 @@ def test_crear_compra_tiene_atributos_y_valores_PASA():
 
 def test_crear_entrada_no_tiene_edad_FALLA():
     tipo = TipoEntrada(id=1,nombre="Regular")
-    with pytest.raises(TypeError):
-        Entrada(id=10, precio_unitario=5000, tipo_entrada=tipo, tipo_entrada_id=tipo.id)
+    entrada = Entrada(id=10, precio_unitario=5000, tipo_entrada=tipo, tipo_entrada_id=tipo.id)
+    with pytest.raises(ValueError):
+        entrada.validar_Atributos()
+        
 
 
 def test_crear_entrada_no_tiene_tipoEntrada_FALLA():
-    with pytest.raises(TypeError):
-        Entrada(id=10, precio_unitario=5000, edad=25)
+    entrada = Entrada(id=10, precio_unitario=5000, edad=25)
+    with pytest.raises(ValueError):
+        entrada.validar_Atributos()
 
 
 def test_crear_compra_no_tiene_entradas_FALLA():
     usuario = Usuario(id=1,nombre="Ana", apellido="Perez", email="ana.perez@example.com")
     forma_pago = FormaPago(id=1,nombre="efectivo")
     compra = Compra(id=4,fecha=date.today(), cantidad_entradas=0, monto_total=5000, forma_pago=forma_pago, usuario=usuario, forma_pago_id=forma_pago.id, usuario_id=usuario.id)
-    with pytest.raises(TypeError):
+    with pytest.raises(ValueError):
         compra.validar_atributos_presentes()
 
 
@@ -151,8 +154,10 @@ def test_crear_compra_no_tiene_fecha_FALLA():
     entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_entrada=tipo, tipo_entrada_id=tipo.id)]
     usuario = Usuario(id=1,nombre="Ana", apellido="Perez", email="ana.perez@example.com")
     forma_pago = FormaPago(id=1,nombre="efectivo")
-    with pytest.raises(TypeError):
-        Compra(id=4,cantidad_entradas=1, entradas=entradas, monto_total=5000, forma_pago=forma_pago, usuario=usuario, forma_pago_id=forma_pago.id, usuario_id=usuario.id)
+    compra = Compra(id=4,cantidad_entradas=1, entradas=entradas, monto_total=5000, forma_pago=forma_pago, usuario=usuario, forma_pago_id=forma_pago.id, usuario_id=usuario.id)
+    with pytest.raises(ValueError):
+        compra.validar_atributos_presentes()
+        
 
 
 def test_crear_compra_con_cantidad_entradas_no_coincidente_FALLA():
@@ -213,8 +218,9 @@ def test_crear_compra_no_tiene_formaPago_FALLA():
     tipo = TipoEntrada(id=1,nombre="Regular")
     entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_entrada=tipo, tipo_entrada_id=tipo.id)]
     usuario = Usuario(id=1,nombre="Ana", apellido="Perez", email="ana.perez@example.com")
-    with pytest.raises(TypeError):
-        Compra(id=4,fecha=date.today(), cantidad_entradas=1, entradas=entradas, monto_total=5000, usuario=usuario, usuario_id=usuario.id)
+    compra = Compra(id=4,fecha=date.today(), cantidad_entradas=1, entradas=entradas, monto_total=5000, usuario=usuario, usuario_id=usuario.id)
+    with pytest.raises(ValueError):
+        compra.validar_atributos_presentes()
 
 
 def test_compra_con_efectivo_PASA():
@@ -249,23 +255,23 @@ def test_redireccion_mercado_pago_PASA():
 # FORMATOS
 def test_edad_decimal_FALLA():
     tipo = TipoEntrada(id=1,nombre="Regular")
+    entrada = Entrada(id=1, precio_unitario=5000, edad=25.5, tipo_entrada=tipo, tipo_entrada_id=tipo.id)
     with pytest.raises(ValueError) as e:
-        Entrada(id=1, precio_unitario=5000, edad=5.5, tipo_entrada=tipo, tipo_entrada_id=tipo.id)
-    assert "edad" in str(e.value).lower()
+        entrada.validar_Atributos()
 
 
 def test_edad_negativa_FALLA():
     tipo = TipoEntrada(id=1,nombre="Regular")
+    entrada = Entrada(id=1, precio_unitario=5000, edad=-5, tipo_entrada=tipo, tipo_entrada_id=tipo.id)
     with pytest.raises(ValueError) as e:
-        Entrada(id=1, precio_unitario=5000, edad=-5, tipo_entrada=tipo, tipo_entrada_id=tipo.id)
-    assert "edad" in str(e.value).lower()
+        entrada.validar_Atributos()
 
 
 def test_edad_string_FALLA():
     tipo = TipoEntrada(id=1,nombre="Regular")
+    entrada = Entrada(id=1, precio_unitario=5000, edad="veinte", tipo_entrada=tipo, tipo_entrada_id=tipo.id)
     with pytest.raises((ValueError)) as e:
-        Entrada(id=1, precio_unitario=5000, edad="veinte", tipo_entrada=tipo, tipo_entrada_id=tipo.id)
-    assert "edad" in str(e.value).lower()
+        entrada.validar_Atributos()
 
 
 def test_crear_compra_con_cantidad_entradas_decimal_FALLA():
@@ -315,8 +321,9 @@ def test_crear_compra_no_tiene_usuario_FALLA():
     tipo = TipoEntrada(id=8,nombre="Regular")
     entradas = [Entrada(id=1, precio_unitario=5000, edad=30, tipo_entrada=tipo, tipo_entrada_id=tipo.id)]
     forma_pago = FormaPago(id=1,nombre="efectivo")
-    with pytest.raises(TypeError):
-        Compra(id=9,fecha=date.today(), cantidad_entradas=1, entradas=entradas, monto_total=5000, forma_pago=forma_pago, forma_pago_id=forma_pago.id)
+    compra = Compra(id=4,fecha=date.today(), cantidad_entradas=1, entradas=entradas, forma_pago=forma_pago, monto_total=5000, forma_pago_id=forma_pago.id)
+    with pytest.raises(ValueError):
+        compra.validar_atributos_presentes()
 
 
 def test_compra_tres_entradas_monto_y_confirmacion_PASA():
@@ -351,18 +358,20 @@ def test_compra_tres_entradas_monto_y_confirmacion_PASA():
 
 def test_crear_usuario_sin_nombre_FALLA():
     usuario = Usuario(id=4,apellido="Gomez", email="gomez@example.com")
-    # El modelo actual permite instanciar, pero el atributo 'nombre' quedará en None
-    assert getattr(usuario, 'nombre', None) is None
+    with pytest.raises(ValueError):
+        usuario.validar_Atributos()
 
 
 def test_crear_usuario_sin_email_FALLA():
     usuario = Usuario(id=4,nombre="Juan", apellido="Gomez")
-    assert getattr(usuario, 'email', None) is None
+    with pytest.raises(ValueError):
+        usuario.validar_Atributos()
 
 
 def test_crear_usuario_sin_apellido_FALLA():
     usuario = Usuario(id=9,nombre="Juan", email="gomez@example.com")
-    assert getattr(usuario, 'apellido', None) is None
+    with pytest.raises(ValueError):
+        usuario.validar_Atributos()
 
 
 def test_crear_usuario_con_todos_los_atributos_PASA():
@@ -372,5 +381,23 @@ def test_crear_usuario_con_todos_los_atributos_PASA():
     assert usuario.apellido == "Gomez"
     assert usuario.email == "gomez@example.com"
 
+def test_crear_tipoEntrada_sin_id_FALLA():
+    tipo = TipoEntrada(nombre="Regular")
+    with pytest.raises(ValueError):
+        tipo.validar_Atributos()
+
+def test_crear_tipoEntrada_sin_nombre_FALLA():
+    tipo = TipoEntrada(id=1)
+    with pytest.raises(ValueError):
+        tipo.validar_Atributos()
 
 
+def test_crear_formaPago_sin_id_FALLA():
+    forma = FormaPago(nombre="efectivo")
+    with pytest.raises(ValueError):
+        forma.validar_Atributos()
+
+def test_crear_formaPago_sin_nombre_FALLA():
+    forma = FormaPago(id=1)
+    with pytest.raises(ValueError):
+        forma.validar_Atributos()

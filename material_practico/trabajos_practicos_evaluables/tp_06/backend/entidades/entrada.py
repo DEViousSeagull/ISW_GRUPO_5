@@ -57,4 +57,34 @@ class Entrada(Base):
         return self.precio_unitario
     
 
-        
+    def validar_Atributos(self) -> None:
+        errores = []
+
+        # edad
+        if getattr(self, "edad", None) is None:
+            errores.append("edad ausente")
+        else:
+            if not isinstance(self.edad, int):
+                errores.append("edad debe ser un entero")
+            elif self.edad < 0:
+                errores.append("edad debe ser >= 0")
+
+        # tipo de entrada (puede estar por relación o por id)
+        if getattr(self, "tipo_entrada", None) is None and getattr(self, "tipo_entrada_id", None) is None:
+            errores.append("tipo_entrada/tipo_entrada_id ausente")
+
+        # precio_unitario
+        if getattr(self, "precio_unitario", None) is None:
+            errores.append("precio_unitario ausente")
+        else:
+            try:
+                val = float(self.precio_unitario)
+                if val < 0:
+                    errores.append("precio_unitario debe ser >= 0")
+            except (TypeError, ValueError):
+                errores.append("precio_unitario debe ser numérico")
+
+        if errores:
+            raise ValueError("Entrada inválida: " + "; ".join(errores))
+
+    # Adjuntar el método a la clase Entrada (se puede llamar como instancia.validar())

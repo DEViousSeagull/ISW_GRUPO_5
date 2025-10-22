@@ -23,7 +23,7 @@ class FormaPago(Base):
 #        if self.nombre not in ("efectivo", "tarjeta"):
 #            raise ValueError("Forma de pago inválida")
 
-    def validar_Atributos(self) -> None:
+    def validar_atributos(self) -> None:
         errores = []
 
         # nombre: obligatorio, str no vacío

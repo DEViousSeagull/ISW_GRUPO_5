@@ -14,7 +14,7 @@ def client():
 
 
 #TEST FORMAS DE PAGO
-def test_GET_formas_de_pago_efectivo_PASA(client):
+def test_get_formas_de_pago_efectivo_pasa(client):
     response = client.get("/formas_pago")
     assert response.status_code == 200
     body = response.json()
@@ -22,25 +22,25 @@ def test_GET_formas_de_pago_efectivo_PASA(client):
     assert any(fp.get("nombre") == "Efectivo" for fp in body)
 
 #TEST TIPOS DE ENTRADA
-def test_GET_tipos_de_entrada_regular_PASA(client):
+def test_get_tipos_de_entrada_general_pasa(client):
     response = client.get("/tipos_entrada")
     assert response.status_code == 200
     body = response.json()
     assert isinstance(body, list)
     assert any(te.get("nombre") == "General" for te in body)
 
-def test_GET_tipos_de_entrada_VIP_PASA(client):
+def test_get_tipos_de_entrada_vip_pasa(client):
     response = client.get("/tipos_entrada")
     assert response.status_code == 200
     body = response.json()
     assert isinstance(body, list)
     assert any(te.get("nombre") == "VIP" for te in body)
 
-def test_POST_crear_compra_efectivo_PASA(client):
+def test_post_crear_compra_efectivo_pasa(client):
         payload = {
         "fecha": date.today().isoformat(),
         "cantidad_entradas": 1,
-        "monto_total": 7000,
+        "monto_total": 10000,
         "forma_pago": {"id": 1, "nombre": "Efectivo"},
         "usuario": {
             "id": 1,
@@ -51,9 +51,9 @@ def test_POST_crear_compra_efectivo_PASA(client):
         "entradas": [
             {
                 "id": 999,
-                "precio_unitario": 7000,
+                "precio_unitario": 10000,
                 "edad": 25,
-                "tipo_entrada": {"id": 2, "nombre": "VIP"}
+                "tipo_entrada": {"id": 1, "nombre": "VIP"}
             }
         ]     
      }
@@ -71,7 +71,7 @@ def test_POST_crear_compra_efectivo_PASA(client):
         assert compra["forma_pago"]["nombre"] == payload["forma_pago"]["nombre"]
         #assert compra["monto_total"] == payload["monto_total"]
 
-def test_GET_compras_PASA(client):
+def test_get_compras_pasa(client):
     # Solicitar lista de compras
     response = client.get("/compras", params={"page": 1, "pageSize": 50})
     
@@ -112,6 +112,5 @@ def test_GET_compras_PASA(client):
     assert item["usuario"]["nombre"] == "Juan"
     assert item["usuario"]["apellido"] == "Pérez"
     assert item["usuario"]["email"] == "juan@example.com"
-    #assert item["usuario"]["password"] == "securepassword" #FALTA PWASWORD EN LA ENTIDAD USUARIO
     assert item["usuario"]["id"] == 1
     assert item["monto_total"] == 5000

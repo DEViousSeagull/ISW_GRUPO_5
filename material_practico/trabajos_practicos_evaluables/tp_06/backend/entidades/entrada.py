@@ -60,7 +60,7 @@ class Entrada(Base):
         return self.precio_unitario
     
 
-    def validar_Atributos(self) -> None:
+    def validar_atributos(self) -> None:
         errores = []
 
         # edad

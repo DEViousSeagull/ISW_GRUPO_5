@@ -19,7 +19,7 @@ class TipoEntrada(Base):
 #    def __init__(self, nombre: str):
 #        self.nombre = nombre
 
-    def validar_Atributos(self) -> None:
+    def validar_atributos(self) -> None:
 
         errores = []
 

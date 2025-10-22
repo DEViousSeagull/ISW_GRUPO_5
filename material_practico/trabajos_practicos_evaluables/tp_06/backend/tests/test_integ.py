@@ -1,8 +1,8 @@
 import pytest
+import sys, os
 from fastapi.testclient import TestClient
 from datetime import date
-import sys
-import os
+
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from main import app  # importa tu app real con todos los routers
@@ -12,23 +12,6 @@ def client():
     with TestClient(app) as c:
         yield c
 
-
-        @app.get("/crear_pago")
-        def crear_pago():
-            return {"url_pago": "https://sandbox.mercadopago.com/checkout/v1/redirect?pref_id=MOCK_123"}
-
-
-        @app.post("/enviar_mail")
-        def enviar_mail(payload: dict):
-            return {"mensaje": "enviado", "email": payload.get("email")}
-
-
-        @app.post("/crear_compra")
-        def crear_compra(payload: dict):
-            # devuelve la compra tal cual para que los tests de integración pasen
-            return {"mensaje": "ok", "compra": payload}
-
-    # Aquí podrías agregar limpieza si es necesario
 
 #TEST FORMAS DE PAGO
 def test_GET_formas_de_pago_efectivo_PASA(client):

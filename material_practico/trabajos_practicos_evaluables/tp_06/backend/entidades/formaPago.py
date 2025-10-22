@@ -15,13 +15,6 @@ class FormaPago(Base):
 
     compras: Mapped[List["Compra"]] = relationship(back_populates="forma_pago")
     
-#class FormaPago:
-#    def __init__(self, nombre: str):
-#        self.nombre = nombre
-
-#    def validate(self):
-#        if self.nombre not in ("efectivo", "tarjeta"):
-#            raise ValueError("Forma de pago inválida")
 
     def validar_atributos(self) -> None:
         errores = []

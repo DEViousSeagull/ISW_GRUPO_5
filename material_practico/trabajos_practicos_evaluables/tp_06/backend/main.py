@@ -25,26 +25,16 @@ app.include_router(compra_router)
 
 @app.on_event("startup")
 def on_startup():
-    # do this once per worker process so the worker sees the same DB
-    # reset_db()   # <- enable only if you REALLY want to wipe on each start
     bootstrap()
 
-
-
-
-
-#BORRAR ESTAS RUTAS Y HACERLAS POR ROUTER
 @app.get('/crear_pago')
 def crear_pago():
     return {"url_pago": "https://sandbox.mercadopago.com/checkout/v1/redirect?pref_id=MOCK_123"}
-
 
 @app.post('/enviar_mail')
 def enviar_mail(payload: dict):
     # simulamos envío
     return {"mensaje": "enviado", "email": payload.get("email")}
-
-
 
 if __name__ == "__main__":
     reset_db()

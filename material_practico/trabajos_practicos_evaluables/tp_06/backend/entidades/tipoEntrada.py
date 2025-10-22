@@ -15,9 +15,6 @@ class TipoEntrada(Base):
     entradas: Mapped[List["Entrada"]] = relationship(back_populates="tipo_entrada")
 
 
-#class TipoEntrada:
-#    def __init__(self, nombre: str):
-#        self.nombre = nombre
 
     def validar_atributos(self) -> None:
 

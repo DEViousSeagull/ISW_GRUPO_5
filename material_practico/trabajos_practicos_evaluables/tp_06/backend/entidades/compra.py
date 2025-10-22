@@ -123,11 +123,11 @@ class Compra(Base):
             "fecha": lambda v: v is not None,
             "cantidad_entradas": lambda v: isinstance(v, int) and v >= 1,
             "entradas": lambda v: isinstance(v, list) and len(v) > 0,
-            "forma_pago": lambda v: v is not None,
-            "usuario": lambda v: v is not None,
-            "monto_total": lambda v: v is not None,
-            "forma_pago_id": lambda v: isinstance(v, int) and v >= 1,
-            "usuario_id": lambda v: isinstance(v, int) and v >= 1,
+            "forma_pago": lambda v: isinstance(v, FormaPago),
+            "usuario": lambda v: isinstance(v, Usuario),
+            "monto_total": lambda v: isinstance(v, int) and v >= 0,
+            "forma_pago_id": lambda v: isinstance(v, int) and v >= 0,
+            "usuario_id": lambda v: isinstance(v, int) and v >= 0,
         }
 
         faltantes = []

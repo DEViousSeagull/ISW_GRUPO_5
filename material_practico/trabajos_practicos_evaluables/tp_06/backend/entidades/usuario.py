@@ -16,14 +16,6 @@ class Usuario(Base):
 
     compras: Mapped[List["Compra"]] = relationship(back_populates="usuario") 
 
-# # Clase antigua sin Base (comentada porque se usa el modelo SQLAlchemy arriba)
-# class Usuario:
-#     def __init__(self, nombre: str, apellido: str, email: str, password: str):
-#         self.nombre = nombre
-#         self.apellido = apellido
-#         self.email = email
-#         self.password = password
-
 
     def validar_atributos(self) -> None:
         errores = []

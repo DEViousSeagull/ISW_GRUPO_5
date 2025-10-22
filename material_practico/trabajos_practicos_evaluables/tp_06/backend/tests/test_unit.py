@@ -347,18 +347,45 @@ def test_crear_usuario_sin_nombre_falla():
     with pytest.raises(ValueError):
         usuario.validar_atributos()
 
+def test_crear_usuario_nombre_no_string_falla():
+    usuario = Usuario(id=10, nombre=123, apellido="Gomez", email="gomez@example.com")
+    with pytest.raises(ValueError):
+        usuario.validar_atributos()
 
 def test_crear_usuario_sin_email_falla():
     usuario = Usuario(id=4,nombre="Juan", apellido="Gomez")
     with pytest.raises(ValueError):
         usuario.validar_atributos()
 
+def test_crear_usuario_email_no_string_falla():
+    usuario = Usuario(id=11, nombre="Juan", apellido="Gomez", email=12345)
+    with pytest.raises(ValueError):
+        usuario.validar_atributos()
+
+def test_crear_usuario_email_sin_arroba_falla():
+    usuario = Usuario(id=12, nombre="Ana", apellido="Lopez", email="analopez.example.com")
+    with pytest.raises(ValueError):
+        usuario.validar_atributos()
 
 def test_crear_usuario_sin_apellido_falla():
     usuario = Usuario(id=9,nombre="Juan", email="gomez@example.com")
     with pytest.raises(ValueError):
         usuario.validar_atributos()
 
+def test_crear_usuario_apellido_no_string_falla():
+    usuario = Usuario(id=10, nombre="Juan", apellido=123, email="gomez@example.com")
+    with pytest.raises(ValueError):
+        usuario.validar_atributos()
+
+def test_crear_usuario_sin_id_falla():
+    usuario = Usuario(nombre="Pedro", apellido="Sanchez", email="pedro.sanchez@example.com")
+    with pytest.raises(ValueError):
+        usuario.validar_atributos()
+
+def test_crear_usuario_id_no_int_falla():
+    usuario = Usuario(id="abc", nombre="Pedro", apellido="Sanchez", email="pedro.sanchez@example.com")
+    with pytest.raises(ValueError):
+        usuario.validar_atributos()
 
 def test_crear_usuario_con_todos_los_atributos_pasa():
     usuario = Usuario(id=6,nombre="Juan", apellido="Gomez", email="gomez@example.com")
@@ -372,18 +399,37 @@ def test_crear_tipoEntrada_sin_id_falla():
     with pytest.raises(ValueError):
         tipo.validar_atributos()
 
+def test_crear_tipoEntrada_id_no_int_falla():
+    tipo = TipoEntrada(id="abc", nombre="General")
+    with pytest.raises(ValueError):
+        tipo.validar_atributos()
+
 def test_crear_tipoEntrada_sin_nombre_falla():
     tipo = TipoEntrada(id=1)
     with pytest.raises(ValueError):
         tipo.validar_atributos()
 
+def test_crear_tipoEntrada_nombre_no_string_falla():
+    tipo = TipoEntrada(id="abc", nombre=123)
+    with pytest.raises(ValueError):
+        tipo.validar_atributos()
 
 def test_crear_formaPago_sin_id_falla():
     forma = FormaPago(nombre="Efectivo")
     with pytest.raises(ValueError):
         forma.validar_atributos()
 
+def test_crear_formaPago_id_no_int_falla():
+    forma = FormaPago(id="abc", nombre="Efectivo")
+    with pytest.raises(ValueError):
+        forma.validar_atributos()
+
 def test_crear_formaPago_sin_nombre_falla():
     forma = FormaPago(id=1)
+    with pytest.raises(ValueError):
+        forma.validar_atributos()
+
+def test_crear_formaPago_nombre_no_string_falla():
+    forma = FormaPago(id=1, nombre=123)
     with pytest.raises(ValueError):
         forma.validar_atributos()

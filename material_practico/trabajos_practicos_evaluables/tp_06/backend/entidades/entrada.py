@@ -3,21 +3,15 @@ from typing import TYPE_CHECKING
 from sqlalchemy import CheckConstraint, ForeignKey, Integer, String, Float, Date, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from entidades.base import Base
+from entidades.tipoEntrada import TipoEntrada
+from entidades.compra import Compra
 
 if TYPE_CHECKING:
-    # Solo hints, sin ejecutar el import en runtime
+   
     from entidades.compra import Compra
     from entidades.tipoEntrada import TipoEntrada
 
-#class Entrada:
- #   def __init__(self,tipo_Entrada: TipoEntrada, id: int, edad: int, precio: float):
-#        self.tipo_Entrada = tipo_Entrada
-#        self.id = id
-#        self.edad = edad
-#        self.precio = precio
 
-#        if not isinstance(self.edad, int) or self.edad < 0 or isinstance(self.edad, str):
-#            raise ValueError("La edad es inválida; debe ser un entero")
 
 class Entrada(Base):
     __tablename__ = "entradas"
@@ -73,8 +67,18 @@ class Entrada(Base):
                 errores.append("edad debe ser >= 0")
 
         # tipo de entrada (puede estar por relación o por id)
-        if getattr(self, "tipo_entrada", None) is None and getattr(self, "tipo_entrada_id", None) is None:
+        if getattr(self, "tipo_entrada", None) is None :
             errores.append("tipo_entrada/tipo_entrada_id ausente")
+        else:
+            if not isinstance(self.tipo_entrada, TipoEntrada):
+                errores.append("tipo_entrada debe ser TipoEntrada")
+        if getattr(self, "tipo_entrada_id", None) is None:
+            errores.append("tipo_entrada/tipo_entrada_id ausente")
+        else:
+            if not isinstance(self.tipo_entrada_id, int):
+                errores.append("tipo_entrada_id debe ser int")
+            elif self.tipo_entrada_id < 1:
+                errores.append("tipo_entrada_id debe ser >= 1")
 
         # precio_unitario
         if getattr(self, "precio_unitario", None) is None:
@@ -86,8 +90,27 @@ class Entrada(Base):
                     errores.append("precio_unitario debe ser >= 0")
             except (TypeError, ValueError):
                 errores.append("precio_unitario debe ser numérico")
+        if getattr(self, "id", None) is None:
+            errores.append("id ausente")
+        else:
+            if not isinstance(self.id, int):
+                errores.append("id debe ser int")
+            elif self.id < 0:
+                errores.append("id debe ser >= 0")
+        if getattr(self, "compra_id", None) is None:
+            errores.append("compra_id ausente") 
+        else:
+            if not isinstance(self.compra_id, int):
+                errores.append("compra_id debe ser int")
+            elif self.compra_id < 0:
+                errores.append("compra_id debe ser >= 0")
+        if getattr(self, "compra", None) is None:
+            errores.append("compra ausente")
+        else:
+            if not isinstance(self.compra, Compra):
+                errores.append("compra debe ser Compra")
 
         if errores:
             raise ValueError("Entrada inválida: " + "; ".join(errores))
 
-    # Adjuntar el método a la clase Entrada (se puede llamar como instancia.validar())
+   

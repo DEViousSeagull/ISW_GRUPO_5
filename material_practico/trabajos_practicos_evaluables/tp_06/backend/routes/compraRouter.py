@@ -14,8 +14,6 @@ def get_compras():
 
 @router.post('/crear_compra', summary="Crear una compra")
 def crear_compra(payload: dict):
-    # Import here to avoid changing top-of-file imports
-    # Ajusta la ruta si tu entidad Compra está en otro módulo
     try:
         result = CompraService.post_compra(payload)
     except HTTPException:

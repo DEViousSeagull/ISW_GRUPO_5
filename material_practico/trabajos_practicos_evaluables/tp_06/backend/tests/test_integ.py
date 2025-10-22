@@ -5,7 +5,7 @@ from datetime import date
 
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from main import app  # importa tu app real con todos los routers
+from main import app  
 
 @pytest.fixture
 def client():
@@ -94,8 +94,6 @@ def test_get_compras_pasa(client):
     assert "id" in item
     assert "fecha" in item
     assert "cantidad_entradas" in item
-    #assert "forma_pago_id" in item
-    #assert "usuario_id" in item
     assert "monto_total" in item
 
 

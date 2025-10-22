@@ -164,7 +164,7 @@ describe('ComprarEntrada', () => {
                 Promise.resolve({ mensaje: 'creada', compra: compraResp })
             );
 
-            await component.submitForm(false);
+            await component.submitForm();
             fixture.detectChanges();
 
             expect(mockComprasDb.post).toHaveBeenCalled();
@@ -187,7 +187,7 @@ describe('ComprarEntrada', () => {
 
         it('si el formulario es inválido, no postea y enfoca el primer error', async () => {
             form.reset();
-            await component.submitForm(false);
+            await component.submitForm();
             expect(mockComprasDb.post).not.toHaveBeenCalled();
             // no podemos verificar scrollIntoView, pero el modal no debe estar visible
             expect(component.confirmModalVisible).toBeFalse();

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ComprasDb, CompraDoc, EntradaDoc } from '../../services/compras/compras-db';
 
 @Component({
@@ -16,7 +16,7 @@ export class DetalleCompra implements OnInit {
     loading = true;
     error: string | null = null;
 
-    constructor(private db: ComprasDb, private route: ActivatedRoute) { }
+    constructor(private db: ComprasDb, private route: ActivatedRoute, private router: Router) { }
 
     async ngOnInit() {
         const idParam = this.route.snapshot.paramMap.get('id');
@@ -46,5 +46,12 @@ export class DetalleCompra implements OnInit {
         } finally {
             this.loading = false;
         }
+    }
+
+    abrirCorreo() {
+        // Abrir la casilla de mail en otra pestaña, sin tomar el foco
+        const mailUrl = this.router.serializeUrl(this.router.createUrlTree(['/mail-box']));
+        window.open(mailUrl, '_blank', 'noopener,noreferrer');
+        window.focus(); // mantené el foco en esta pestaña
     }
 }

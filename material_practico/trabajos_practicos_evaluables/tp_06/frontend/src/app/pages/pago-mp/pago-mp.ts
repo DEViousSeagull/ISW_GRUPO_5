@@ -32,7 +32,7 @@ export class PagoMp implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         const state = history.state as { total?: number; postBody?: PostBody };
-        if (!state?.total || !state?.postBody) {
+        if (state?.total === undefined || !state?.postBody) {
             this.router.navigateByUrl('/');
             return;
         }
@@ -57,15 +57,8 @@ export class PagoMp implements OnInit, OnDestroy {
         try {
             const response = await this.comprasDb.post(this.postBody);
             this.compraCreada = response.compra;
-
-            // Open Mail in a new tab
-            const mailUrl = this.router.serializeUrl(this.router.createUrlTree(['/mail-box']));
-            window.open(mailUrl, '_blank', 'noopener,noreferrer');
-
-            // Refocus the current window to keep the user here
-            window.focus();
             
-            // ⏱️ start countdown & redirect this tab to detalle
+            // start countdown & redirect this tab to detalle
             this.secondsLeft = 3;
             this.countdownInterval = setInterval(() => {
                 this.secondsLeft--;

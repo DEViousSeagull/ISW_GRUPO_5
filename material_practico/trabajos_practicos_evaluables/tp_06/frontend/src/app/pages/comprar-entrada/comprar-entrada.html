@@ -125,9 +125,20 @@
         </p>
 
         <div class="modal-buttons">
-            <button class="btn-cerrar" (click)="verDetalle(detalleCompra.id)">Ver detalle</button>
-            <button class="btn-cerrar" (click)="continuarComprando()">Seguir comprando</button>
+            <button class="btn-cerrar" (click)="verDetalle(detalleCompra.id)">
+                Ver detalle
+            </button>
+
+            <button class="btn-cerrar" (click)="continuarComprando()">
+                Seguir comprando
+            </button>
+
+            <button class="btn-cerrar btn-mail" (click)="abrirCorreo()">
+                <span class="material-symbols-outlined">mail</span>
+                Chequear mail
+            </button>
         </div>
+
     </div>
 </div>
 }

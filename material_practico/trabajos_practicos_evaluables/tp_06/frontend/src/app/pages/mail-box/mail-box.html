@@ -29,8 +29,9 @@
 
                 <div class="mail-content">
                     <div class="mail-subject">
-                        Confirmacion de compra {{ c.id }}, para la fecha de visita {{ c.fecha }}!
+                        Confirmacion de compra N° {{ c.id }}, para la fecha de visita {{ c.fecha | date:'dd-MM-yyyy' }}!
                     </div>
+                    <div class="date">{{ c.fecha | date:'dd-MM-yyyy' }}</div>
                     <div class="mail-snippet">
                         ¡Gracias por tu compra en <strong>EcoHarmony Park</strong>!<br>
                         Monto:

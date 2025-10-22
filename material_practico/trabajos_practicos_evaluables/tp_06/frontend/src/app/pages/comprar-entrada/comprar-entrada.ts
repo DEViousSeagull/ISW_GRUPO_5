@@ -176,13 +176,6 @@ export class ComprarEntrada implements OnInit {
     }
 
 
-
-    // En la clase ComprarEntrada (propiedades nuevas)
-    paymentModalVisible = false;
-    paymentProcessing = false;
-    paymentSuccess = false;
-    totalAPagar = 0;
-
     // (helper) total a partir del form actual
     private calcularTotalFromForm(): number {
         return this.visitantes.controls.reduce((acc, ctrl) => {
@@ -202,66 +195,40 @@ export class ComprarEntrada implements OnInit {
         }
 
         const formaPagoId = Number(this.formEntrada.get('formaPago')?.value);
-        this.totalAPagar = this.calcularTotalFromForm();
+        const totalAPagar = this.calcularTotalFromForm();
 
         // Si no es efectivo (id ≠ 1), mostrar modal de pago
         if (formaPagoId !== 1) {
-            this.paymentModalVisible = true;
+            // this.paymentModalVisible = true;
+            this.router.navigate(['/pago-mp'], {
+                state: {
+                    total: totalAPagar,
+                    postBody: this.buildPostBody()
+                }
+            });
+
             return;
         }
 
         await this.crearCompra();
     }
 
-    async crearCompra(awaitPayment: boolean = false) {
+    async crearCompra() {
         const postBody = this.buildPostBody();
         try {
             const response = await this.comprasDb.post(postBody);
             this.detalleCompra = response.compra;
-            // this.confirmModalVisible = true;
+            this.confirmModalVisible = true;
 
-            if (awaitPayment) {
-                setTimeout(() => {
-                    this.paymentModalVisible = false;
-                    this.paymentSuccess = false;
-                    this.confirmModalVisible = true;
-                }, 800);
-            } else {
-                this.paymentModalVisible = false;
-                this.paymentSuccess = false;
-                this.confirmModalVisible = true;
-            }
+            // Abrir la casilla de mail en otra pestaña, sin tomar el foco
+            const mailUrl = this.router.serializeUrl(this.router.createUrlTree(['/mail-box']));
+            window.open(mailUrl, '_blank', 'noopener,noreferrer');
+            window.focus(); // mantené el foco en esta pestaña
 
         } catch (err) {
             console.error('Error al crear compra:', err);
             alert('Hubo un error al procesar la compra.');
-            this.paymentModalVisible = false;
-            this.paymentSuccess = false;
         }
-    }
-
-    async confirmarPago() {
-        const formaPagoId = Number(this.formEntrada.get('formaPago')?.value);
-
-        // 💳 Solo simular pago si es tarjeta (id = 2)
-        if (formaPagoId === 2) {
-            if (this.paymentProcessing) return;
-            this.paymentProcessing = true;
-
-            await new Promise(res => setTimeout(res, 2000));
-            this.paymentProcessing = false;
-            this.paymentSuccess = true;
-        }
-
-        this.crearCompra(true);
-    }
-
-
-    // Opción para cerrar/cancelar el modal de pago
-    cancelarPago() {
-        if (this.paymentProcessing) return;
-        this.paymentModalVisible = false;
-        this.paymentSuccess = false;
     }
 
     continuarComprando() {

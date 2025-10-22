@@ -1,0 +1,39 @@
+<div class="mp-page">
+    <div class="mp-card" role="dialog" aria-label="Pago con Mercado Pago">
+        <div class="mp-header">
+            <div class="mp-badge">Mercado Pago</div>
+            <div class="mp-sub">Checkout seguro</div>
+        </div>
+
+        <div class="mp-body">
+            <p class="mp-total-label">Total a pagar</p>
+            <p class="mp-total-valor">{{ total | currency:'ARS':'symbol':'1.0-0' }}</p>
+
+            @if (!paymentSuccess) {
+            <div>
+                <button class="mp-btn-pagar" (click)="pagar()" [disabled]="paymentProcessing">
+                    @if (paymentProcessing) {
+                    <span class="mp-spinner"></span><span>Procesando...</span>
+                    } @else {
+                    <span>Pagar {{ total | currency:'ARS':'symbol':'1.0-0' }}</span>
+                    }
+                </button>
+
+                <button class="mp-btn-cancelar" (click)="cancelar()" [disabled]="paymentProcessing">
+                    Cancelar
+                </button>
+            </div>
+            } @else {
+            <div class="mp-success">
+                <span class="mp-check">✓</span>
+                <p>Pago realizado</p>
+                <p class="mp-redirect">Redirigiendo al detalle en {{ secondsLeft }}…</p>
+            </div>
+            }
+        </div>
+
+        <div class="mp-footer">
+            <small>Simulación de pago para pruebas</small>
+        </div>
+    </div>
+</div>

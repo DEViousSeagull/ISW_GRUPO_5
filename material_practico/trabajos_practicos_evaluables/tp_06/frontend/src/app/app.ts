@@ -22,7 +22,4 @@ export const MOCK_USER: AppUser = {
     styleUrls: ['./app.scss'],
     imports: [RouterOutlet, RouterModule],
 })
-export class App {
-    protected mockUser: AppUser = MOCK_USER;
-
-}
+export class App { }

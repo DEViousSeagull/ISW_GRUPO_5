@@ -75,9 +75,7 @@ export class ComprarEntrada implements OnInit {
     }
 
     fechaValida(control: AbstractControl) {
-        console.log("C VAL", control.value)
-        const fecha = new Date(control.value);
-        console.log("FECHA", control.value)
+        const fecha = new Date(control.value + 'T00:00:00');
         const hoy = new Date();
         hoy.setHours(0, 0, 0, 0);
 
@@ -209,6 +207,9 @@ export class ComprarEntrada implements OnInit {
             this.detalleCompra = response.compra;
             this.confirmModalVisible = true;
 
+            this.cantidadEntradasResumen = response.compra.cantidad_entradas;
+            this.fechaResumen = new Date(response.compra.fecha + 'T00:00:00');
+            this.resumenCompraVisible = true;
         } catch (err) {
             console.error('Error al crear compra:', err);
             alert('Hubo un error al procesar la compra.');

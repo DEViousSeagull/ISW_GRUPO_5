@@ -18,7 +18,8 @@ describe('MisCompras', () => {
     const fakeCompras: CompraDoc[] = [
         {
             id: 1,
-            fecha: '2025-10-21',
+            fecha: '2025-10-22',
+            fecha_compra: '2025-10-21T21:24:34-03:00', // 21/10/2025
             cantidad_entradas: 2,
             monto_total: 10000,
             forma_pago: { id: 1, nombre: 'Efectivo' },
@@ -28,6 +29,7 @@ describe('MisCompras', () => {
         {
             id: 2,
             fecha: '2025-11-01',
+            fecha_compra: '2025-11-01T10:15:00-03:00', // 01/11/2025
             cantidad_entradas: 1,
             monto_total: 5000,
             forma_pago: { id: 2, nombre: 'Tarjeta' },

@@ -16,7 +16,8 @@ describe('DetalleCompra', () => {
 
     const fakeCompra: CompraDoc = {
         id: 1,
-        fecha: '2025-10-21',
+        fecha: '2025-10-22',
+        fecha_compra: '2025-10-21T21:24:34-03:00',
         cantidad_entradas: 2,
         monto_total: 10000,
         forma_pago: { id: 1, nombre: 'Efectivo' },

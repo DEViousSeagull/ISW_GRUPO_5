@@ -8,7 +8,8 @@ describe('ComprasDb', () => {
 
     const SAMPLE_COMPRA: CompraDoc = {
         id: 1,
-        fecha: '2025-10-21',
+        fecha: '2025-10-24',
+        fecha_compra: '2025-10-21T21:24:34-03:00',
         cantidad_entradas: 1,
         monto_total: 5000,
         forma_pago: { id: 1, nombre: 'Efectivo' },

@@ -126,13 +126,15 @@ describe('ComprarEntrada', () => {
     describe('Flujo de compra', () => {
         it('muestra el modal de confirmación al postear correctamente y renderiza datos', async () => {
             // fecha siempre futura
-            const future = new Date();
+            const now = new Date();
+            const future = now;
             future.setDate(future.getDate() + 10);
-            const iso = future.toISOString().slice(0, 10); // YYYY-MM-DD
+            const isoNow = now.toISOString(); // YYYY-MM-DD
+            const isoFuture = future.toISOString().slice(0, 10); // YYYY-MM-DD
 
             // completar formulario válido
             form.patchValue({
-                fechaVisita: iso,
+                fechaVisita: isoFuture,
                 cantidadEntradas: 2,
                 formaPago: 1, // id numérico
             });
@@ -150,7 +152,8 @@ describe('ComprarEntrada', () => {
             // respuesta simulada del backend
             const compraResp: CompraDoc = {
                 id: 99,
-                fecha: iso,
+                fecha: isoFuture,
+                fecha_compra: isoNow,
                 cantidad_entradas: 2,
                 monto_total: 10000,
                 forma_pago: { id: 1, nombre: 'Efectivo' },
@@ -176,7 +179,7 @@ describe('ComprarEntrada', () => {
 
             const modalText = modal.nativeElement.textContent.replace(/\s+/g, ' ');
             // La fecha renderizada con el DatePipe debe coincidir con iso en formato dd/MM/yyyy
-            const [y, m, d] = iso.split('-');
+            const [y, m, d] = isoFuture.split('-');
             const ddmmyyyy = `${d}/${m}/${y}`;
             expect(modalText).toContain('Compra confirmada');
             expect(modalText).toContain(ddmmyyyy);

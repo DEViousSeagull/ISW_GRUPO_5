@@ -21,9 +21,6 @@ export class ComprarEntrada implements OnInit {
     confirmModalVisible = false;
     detalleCompra?: CompraDoc;
 
-
-
-
     tiposPase: TipoEntrada[] = [];
     formasPago: FormaPago[] = [];
 
@@ -87,10 +84,10 @@ export class ComprarEntrada implements OnInit {
 
         // Check if Christmas or New Year's
         const month = fecha.getMonth() + 1; // getMonth() 0-11
-        const day = fecha.getDate() + 1; // empieza en 0
+        const day = fecha.getDate(); // empieza en 0
 
         console.log("MONTH", month, "DAY", day)
-        if ((month === 12 && day === 25) || ((month === 1 && day === 1) || (month === 12 && day === 32))) {
+        if ((month === 12 && day === 25) || (month === 1 && day === 1)) {
             return { parqueCerrado: true };
         }
 
@@ -207,9 +204,6 @@ export class ComprarEntrada implements OnInit {
             this.detalleCompra = response.compra;
             this.confirmModalVisible = true;
 
-            this.cantidadEntradasResumen = response.compra.cantidad_entradas;
-            this.fechaResumen = new Date(response.compra.fecha + 'T00:00:00');
-            this.resumenCompraVisible = true;
         } catch (err) {
             console.error('Error al crear compra:', err);
             alert('Hubo un error al procesar la compra.');

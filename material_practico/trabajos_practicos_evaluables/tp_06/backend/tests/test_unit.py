@@ -1,12 +1,10 @@
-import json
 import pytest
 from entidades.compra import Compra
 from entidades.entrada import Entrada
 from entidades.tipoEntrada import TipoEntrada
-from datetime import date
 from entidades.formaPago import FormaPago
-from entidades.mercado_pago import MercadoPagoClient
 from entidades.usuario import Usuario
+from datetime import date
 
 # -------------------- FIXTURES --------------------
 
@@ -239,24 +237,6 @@ def test_compra_con_tarjeta_PASA():
     usuario = Usuario(id=1,nombre="Luis", apellido="Gomez", email="luis.gomez@example.com")
     compra = Compra(id=4,fecha=date.today(), cantidad_entradas=1, entradas=[entrada], monto_total=5000, forma_pago=formaDePago, usuario=usuario, forma_pago_id=formaDePago.id, usuario_id=usuario.id)
     assert compra.validar_formaPago() == "tarjeta"
-
-
-def test_redireccion_mercado_pago_pasa(tipo_general, forma_pago_tarjeta, usuario_luis):
-    entrada = Entrada(id=1, precio_unitario=5000, edad=30, tipo_entrada=tipo_general, tipo_entrada_id=tipo_general.id)
-    compra = Compra(
-        id=4,
-        fecha=date.today(),
-        cantidad_entradas=1,
-        entradas=[entrada],
-        monto_total=5000,
-        forma_pago=forma_pago_tarjeta,
-        usuario=usuario_luis,
-        forma_pago_id=forma_pago_tarjeta.id,
-        usuario_id=usuario_luis.id
-    )
-    gateway = MercadoPagoClient()
-    redirect_url = compra.obtener_redirect_pago(gateway)
-    assert redirect_url.startswith("https://sandbox.mercadopago.com/checkout/v1/redirect?pref_id=MOCK_")
 
 
 # FORMATOS

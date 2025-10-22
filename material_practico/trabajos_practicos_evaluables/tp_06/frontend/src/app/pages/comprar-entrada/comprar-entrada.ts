@@ -186,7 +186,7 @@ export class ComprarEntrada implements OnInit {
     }
 
     // Reemplazar submitForm para abrir el modal de pago primero
-    async submitForm() {
+    async submitForm(openMail: boolean = true) {
         if (this.formEntrada.invalid) {
             this.formEntrada.markAllAsTouched();
             const firstError = document.querySelector('.ng-invalid');
@@ -210,20 +210,22 @@ export class ComprarEntrada implements OnInit {
             return;
         }
 
-        await this.crearCompra();
+        await this.crearCompra(openMail);
     }
 
-    async crearCompra() {
+    async crearCompra(openMail: boolean) {
         const postBody = this.buildPostBody();
         try {
             const response = await this.comprasDb.post(postBody);
             this.detalleCompra = response.compra;
             this.confirmModalVisible = true;
 
-            // Abrir la casilla de mail en otra pestaña, sin tomar el foco
-            const mailUrl = this.router.serializeUrl(this.router.createUrlTree(['/mail-box']));
-            window.open(mailUrl, '_blank', 'noopener,noreferrer');
-            window.focus(); // mantené el foco en esta pestaña
+            if(openMail) {
+                // Abrir la casilla de mail en otra pestaña, sin tomar el foco
+                const mailUrl = this.router.serializeUrl(this.router.createUrlTree(['/mail-box']));
+                window.open(mailUrl, '_blank', 'noopener,noreferrer');
+                window.focus(); // mantené el foco en esta pestaña
+            }
 
         } catch (err) {
             console.error('Error al crear compra:', err);

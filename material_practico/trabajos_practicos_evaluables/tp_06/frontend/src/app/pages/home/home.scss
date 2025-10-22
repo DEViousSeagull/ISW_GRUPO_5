@@ -14,26 +14,21 @@
     position: relative;
     width: 100%;
     max-height: 50vh;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-beige);
     overflow: hidden;
     margin-bottom: 2rem;
 
     .home-logo {
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
         display: block;
-        object-fit: cover;
-
-        /* Fade suave en los bordes */
-        mask-image: radial-gradient(circle at center,
-                rgba(0, 0, 0, 1) 75%,
-                rgba(0, 0, 0, 0) 100%);
-        -webkit-mask-image: radial-gradient(circle at center,
-                rgba(0, 0, 0, 1) 75%,
-                rgba(0, 0, 0, 0) 100%);
     }
-
-    /* Fondo de la zona visible (para que el fade se mezcle con el fondo beige) */
-    background-color: var(--bg-beige);
 }
 
 

@@ -9,6 +9,7 @@
     box-shadow: 0 2px 4px var(--shadow);
     font-family: 'Arial', sans-serif;
     position: relative;
+    gap: 16px;
 
     .logo h1 {
         margin: 0;
@@ -16,8 +17,9 @@
     }
 
     .nav-links {
+        flex: 1;
         display: flex;
-        gap: 1.5rem;
+        gap: 1.2rem;
 
         a {
             color: white;
@@ -84,5 +86,29 @@
 
     .footer-info p {
         margin: 0.2rem 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .app-header {
+        gap: 0px;
+
+        .logo h1 {
+            display: none;
+        }
+
+        .user-display {
+            margin-left: 8px;
+        }
+
+        .nav-links {
+            gap: 8px;
+        }
+    }
+}
+
+@media (max-width: 430px) {
+    .app-header {
+        font-size: 12px;
     }
 }

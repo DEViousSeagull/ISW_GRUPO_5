@@ -122,7 +122,7 @@ def test_GET_compras_PASA(client):
     assert item["cantidad_entradas"] == 1
     assert len(item["entradas"]) == 1
     assert item["entradas"][0]["id"] == 1
-    assert item["entradas"][0]["precio"] == 5000
+    assert item["entradas"][0]["precio_unitario"] == 5000
     assert item["entradas"][0]["edad"] == 30
     assert item["entradas"][0]["tipo_entrada"]["nombre"] == "General"
     assert item["forma_pago"]["id"] == 1

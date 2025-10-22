@@ -14,7 +14,7 @@
     <div class="compras-list">
         @for (compra of compras; track compra.id) {
         <div class="compra-card" (click)="irAMisEntradas(compra.id)">
-            <p><strong>ID:</strong> {{ compra.id }}</p>
+            <h3><strong>Compra N°</strong> {{ compra.id }}</h3>
             <p><strong>Fecha:</strong> {{ compra.fecha | date:'dd/MM/yyyy' }}</p>
             <p><strong>Cantidad de entradas:</strong> {{ compra.cantidad_entradas }}</p>
             <p><strong>Monto Total:</strong> {{ compra.monto_total | currency:'ARS':'symbol':'1.0-0' }}</p>

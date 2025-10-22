@@ -333,13 +333,9 @@ def test_crear_compra_no_tiene_usuario_FALLA():
         compra.validar_atributos_presentes()
 
 
-def test_compra_tres_entradas_monto_y_confirmacion_PASA():
-    tipo_reg = TipoEntrada(id=1,nombre="Regular")
-    tipo_vip = TipoEntrada(id=2,nombre="VIP")
-
-    entrada_nino = Entrada(id=1, precio_unitario=5000, edad=8, tipo_entrada=tipo_reg, tipo_entrada_id=tipo_reg.id)
-    entrada_bebe = Entrada(id=2, precio_unitario=5000, edad=1, tipo_entrada=tipo_reg, tipo_entrada_id=tipo_reg.id)
-    entrada_adulto_vip = Entrada(id=3, precio_unitario=5000, edad=40, tipo_entrada=tipo_vip, tipo_entrada_id=tipo_vip.id)
+def test_compra_tres_entradas_monto_y_confirmacion_PASA(
+    tipo_general, tipo_vip, forma_pago_tarjeta, usuario_luis         
+):
 
     entradas = [
         Entrada(id=1, precio_unitario=5000, edad=8, tipo_entrada=tipo_general, tipo_entrada_id=tipo_general.id),
@@ -347,21 +343,20 @@ def test_compra_tres_entradas_monto_y_confirmacion_PASA():
         Entrada(id=3, precio_unitario=5000, edad=40, tipo_entrada=tipo_vip, tipo_entrada_id=tipo_vip.id)
     ]
 
-    forma_pago = FormaPago(id=1,nombre="tarjeta")
-    usuario = Usuario(id=1,nombre="Carlos", apellido="Lopez", email="carlos.lopez@example.com")
-
     compra = Compra(
         id=4,
         fecha=date.today(),
         cantidad_entradas=3,
         entradas=entradas,
-        forma_pago=forma_pago_tarjeta,
-        usuario=usuario_luis,
+        forma_pago=forma_pago_tarjeta,   
+        usuario=usuario_luis,          
         monto_total=0,
-        forma_pago_id=forma_pago_tarjeta.id,
-        usuario_id=usuario_luis.id
+        forma_pago_id=forma_pago_tarjeta.id, 
+        usuario_id=usuario_luis.id        
     )
+
     total_calculado = compra.calcular_monto_total()
+
     assert total_calculado == 12500
     assert compra.monto_total == 12500
     assert compra.validar_formaPago() == "Tarjeta"

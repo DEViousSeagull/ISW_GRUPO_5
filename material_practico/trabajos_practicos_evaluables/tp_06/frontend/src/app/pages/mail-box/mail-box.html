@@ -32,7 +32,7 @@
                         Confirmacion de compra N° {{ c.id }}, para la fecha de visita {{ c.fecha | date:'dd-MM-yyyy' }}!
                     </div>
                     <div class="date">{{ c.fecha | date:'dd-MM-yyyy' }}</div>
-                    <div class="mail-snippet">
+                    <!-- <div class="mail-snippet">
                         ¡Gracias por tu compra en <strong>EcoHarmony Park</strong>!<br>
                         Monto:
                         <strong>{{ c.monto_total | currency:'ARS':'symbol':'1.0-0' }}</strong> ·
@@ -40,12 +40,20 @@
                         <strong>{{ c.forma_pago.nombre }}</strong> ·
                         Entradas:
                         <strong>{{ c.cantidad_entradas }}</strong>
+                    </div> -->
+
+                    <div class="mail-snippet">
+                        ¡Gracias por tu compra en <strong>EcoHarmony Park</strong>!<br>
+                        Monto: <strong>{{ c.monto_total | currency:'ARS':'symbol':'1.0-0' }}</strong> ·
+                        Forma de pago: <strong>{{ c.forma_pago.nombre }}</strong> ·
+                        Entradas: <strong>{{ c.cantidad_entradas }}</strong><br>
                     </div>
+
                 </div>
 
                 <div class="mail-meta">
                     <div class="from">no-reply@ecoharmonypark.com</div>
-                    <div class="date">{{ c.fecha | date:'dd/MM/yyyy' }}</div>
+                    <div class="date">{{ formatFechaCompra(c.fecha_compra) | date: 'dd/MM/yyyy HH:mm' }}</div>
                 </div>
             </li>
             }

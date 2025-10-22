@@ -32,6 +32,7 @@ export interface UsuarioDoc {
 export interface CompraDoc {
     id: number;
     fecha: string; // ISO date from backend
+    fecha_compra: string; // ISO datetime from backend
     cantidad_entradas: number;
     monto_total: number;
     forma_pago: FormaPagoDoc;
@@ -39,24 +40,25 @@ export interface CompraDoc {
     entradas: EntradaDoc[];
 }
 
-export const MOCK_COMPRAS: CompraDoc[] = [
-    {
-        id: 1,
-        fecha: '2025-10-21',
-        cantidad_entradas: 1,
-        monto_total: 5000,
-        forma_pago: { id: 1, nombre: 'Efectivo' },
-        usuario: { id: 1, nombre: 'Juan', apellido: 'Pérez', email: 'juan@example.com' },
-        entradas: [
-            {
-                id: 1,
-                precio_unitario: 5000,
-                edad: 30,
-                tipo_entrada: { id: 2, nombre: 'General' }
-            }
-        ]
-    },
-];
+// export const MOCK_COMPRAS: CompraDoc[] = [
+//     {
+//         id: 1,
+//         fecha: '2025-10-21',
+//         fecha: '2025-10-21',
+//         cantidad_entradas: 1,
+//         monto_total: 5000,
+//         forma_pago: { id: 1, nombre: 'Efectivo' },
+//         usuario: { id: 1, nombre: 'Juan', apellido: 'Pérez', email: 'juan@example.com' },
+//         entradas: [
+//             {
+//                 id: 1,
+//                 precio_unitario: 5000,
+//                 edad: 30,
+//                 tipo_entrada: { id: 2, nombre: 'General' }
+//             }
+//         ]
+//     },
+// ];
 
 export interface PostBody {
     fecha: string, // "2025-10-21",

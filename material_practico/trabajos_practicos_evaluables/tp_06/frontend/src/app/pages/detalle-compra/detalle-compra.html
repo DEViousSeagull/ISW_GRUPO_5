@@ -15,7 +15,9 @@
         }
         @else {
         <div class="compra-info">
-            <p><strong>Fecha:</strong> {{ compra.fecha | date:'dd/MM/yyyy' }}</p>
+            <p><strong>Fecha de visita:</strong> {{ compra.fecha | date:'dd/MM/yyyy' }}</p>
+            <p><strong>Fecha de compra:</strong> {{ formatFechaCompra(compra.fecha_compra) | date: 'dd/MM/yyyy HH:mm' }}</p>
+
             <p><strong>Cantidad de entradas:</strong> {{ compra.cantidad_entradas }}</p>
             <p><strong>Monto Total:</strong> {{ compra.monto_total | currency:'ARS':'symbol':'1.0-0' }}</p>
             <p><strong>Forma de Pago:</strong> {{ compra.forma_pago.nombre }}</p>

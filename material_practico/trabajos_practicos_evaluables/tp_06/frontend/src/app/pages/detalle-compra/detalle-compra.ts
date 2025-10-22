@@ -54,4 +54,12 @@ export class DetalleCompra implements OnInit {
         window.open(mailUrl, '_blank', 'noopener,noreferrer');
         window.focus(); // mantené el foco en esta pestaña
     }
+
+    formatFechaCompra(fechaIso?: string) {
+        if (!fechaIso) return '';
+        const fecha = new Date(fechaIso);
+        // // Argentina is UTC-3
+        fecha.setHours(fecha.getHours() - 3);
+        return fecha;
+    }
 }

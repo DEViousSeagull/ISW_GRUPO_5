@@ -8,35 +8,33 @@ from datetime import date
 from typing import List, Optional
 
 
+from datetime import date
+from pytz import timezone
+
+ARG_TZ = timezone("America/Argentina/Buenos_Aires")
+
 class CompraService:
-    #@staticmethod
-    # def get_all():
-    #     """Devuelve todas las formas de pago en formato lista de dicts"""
-    #     with Session(engine) as session:
-    #         compras = session.scalars(select(Compra)).all()
-    #         return [{"id": c.id, "fecha": c.fecha, "cantidad_entradas": c.cantidad_entradas, "monto_total": c.monto_total, "forma_pago": c.forma_pago, "usuario": c.usuario_id, "mercado_pago": c.mercado_pago_redirect_url} for c in compras]
-       
     @staticmethod
     def get_all() -> List[dict]:
         with Session(engine) as session:
-            # Carga todas las relaciones asociadas
             compras = session.query(Compra).options(
                 joinedload(Compra.usuario),
                 joinedload(Compra.forma_pago),
                 joinedload(Compra.entradas).joinedload(Entrada.tipo_entrada)
             ).all()
 
-            # Convertimos a formato JSON-friendly
             resultado = []
             for c in compras:
+                fecha_compra_arg = c.fecha_compra.astimezone(ARG_TZ) if c.fecha_compra else None
                 resultado.append({
                     "id": c.id,
                     "fecha": c.fecha.isoformat() if c.fecha else None,
+                    "fecha_compra": fecha_compra_arg.isoformat() if fecha_compra_arg else None,
                     "cantidad_entradas": c.cantidad_entradas,
                     "monto_total": c.monto_total,
                     "forma_pago": {
                         "id": c.forma_pago.id if c.forma_pago else None,
-                        "nombre":c.forma_pago.nombre if c.forma_pago else None,
+                        "nombre": c.forma_pago.nombre if c.forma_pago else None,
                     },
                     "usuario": {
                         "id": c.usuario.id if c.usuario else None,
@@ -62,7 +60,6 @@ class CompraService:
     @staticmethod
     def post_compra(data: dict) -> dict:
         with Session(engine) as session:
-            # Crear nueva compra
             nueva_compra = Compra(
                 fecha=date.fromisoformat(data["fecha"]),
                 cantidad_entradas=data["cantidad_entradas"],
@@ -70,29 +67,29 @@ class CompraService:
                 forma_pago_id=data["forma_pago"]["id"]
             )
 
-            # Agregar entradas y calcular precio unitario según reglas
             for entrada_data in data["entradas"]:
                 entrada = Entrada(
                     edad=entrada_data["edad"],
                     tipo_entrada_id=entrada_data["tipo_entrada"]["id"],
-                    precio_unitario=0  # Inicial temporal, se calcula después
+                    precio_unitario=0
                 )
-                entrada.calcular_precio()  # Ajusta precio según edad y tipo
+                entrada.calcular_precio()
                 nueva_compra.entradas.append(entrada)
 
-            # Calcular monto total
             nueva_compra.calcular_monto_total()
 
             session.add(nueva_compra)
             session.commit()
             session.refresh(nueva_compra)
 
-            # Retornar respuesta formateada
+            fecha_compra_arg = nueva_compra.fecha_compra.astimezone(ARG_TZ) if nueva_compra.fecha_compra else None
+
             return {
                 "mensaje": "Compra creada exitosamente",
                 "compra": {
                     "id": nueva_compra.id,
                     "fecha": nueva_compra.fecha.isoformat(),
+                    "fecha_compra": fecha_compra_arg.isoformat() if fecha_compra_arg else None,
                     "cantidad_entradas": nueva_compra.cantidad_entradas,
                     "monto_total": nueva_compra.monto_total,
                     "forma_pago": {

@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import List, Optional, TYPE_CHECKING
-from datetime import date
+from datetime import date, datetime
 
-from sqlalchemy import CheckConstraint, ForeignKey, Integer, String, Float, Date, Text
+from sqlalchemy import CheckConstraint, ForeignKey, Integer, String, Float, Date, Text, func, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from entidades.base import Base
 
@@ -28,12 +28,15 @@ class Compra(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     fecha: Mapped[date] = mapped_column(Date, nullable=False)
+    fecha_compra: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
+
     cantidad_entradas: Mapped[int] = mapped_column(Integer, nullable=False)
     monto_total: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
 
     forma_pago_id: Mapped[int] = mapped_column(ForeignKey("formas_pago.id", onupdate="CASCADE", ondelete="RESTRICT"), nullable=False)
     usuario_id: Mapped[int] = mapped_column(ForeignKey("usuarios.id", onupdate="CASCADE", ondelete="RESTRICT"), nullable=False)
     mercado_pago_redirect_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+
 
     __table_args__ = (
         CheckConstraint("cantidad_entradas BETWEEN 1 AND 10", name="ck_compras_cantidad_1_10"),)

@@ -4,37 +4,48 @@ import { RouterModule, Router } from '@angular/router';
 import { ComprasDb, CompraDoc } from '../../services/compras/compras-db';
 
 @Component({
-    selector: 'app-mail-box',
-    standalone: true,
-    imports: [DatePipe, CurrencyPipe, RouterModule],
-    templateUrl: './mail-box.html',
-    styleUrls: ['./mail-box.scss']
+    selector: 'app-mail-box',
+    standalone: true,
+    imports: [DatePipe, CurrencyPipe, RouterModule],
+    templateUrl: './mail-box.html',
+    styleUrls: ['./mail-box.scss']
 })
 export class MailBox implements OnInit {
 
-    private comprasDb = inject(ComprasDb);
-    private router = inject(Router);
 
-    loading = false;
-    error?: string;
-    compras: CompraDoc[] = [];
 
-    async ngOnInit() {
-        this.loading = true;
-        try {
-            this.compras = await this.comprasDb.getAll();
+    loading = false;
+    error?: string;
+    compras: CompraDoc[] = [];
 
-            this.compras.sort((a, b) => b.id - a.id);
+    constructor(private comprasDb: ComprasDb, private router: Router,) {
 
-        } catch (e) {
-            console.error(e);
-            this.error = 'No se pudieron cargar los correos.';
-        } finally {
-            this.loading = false;
-        }
-    }
+    }
 
-    abrirDetalle(id: number) {
-        this.router.navigate(['/mis-compras', id]);
-    }
+    async ngOnInit() {
+        this.loading = true;
+        try {
+            this.compras = await this.comprasDb.getAll();
+
+            this.compras.sort((a, b) => b.id - a.id);
+
+        } catch (e) {
+            console.error(e);
+            this.error = 'No se pudieron cargar los correos.';
+        } finally {
+            this.loading = false;
+        }
+    }
+
+    abrirDetalle(id: number) {
+        this.router.navigate(['/mis-compras', id]);
+    }
+
+    formatFechaCompra(fechaIso?: string) {
+        if (!fechaIso) return '';
+        const fecha = new Date(fechaIso);
+        // // Argentina is UTC-3
+        fecha.setHours(fecha.getHours() - 3);
+        return fecha;
+    }
 }

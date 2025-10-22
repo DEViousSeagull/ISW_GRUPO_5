@@ -31,4 +31,12 @@ export class MisCompras implements OnInit {
     irAMisEntradas(compraId: number) {
         this.router.navigate(['/mis-compras', compraId]);
     }
+
+    formatFechaCompra(fechaIso?: string) {
+        if (!fechaIso) return '';
+        const fecha = new Date(fechaIso);
+        // // Argentina is UTC-3
+        fecha.setHours(fecha.getHours() - 3);
+        return fecha;
+    }
 }

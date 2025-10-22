@@ -61,6 +61,8 @@ class Usuario(Base):
                 errores.append("'id' no puede ser None")
             elif not isinstance(id_val, int):
                 errores.append("'id' debe ser int")
+            elif id_val < 1:
+                errores.append("'id' debe ser >= 1")
 
         if errores:
             raise ValueError("; ".join(errores))

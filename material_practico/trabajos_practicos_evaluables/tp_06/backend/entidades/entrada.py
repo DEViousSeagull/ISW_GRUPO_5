@@ -95,15 +95,15 @@ class Entrada(Base):
         else:
             if not isinstance(self.id, int):
                 errores.append("id debe ser int")
-            elif self.id < 0:
-                errores.append("id debe ser >= 0")
+            elif self.id < 1:
+                errores.append("id debe ser >= 1")
         if getattr(self, "compra_id", None) is None:
             errores.append("compra_id ausente") 
         else:
             if not isinstance(self.compra_id, int):
                 errores.append("compra_id debe ser int")
-            elif self.compra_id < 0:
-                errores.append("compra_id debe ser >= 0")
+            elif self.compra_id < 1:
+                errores.append("compra_id debe ser >= 1")
         if getattr(self, "compra", None) is None:
             errores.append("compra ausente")
         else:

@@ -126,8 +126,8 @@ class Compra(Base):
             "forma_pago": lambda v: isinstance(v, FormaPago),
             "usuario": lambda v: isinstance(v, Usuario),
             "monto_total": lambda v: isinstance(v, int) and v >= 0,
-            "forma_pago_id": lambda v: isinstance(v, int) and v >= 0,
-            "usuario_id": lambda v: isinstance(v, int) and v >= 0,
+            "forma_pago_id": lambda v: isinstance(v, int) and v >= 1,
+            "usuario_id": lambda v: isinstance(v, int) and v >= 1,
         }
 
         faltantes = []

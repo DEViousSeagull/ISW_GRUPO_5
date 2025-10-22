@@ -80,7 +80,7 @@ export class ComprarEntrada implements OnInit {
         if (fecha < hoy) return { fechaPasada: true };
 
         // Check if Monday (0 = Monday, ...)
-        if (fecha.getDay() === 0) return { parqueCerrado: true };
+        if (fecha.getDay() === 1) return { parqueCerrado: true };
 
         // Check if Christmas or New Year's
         const month = fecha.getMonth() + 1; // getMonth() 0-11

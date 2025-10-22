@@ -24,7 +24,7 @@ export class MailBox implements OnInit {
         try {
             this.compras = await this.comprasDb.getAll();
             // Orden opcional: más recientes primero por fecha (ISO)
-            this.compras.sort((a, b) => b.fecha.localeCompare(a.fecha));
+            // this.compras.sort((a, b) => b.fecha.localeCompare(a.fecha));
         } catch (e) {
             console.error(e);
             this.error = 'No se pudieron cargar los correos.';

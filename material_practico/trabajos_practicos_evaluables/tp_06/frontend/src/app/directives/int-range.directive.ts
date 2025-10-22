@@ -32,7 +32,6 @@ export class IntRangeDirective {
         const selStart = input.selectionStart ?? input.value.length;
         const selEnd = input.selectionEnd ?? input.value.length;
         let next: string;
-        console.log("INPUT", selStart, selEnd)
 
         if (selStart === 0 && selEnd === input.value.length) {
             next = key; // replace all

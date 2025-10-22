@@ -86,7 +86,6 @@ export class ComprarEntrada implements OnInit {
         const month = fecha.getMonth() + 1; // getMonth() 0-11
         const day = fecha.getDate(); // empieza en 0
 
-        console.log("MONTH", month, "DAY", day)
         if ((month === 12 && day === 25) || (month === 1 && day === 1)) {
             return { parqueCerrado: true };
         }
@@ -178,6 +177,22 @@ export class ComprarEntrada implements OnInit {
 
 
 
+    // En la clase ComprarEntrada (propiedades nuevas)
+    paymentModalVisible = false;
+    paymentProcessing = false;
+    paymentSuccess = false;
+    totalAPagar = 0;
+
+    // (helper) total a partir del form actual
+    private calcularTotalFromForm(): number {
+        return this.visitantes.controls.reduce((acc, ctrl) => {
+            const edad = Number(ctrl.get('edad')?.value);
+            const tipo = Number(ctrl.get('tipoPase')?.value);
+            return acc + calcularPrecio(tipo, edad);
+        }, 0);
+    }
+
+    // Reemplazar submitForm para abrir el modal de pago primero
     async submitForm() {
         if (this.formEntrada.invalid) {
             this.formEntrada.markAllAsTouched();
@@ -186,31 +201,68 @@ export class ComprarEntrada implements OnInit {
             return;
         }
 
-        // this.cantidadEntradasResumen = this.formEntrada.get('cantidadEntradas')?.value;
-        // this.fechaResumen = new Date(this.formEntrada.get('fechaVisita')?.value);
-        // this.resumenCompraVisible = true;
+        const formaPagoId = Number(this.formEntrada.get('formaPago')?.value);
+        this.totalAPagar = this.calcularTotalFromForm();
 
-        // console.log(this.formEntrada.value);
+        // Si no es efectivo (id ≠ 1), mostrar modal de pago
+        if (formaPagoId !== 1) {
+            this.paymentModalVisible = true;
+            return;
+        }
 
+        await this.crearCompra();
+    }
+
+    async crearCompra(awaitPayment: boolean = false) {
         const postBody = this.buildPostBody();
-        // console.log(postBody);
-
-
-
         try {
             const response = await this.comprasDb.post(postBody);
-            console.log('Compra creada:', response.compra);
-
             this.detalleCompra = response.compra;
-            this.confirmModalVisible = true;
+            // this.confirmModalVisible = true;
+
+            if (awaitPayment) {
+                setTimeout(() => {
+                    this.paymentModalVisible = false;
+                    this.paymentSuccess = false;
+                    this.confirmModalVisible = true;
+                }, 800);
+            } else {
+                this.paymentModalVisible = false;
+                this.paymentSuccess = false;
+                this.confirmModalVisible = true;
+            }
 
         } catch (err) {
             console.error('Error al crear compra:', err);
             alert('Hubo un error al procesar la compra.');
+            this.paymentModalVisible = false;
+            this.paymentSuccess = false;
         }
-
     }
 
+    async confirmarPago() {
+        const formaPagoId = Number(this.formEntrada.get('formaPago')?.value);
+
+        // 💳 Solo simular pago si es tarjeta (id = 2)
+        if (formaPagoId === 2) {
+            if (this.paymentProcessing) return;
+            this.paymentProcessing = true;
+
+            await new Promise(res => setTimeout(res, 2000));
+            this.paymentProcessing = false;
+            this.paymentSuccess = true;
+        }
+
+        this.crearCompra(true);
+    }
+
+
+    // Opción para cerrar/cancelar el modal de pago
+    cancelarPago() {
+        if (this.paymentProcessing) return;
+        this.paymentModalVisible = false;
+        this.paymentSuccess = false;
+    }
 
     continuarComprando() {
         this.confirmModalVisible = false;
@@ -227,4 +279,22 @@ export class ComprarEntrada implements OnInit {
         this.visitantes.clear();
     }
 
+}
+
+function calcularPrecio(tipoEntradaId: number, edad: number): number {
+    let precioUnitario: number;
+
+    if (tipoEntradaId === 1) {
+        precioUnitario = 10000;
+    } else {
+        precioUnitario = 5000;
+    }
+
+    if ((edad >= 3 && edad < 10) || edad > 60) {
+        precioUnitario = precioUnitario / 2;
+    } else if (edad < 3) {
+        precioUnitario = 0;
+    }
+
+    return precioUnitario;
 }

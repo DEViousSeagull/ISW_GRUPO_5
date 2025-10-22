@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
 export class Home {
     constructor(private router: Router) { }
     onClick() {
-        console.log("COMPRAR ENTRADAS")
         this.router.navigate(['comprar-entrada']);
     }
 }

@@ -112,7 +112,46 @@
     <button type="submit" class="btn-comprar">Comprar</button>
 </form>
 
-@if (confirmModalVisible && detalleCompra) {
+<!-- Modal de Pago (estética Mercado Pago) -->
+@if (paymentModalVisible) {
+  <div class="mp-overlay">
+    <div class="mp-card" role="dialog" aria-modal="true" aria-label="Pago con Mercado Pago">
+      <div class="mp-header">
+        <div class="mp-badge">Mercado Pago</div>
+        <div class="mp-sub">Checkout seguro</div>
+      </div>
+
+      <div class="mp-body">
+        <p class="mp-total-label">Total a pagar</p>
+        <p class="mp-total-valor">{{ totalAPagar | currency:'ARS':'symbol':'1.0-0' }}</p>
+
+        @if (!paymentSuccess) {
+          <button class="mp-btn-pagar"
+                  [disabled]="paymentProcessing"
+                  (click)="confirmarPago()">
+            @if (paymentProcessing) { <span class="mp-spinner"></span> Procesando... }
+            @else { Pagar {{ totalAPagar | currency:'ARS':'symbol':'1.0-0' }} }
+          </button>
+
+          <button class="mp-btn-cancelar" (click)="cancelarPago()" [disabled]="paymentProcessing">
+            Cancelar
+          </button>
+        }
+        @else {
+          <div class="mp-success">
+            <span class="mp-check">✓</span>
+            <p>Pago realizado</p>
+          </div>
+        }
+      </div>
+
+      <div class="mp-footer">
+        <small>Simulación de pago para pruebas</small>
+      </div>
+    </div>
+  </div>
+}
+@else if (confirmModalVisible && detalleCompra) {
 <div class="modal-overlay">
     <div class="modal-card">
         <h2>Compra confirmada</h2>

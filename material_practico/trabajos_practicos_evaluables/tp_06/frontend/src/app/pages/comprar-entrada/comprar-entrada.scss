@@ -199,3 +199,153 @@ select:focus {
         transform: scale(1);
     }
 }
+
+/* === Modal Pago (estética Mercado Pago) === */
+.mp-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+.mp-card {
+    width: 92%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, .25);
+    animation: fadeIn .25s ease-out;
+}
+
+.mp-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    background: linear-gradient(135deg, #009ee3 0%, #007ac1 100%);
+    color: #eaf7ff;
+    padding: 18px 20px 14px;
+}
+
+.mp-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, .15);
+    border: 1px solid rgba(255, 255, 255, .35);
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+
+.mp-sub {
+    margin-top: 6px;
+    opacity: .9;
+    font-size: .9rem;
+}
+
+.mp-body {
+    padding: 18px 20px 8px;
+    text-align: center;
+}
+
+.mp-total-label {
+    margin: 0;
+    color: #546e7a;
+    font-size: .95rem;
+}
+
+.mp-total-valor {
+    margin: 6px 0 18px;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #002e5b;
+}
+
+.mp-btn-pagar {
+    width: 100%;
+    border: 0;
+    border-radius: 10px;
+    padding: .85rem 1rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    background: #009ee3;
+    color: #fff;
+    transition: transform .12s ease, filter .12s ease;
+}
+
+.mp-btn-pagar:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+.mp-btn-pagar:disabled {
+    opacity: .75;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.mp-btn-cancelar {
+    margin-top: 10px;
+    width: 100%;
+    background: transparent;
+    border: 1px solid #cfd8dc;
+    color: #546e7a;
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.mp-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: #2e7d32;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 8px 0 2px;
+}
+
+.mp-check {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+}
+
+.mp-footer {
+    padding: 10px 16px 16px;
+    text-align: center;
+    color: #90a4ae;
+    font-size: .8rem;
+}
+
+/* Spinner */
+.mp-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-top-color: #fff;
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: mpSpin .8s linear infinite;
+}
+
+@keyframes mpSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}

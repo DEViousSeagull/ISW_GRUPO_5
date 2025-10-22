@@ -38,30 +38,38 @@
         }
     }
 
-    /* User display */
     .user-display {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.6rem;
         font-weight: 500;
+        background-color: var(--green-light);
+        padding: 0.4rem 0.8rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        transition: background-color 0.3s ease;
 
         span {
-            color: white;
+            color: grey;
         }
 
         img {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            border: 1px solid white;
+            border: 2px solid white;
+        }
+
+        &:hover {
+            background-color: color-mix(in srgb, var(--green-light) 90%, black);
         }
     }
+
 }
 
 /* Main content */
 .app-content {
     min-height: calc(100vh - 120px); // header + footer
-    padding: 2rem;
     color: var(--text-main);
 }
 

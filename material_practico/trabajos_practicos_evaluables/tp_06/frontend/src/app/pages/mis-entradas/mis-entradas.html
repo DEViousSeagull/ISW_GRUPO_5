@@ -23,7 +23,7 @@
         <table class="tabla-compras">
             <thead>
                 <tr>
-                    <th>ID Entrada</th>
+                    <!-- <th>ID Entrada</th> -->
                     <th>Tipo de Pase</th>
                     <th>Edad</th>
                     <th>Precio</th>
@@ -32,7 +32,7 @@
             <tbody>
                 @for (entrada of entradas; track entrada.id) {
                 <tr>
-                    <td>{{ entrada.id }}</td>
+                    <!-- <td>{{ entrada.id }}</td> -->
                     <td>{{ entrada.tipo_entrada.nombre }}</td>
                     <td>{{ entrada.edad }}</td>
                     <td>{{ entrada.precio_unitario | currency:'ARS':'symbol':'1.0-0' }}</td>

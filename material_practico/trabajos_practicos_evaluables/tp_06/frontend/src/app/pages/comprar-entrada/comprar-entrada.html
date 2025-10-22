@@ -76,6 +76,9 @@
                 @else if(edadHasError(i,'min')) {
                 La edad mínima es 1.
                 }
+                @else if(edadHasError(i,'max')) {
+                La edad máxima es 100.
+                }
             </small>
             }
             @else if(paseInvalid(i)) {
@@ -109,10 +112,30 @@
     <button type="submit" class="btn-comprar">Comprar</button>
 </form>
 
-@if (resumenCompraVisible) {
+<!-- @if (resumenCompraVisible) {
 <div class="resumen-compra">
     <h3>Resumen de compra</h3>
     <p><strong>Cantidad de entradas:</strong> {{ cantidadEntradasResumen }}</p>
     <p><strong>Fecha de visita:</strong> {{ fechaResumen | date: 'dd/MM/yy' }}</p>
+</div>
+} -->
+
+@if (confirmModalVisible && detalleCompra) {
+<div class="modal-overlay">
+    <div class="modal-card">
+        <h2>Compra confirmada</h2>
+        <p><strong>Cantidad de entradas:</strong> {{ detalleCompra.cantidad_entradas }}</p>
+        <p><strong>Fecha de visita:</strong> {{ detalleCompra.fecha | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Monto total:</strong> {{ detalleCompra.monto_total | currency:'ARS':'symbol':'1.0-0' }}</p>
+        <p class="mensaje">
+            Se ha enviado un mail de confirmación a
+            <strong>{{ detalleCompra.usuario.email }}</strong>.
+        </p>
+
+        <div class="modal-buttons">
+            <button class="btn-cerrar" (click)="verDetalle(detalleCompra.id)">Ver detalle</button>
+            <button class="btn-cerrar" (click)="continuarComprando()">Seguir comprando</button>
+        </div>
+    </div>
 </div>
 }

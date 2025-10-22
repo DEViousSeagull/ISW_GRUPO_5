@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { MOCK_USER } from '../../app';
 
 
 // entrada.model.ts
@@ -93,7 +94,9 @@ export class ComprasDb {
         //     return new Promise(resolve => setTimeout(() => resolve(MOCK_COMPRAS), 300));
         // }
 
-        return firstValueFrom(this.http.get<Array<CompraDoc>>(this.baseUrl));
+        const docs = firstValueFrom(this.http.get<Array<CompraDoc>>(this.baseUrl));
+
+        return (await docs).filter(doc=> doc.usuario.id === MOCK_USER.id)
     }
 
     async getById(id: number): Promise<CompraDoc | undefined> {

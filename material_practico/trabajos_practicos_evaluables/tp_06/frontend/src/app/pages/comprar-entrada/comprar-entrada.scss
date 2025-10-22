@@ -130,3 +130,72 @@ select:focus {
 .error-visitante {
     margin-bottom: 12px;
 }
+
+
+
+
+// modal
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+
+}
+
+.modal-card {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-card h2 {
+    margin-bottom: 1rem;
+    color: #2b7a0b;
+}
+
+.modal-card .mensaje {
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+
+    .btn-cerrar {
+        margin-top: 1.5rem;
+        padding: 0.6rem 1.2rem;
+        background: #2b7a0b;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+    }
+
+    .btn-cerrar:hover {
+        background: #236307;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

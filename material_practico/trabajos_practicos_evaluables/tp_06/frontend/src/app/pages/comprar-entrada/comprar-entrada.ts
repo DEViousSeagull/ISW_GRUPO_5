@@ -1,24 +1,28 @@
-import { DatePipe, NgClass } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { IntRangeDirective } from '../../directives/int-range.directive';
 import { TipoEntrada, TiposPaseDb } from '../../services/tipos-pase/tipos-pase-db';
-import { ComprasDb, PostBody } from '../../services/compras/compras-db';
+import { CompraDoc, ComprasDb, PostBody } from '../../services/compras/compras-db';
 import { FormaPago, FormasPagoDb } from '../../services/formas-pago/formas-pago-db';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-comprar-entrada',
     templateUrl: './comprar-entrada.html',
     styleUrls: ['./comprar-entrada.scss'],
     standalone: true,
-    imports: [DatePipe, ReactiveFormsModule, IntRangeDirective, NgClass]
+    imports: [DatePipe, ReactiveFormsModule, IntRangeDirective, NgClass, CurrencyPipe]
 })
 export class ComprarEntrada implements OnInit {
     formEntrada: FormGroup;
-    resumenCompraVisible = false;
-    cantidadEntradasResumen = 0;
-    fechaResumen!: Date;
-    diasCerrados = ['2025-10-19'];
+
+
+    confirmModalVisible = false;
+    detalleCompra?: CompraDoc;
+
+
+
 
     tiposPase: TipoEntrada[] = [];
     formasPago: FormaPago[] = [];
@@ -27,7 +31,8 @@ export class ComprarEntrada implements OnInit {
         private fb: FormBuilder,
         private tiposPaseDb: TiposPaseDb,
         private formasPagoDb: FormasPagoDb,
-        private comprasDb: ComprasDb
+        private comprasDb: ComprasDb,
+        private router: Router
     ) {
         this.formEntrada = this.buildForm();
     }
@@ -68,8 +73,11 @@ export class ComprarEntrada implements OnInit {
     get visitantes(): FormArray {
         return this.formEntrada.get('visitantes') as FormArray;
     }
+
     fechaValida(control: AbstractControl) {
+        console.log("C VAL", control.value)
         const fecha = new Date(control.value);
+        console.log("FECHA", control.value)
         const hoy = new Date();
         hoy.setHours(0, 0, 0, 0);
 
@@ -81,8 +89,10 @@ export class ComprarEntrada implements OnInit {
 
         // Check if Christmas or New Year's
         const month = fecha.getMonth() + 1; // getMonth() 0-11
-        const day = fecha.getDate();
-        if ((month === 12 && day === 25) || (month === 1 && day === 1)) {
+        const day = fecha.getDate() + 1; // empieza en 0
+
+        console.log("MONTH", month, "DAY", day)
+        if ((month === 12 && day === 25) || ((month === 1 && day === 1) || (month === 12 && day === 32))) {
             return { parqueCerrado: true };
         }
 
@@ -195,14 +205,31 @@ export class ComprarEntrada implements OnInit {
         try {
             const response = await this.comprasDb.post(postBody);
             console.log('Compra creada:', response.compra);
-            // alert(`Compra exitosa! Monto total: ${response.compra.monto_total}`);
 
-            this.cantidadEntradasResumen = response.compra.cantidad_entradas;
-            this.fechaResumen = new Date(response.compra.fecha);
-            this.resumenCompraVisible = true;
+            this.detalleCompra = response.compra;
+            this.confirmModalVisible = true;
+
         } catch (err) {
             console.error('Error al crear compra:', err);
             alert('Hubo un error al procesar la compra.');
         }
+
     }
+
+
+    continuarComprando() {
+        this.confirmModalVisible = false;
+        this.formEntrada.reset();
+        this.visitantes.clear();
+    }
+
+    async verDetalle(id: number) {
+
+        await this.router.navigate(['/mis-entradas', id]);
+
+        this.confirmModalVisible = false;
+        this.formEntrada.reset();
+        this.visitantes.clear();
+    }
+
 }

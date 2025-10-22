@@ -4,10 +4,16 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 interface AppUser {
     nombre: string,
     apellido: string,
-    email: string
+    email: string,
+    id: number
 }
 
-
+export const MOCK_USER: AppUser = {
+    nombre: "Juan",
+    apellido: "Pérez",
+    email: "juan@example.com",
+    id: 1
+}
 
 @Component({
     selector: 'app-root',
@@ -16,10 +22,6 @@ interface AppUser {
     imports: [RouterOutlet, RouterModule],
 })
 export class App {
-    protected mockUser: AppUser = {
-        nombre: "Juan",
-        apellido: "Pérez",
-        email: "juan@example.com"
-    }
+    protected mockUser: AppUser = MOCK_USER;
 
 }

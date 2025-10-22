@@ -29,6 +29,6 @@ export class MisCompras implements OnInit {
     }
 
     irAMisEntradas(compraId: number) {
-        this.router.navigate(['/mis-entradas', compraId]);
+        this.router.navigate(['/mis-compras', compraId]);
     }
 }

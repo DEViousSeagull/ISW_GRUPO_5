@@ -1,154 +1,196 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule, FormGroup, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormArray, FormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { ComprarEntrada } from './comprar-entrada';
 import { routes } from '../../app.routes';
 import { provideLocationMocks } from '@angular/common/testing';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import esAR from '@angular/common/locales/es-AR';
+
+import { TiposPaseDb, TipoEntrada } from '../../services/tipos-pase/tipos-pase-db';
+import { FormasPagoDb, FormaPago } from '../../services/formas-pago/formas-pago-db';
+import { ComprasDb, PostBody, CompraDoc } from '../../services/compras/compras-db';
+
+registerLocaleData(esAR);
 
 describe('ComprarEntrada', () => {
     let component: ComprarEntrada;
-    let formEntrada: FormGroup;
     let fixture: ComponentFixture<ComprarEntrada>;
+    let form: FormGroup;
+
+    // spies de servicios
+    let mockTiposPaseDb: jasmine.SpyObj<TiposPaseDb>;
+    let mockFormasPagoDb: jasmine.SpyObj<FormasPagoDb>;
+    let mockComprasDb: jasmine.SpyObj<ComprasDb>;
+
+    const TIPOS: TipoEntrada[] = [
+        { id: 1, nombre: 'VIP' },
+        { id: 2, nombre: 'General' },
+    ];
+    const FORMAS: FormaPago[] = [
+        { id: 1, nombre: 'Efectivo' },
+        { id: 2, nombre: 'Tarjeta' },
+    ];
 
     beforeEach(async () => {
+        mockTiposPaseDb = jasmine.createSpyObj('TiposPaseDb', ['getAll']);
+        mockFormasPagoDb = jasmine.createSpyObj('FormasPagoDb', ['getAll']);
+        mockComprasDb = jasmine.createSpyObj('ComprasDb', ['post']);
+
+        mockTiposPaseDb.getAll.and.returnValue(Promise.resolve(TIPOS));
+        mockFormasPagoDb.getAll.and.returnValue(Promise.resolve(FORMAS));
+
         await TestBed.configureTestingModule({
-            imports: [ComprarEntrada, ReactiveFormsModule, FormsModule],
-            providers: [provideRouter(routes), provideLocationMocks()]
+            imports: [ComprarEntrada, ReactiveFormsModule],
+            providers: [
+                provideRouter(routes),
+                provideLocationMocks(),
+                { provide: LOCALE_ID, useValue: 'es-AR' },
+                { provide: TiposPaseDb, useValue: mockTiposPaseDb },
+                { provide: FormasPagoDb, useValue: mockFormasPagoDb },
+                { provide: ComprasDb, useValue: mockComprasDb },
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(ComprarEntrada);
         component = fixture.componentInstance;
-        formEntrada = component.buildForm();
+        await component.ngOnInit(); // carga tipos/forma pago
         fixture.detectChanges();
+
+        form = component.formEntrada;
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
     });
 
-    describe('Formulario de compra', () => {
-        it('debe ser inválido si no se completan los campos requeridos', () => {
-            formEntrada.patchValue({
-                fechaVisita: '',
-                cantidadEntradas: null,
-                edades: [],
-                tipoPase: '',
-                formaPago: ''
-            });
-            expect(formEntrada.valid).toBeFalse();
+    describe('Validaciones del formulario', () => {
+        it('debe ser inválido si faltan requeridos', () => {
+            form.reset();
+            expect(form.valid).toBeFalse();
+            expect(form.get('fechaVisita')?.hasError('required')).toBeTrue();
+            expect(form.get('cantidadEntradas')?.hasError('required')).toBeTrue();
+            expect(form.get('formaPago')?.hasError('required')).toBeTrue();
         });
 
         it('no debe permitir más de 10 entradas', () => {
-            formEntrada.patchValue({
-                fechaVisita: new Date(),
-                cantidadEntradas: 11,
-                edades: [30, 25, 20, 30, 25, 20, 30, 25, 20, 23, 11],
-                tipoPase: 'regular',
-                formaPago: 'efectivo'
-            });
-            expect(formEntrada.valid).toBeFalse();
+            form.patchValue({ cantidadEntradas: 11 });
+            component.actualizarVisitantes();
+            fixture.detectChanges();
+
+            expect(form.get('cantidadEntradas')?.valid).toBeFalse(); // por max(10)
         });
 
-        it('no debe permitir fecha en la cual el parque está cerrado', () => {
-            const fechaCerrado = new Date('2025-10-19'); // ejemplo de día cerrado
-            formEntrada.patchValue({
-                fechaVisita: fechaCerrado,
-                cantidadEntradas: 2,
-                edades: [25, 30],
-                tipoPase: 'VIP',
-                formaPago: 'efectivo'
-            });
+        it('no debe permitir fecha en el pasado', () => {
+            const ayer = new Date();
+            ayer.setDate(ayer.getDate() - 1);
+            const iso = ayer.toISOString().slice(0, 10);
 
-            expect(formEntrada.valid).toBeFalse();
+            form.patchValue({ fechaVisita: iso });
+            // dispara validador
+            const err = form.get('fechaVisita')?.errors;
+            expect(err?.['fechaPasada']).toBeTrue();
         });
 
-        it('no debe permitir una fecha de visita pasada', () => {
-            // Fecha pasada (ayer)
-            const fechaPasada = new Date();
-            fechaPasada.setDate(fechaPasada.getDate() - 1);
+        it('la cantidad de visitantes debe coincidir con cantidadEntradas', () => {
+            form.patchValue({ cantidadEntradas: 2 });
+            component.actualizarVisitantes(); // crea 2 grupos
+            fixture.detectChanges();
 
-            formEntrada.patchValue({
-                fechaVisita: fechaPasada,
-                cantidadEntradas: 2,
-                edades: [25, 30],
-                tipoPase: 'VIP',
-                formaPago: 'efectivo'
-            });
-            expect(formEntrada.valid).toBeFalse();
+            // remueve uno para forzar mismatch
+            (form.get('visitantes') as FormArray).removeAt(1);
+            fixture.detectChanges();
+
+            expect(form.get('visitantes')?.errors?.['visitantesNoCoinciden']).toBeTrue();
+            expect(form.valid).toBeFalse();
         });
 
+        it('visitante: edad debe ser entero válido y tipoPase requerido', () => {
+            form.patchValue({ cantidadEntradas: 1 });
+            component.actualizarVisitantes();
+            fixture.detectChanges();
 
-        it('la cantidad de edades debe coincidir con la cantidad de entradas', () => {
-            formEntrada.patchValue({
-                fechaVisita: new Date(),
-                cantidadEntradas: 3,
-                edades: [25, 30], // solo 2 edades -> inválido
-                tipoPase: 'VIP',
-                formaPago: 'efectivo'
-            });
+            const vg = (form.get('visitantes') as FormArray).at(0) as FormGroup;
+            vg.patchValue({ edad: -2, tipoPase: '' });
 
-            expect(formEntrada.valid).toBeFalse();
-        });
+            expect(vg.get('edad')?.valid).toBeFalse();
+            expect(vg.get('tipoPase')?.valid).toBeFalse();
 
-        it('la cantidad de entradas debe ser un número entero positivo', () => {
-            formEntrada.patchValue({
-                fechaVisita: new Date(),
-                cantidadEntradas: -2,
-                edades: [],
-                tipoPase: 'regular',
-                formaPago: 'efectivo'
-            });
-            expect(formEntrada.valid).toBeFalse();
-
-            formEntrada.patchValue({ cantidadEntradas: 2.5 });
-            expect(formEntrada.valid).toBeFalse();
-        });
-
-        it('las edades deben ser un número entero positivo', () => {
-            formEntrada.patchValue({
-                fechaVisita: new Date(),
-                cantidadEntradas: 1,
-                edades: [-2],
-                tipoPase: 'regular',
-                formaPago: 'efectivo'
-            });
-            expect(formEntrada.valid).toBeFalse();
-
-            formEntrada.patchValue({ cantidadEntradas: 2.5 });
-            expect(formEntrada.valid).toBeFalse();
+            vg.patchValue({ edad: 20, tipoPase: 2 });
+            expect(vg.valid).toBeTrue();
         });
     });
 
     describe('Flujo de compra', () => {
+        it('muestra el modal de confirmación al postear correctamente y renderiza datos', async () => {
+            // fecha siempre futura
+            const future = new Date();
+            future.setDate(future.getDate() + 10);
+            const iso = future.toISOString().slice(0, 10); // YYYY-MM-DD
 
-
-        it('debe informar cantidad de entradas y fecha al finalizar', () => {
-
-            spyOn(component, 'mostrarResumenCompra');
-
-            formEntrada.patchValue({
-                fechaVisita: new Date('2025-10-15'),
-                cantidadEntradas: 3,
-                edades: [20, 25, 30],
-                tipoPase: 'regular',
-                formaPago: 'efectivo'
+            // completar formulario válido
+            form.patchValue({
+                fechaVisita: iso,
+                cantidadEntradas: 2,
+                formaPago: 1, // id numérico
             });
+            component.actualizarVisitantes();
+            fixture.detectChanges();
 
-            component.submitForm();
-            expect(component.mostrarResumenCompra).toHaveBeenCalledWith(3, new Date('2025-10-15'));
+            const v = (form.get('visitantes') as FormArray);
+            v.at(0).patchValue({ edad: 25, tipoPase: 2 }); // General
+            v.at(1).patchValue({ edad: 30, tipoPase: 1 }); // VIP
 
-            fixture.detectChanges(); 
+            // asegurarse que el form está válido ANTES de postear
+            form.updateValueAndValidity();
+            expect(form.valid).toBeTrue();
 
-            const resumenElem = fixture.debugElement.query(By.css('.resumen-compra'));
-            expect(resumenElem).toBeTruthy();
+            // respuesta simulada del backend
+            const compraResp: CompraDoc = {
+                id: 99,
+                fecha: iso,
+                cantidad_entradas: 2,
+                monto_total: 10000,
+                forma_pago: { id: 1, nombre: 'Efectivo' },
+                usuario: { id: 1, nombre: 'Juan', apellido: 'Pérez', email: 'juan@example.com' },
+                entradas: [
+                    { id: 1, precio_unitario: 5000, edad: 25, tipo_entrada: { id: 2, nombre: 'General' } },
+                    { id: 2, precio_unitario: 5000, edad: 30, tipo_entrada: { id: 1, nombre: 'VIP' } },
+                ],
+            };
+            mockComprasDb.post.and.returnValue(
+                Promise.resolve({ mensaje: 'creada', compra: compraResp })
+            );
 
-            const pTags = resumenElem.nativeElement.querySelectorAll('p');
-            expect(pTags[0].textContent).toContain('Cantidad de entradas: 3');
-            expect(pTags[1].textContent).toContain('Fecha de visita: 15/10/25');
+            await component.submitForm();
+            fixture.detectChanges();
+
+            expect(mockComprasDb.post).toHaveBeenCalled();
+            expect(component.confirmModalVisible).toBeTrue();
+            expect(component.detalleCompra?.id).toBe(99);
+
+            const modal = fixture.debugElement.query(By.css('.modal-card'));
+            expect(modal).toBeTruthy();
+
+            const modalText = modal.nativeElement.textContent.replace(/\s+/g, ' ');
+            // La fecha renderizada con el DatePipe debe coincidir con iso en formato dd/MM/yyyy
+            const [y, m, d] = iso.split('-');
+            const ddmmyyyy = `${d}/${m}/${y}`;
+            expect(modalText).toContain('Compra confirmada');
+            expect(modalText).toContain(ddmmyyyy);
+            expect(modalText).toMatch(/10\.000/);
+            expect(modalText).toContain('juan@example.com');
         });
 
+
+        it('si el formulario es inválido, no postea y enfoca el primer error', async () => {
+            form.reset();
+            await component.submitForm();
+            expect(mockComprasDb.post).not.toHaveBeenCalled();
+            // no podemos verificar scrollIntoView, pero el modal no debe estar visible
+            expect(component.confirmModalVisible).toBeFalse();
+        });
     });
 });
-
-

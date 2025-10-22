@@ -4,13 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { ComprasDb, CompraDoc, EntradaDoc } from '../../services/compras/compras-db';
 
 @Component({
-    selector: 'app-mis-entradas',
-    templateUrl: './mis-entradas.html',
-    styleUrls: ['./mis-entradas.scss'],
+    selector: 'app-detalle-compra',
+    templateUrl: './detalle-compra.html',
+    styleUrls: ['./detalle-compra.scss'],
     standalone: true,
     imports: [CommonModule, DatePipe, CurrencyPipe]
 })
-export class MisEntradas implements OnInit {
+export class DetalleCompra implements OnInit {
     compra?: CompraDoc;
     entradas: EntradaDoc[] = [];
     loading = true;

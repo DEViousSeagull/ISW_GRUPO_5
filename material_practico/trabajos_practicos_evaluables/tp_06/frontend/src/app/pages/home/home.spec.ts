@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { Home } from './home';
@@ -12,13 +12,10 @@ describe('Home', () => {
     let router: Router;
     let location: Location;
 
-
-
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [Home],
+            imports: [Home], // standalone component
             providers: [provideRouter(routes), provideLocationMocks()]
-
         }).compileComponents();
 
         router = TestBed.inject(Router);
@@ -26,6 +23,8 @@ describe('Home', () => {
 
         fixture = TestBed.createComponent(Home);
         component = fixture.componentInstance;
+
+        // kick off the router
         router.initialNavigation();
         fixture.detectChanges();
     });
@@ -34,10 +33,18 @@ describe('Home', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should navigate to /comprar-entrada when button is clicked', async () => {
+    it('should navigate to /comprar-entrada when button is clicked', fakeAsync(() => {
+        // ensure we start at root
+        router.navigateByUrl('/');
+        tick();
+
         const button = fixture.debugElement.query(By.css('button')).nativeElement;
         button.click();
-        await fixture.whenStable();
+
+        // flush navigation
+        tick();
+        fixture.detectChanges();
+
         expect(location.path()).toBe('/comprar-entrada');
-    });
+    }));
 });

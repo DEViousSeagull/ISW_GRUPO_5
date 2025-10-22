@@ -220,7 +220,7 @@ export class ComprarEntrada implements OnInit {
 
     async verDetalle(id: number) {
 
-        await this.router.navigate(['/mis-entradas', id]);
+        await this.router.navigate(['/mis-compras', id]);
 
         this.confirmModalVisible = false;
         this.formEntrada.reset();

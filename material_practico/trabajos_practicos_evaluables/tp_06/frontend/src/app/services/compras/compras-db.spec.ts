@@ -1,25 +1,40 @@
-import { EntradasDb } from './../entradas/entradas-db';
 import { TestBed } from '@angular/core/testing';
-import { ComprasDb } from './compras-db';
-import { TipoPase } from '../../ts/classes/entrada/tipo-pase';
-import { Entrada } from '../../ts/classes/entrada/entrada';
-import { EntradaDoc } from '../../ts/interfaces/entrada/entrada';
-import { CompraDoc } from '../../ts/interfaces/compra';
-import { Compra } from '../../ts/classes/compra';
-
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { CompraDoc, ComprasDb, PostBody } from './compras-db';
 
 describe('ComprasDb', () => {
     let service: ComprasDb;
-    let entradasDbMock: Partial<EntradasDb>;
+    let httpMock: HttpTestingController;
+
+    const SAMPLE_COMPRA: CompraDoc = {
+        id: 1,
+        fecha: '2025-10-21',
+        cantidad_entradas: 1,
+        monto_total: 5000,
+        forma_pago: { id: 1, nombre: 'Efectivo' },
+        usuario: { id: 1, nombre: 'Juan', apellido: 'Pérez', email: 'juan@example.com' },
+        entradas: [
+            {
+                id: 1,
+                precio_unitario: 5000,
+                edad: 30,
+                tipo_entrada: { id: 2, nombre: 'General' }
+            }
+        ]
+    };
 
     beforeEach(() => {
-        entradasDbMock = {
-            getById: (id: string) => ({ id, tipo: new TipoPase('VIP'), edad: 20, precio: 100 }),
-            fromDocToClass: (doc: EntradaDoc) => new Entrada(doc.id, new TipoPase(doc.idTipo), doc.edad, doc.precio)
-        };
+        TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule],
+            providers: [ComprasDb],
+        });
 
-        TestBed.configureTestingModule({});
-        service = new ComprasDb(entradasDbMock as EntradasDb);
+        service = TestBed.inject(ComprasDb);
+        httpMock = TestBed.inject(HttpTestingController);
+    });
+
+    afterEach(() => {
+        httpMock.verify(); // no queden requests pendientes
     });
 
     it('should be created', () => {
@@ -27,64 +42,83 @@ describe('ComprasDb', () => {
     });
 
     describe('getAll', () => {
-        it('should return all compras', async () => {
-            const doc: CompraDoc = { id: '1', fecha: new Date().toISOString(), cantidadEntradas: 1, idsEntrada: ['e1'], montoTotal: 100 };
-            await service.create(doc);
-            const all = await service.getAll();
+        it('should return all compras (filtradas por MOCK_USER.id)', async () => {
+            const promise = service.getAll();
+
+            const req = httpMock.expectOne('http://localhost:8000/compras');
+            expect(req.request.method).toBe('GET');
+
+            // devolvemos la compra que “siempre existe”
+            req.flush([SAMPLE_COMPRA]);
+
+            const all = await promise;
             expect(all.length).toBe(1);
-            expect(all[0].id).toBe('1');
+            expect(all[0].id).toBe(1);
         });
     });
 
     describe('getById', () => {
         it('should return compra by id', async () => {
-            const doc: CompraDoc = { id: '2', fecha: new Date().toISOString(), cantidadEntradas: 1, idsEntrada: ['e1'], montoTotal: 100 };
-            await service.create(doc);
-            const compra = await service.getById('2');
+            const promise = service.getById(1);
+
+            // getById internamente llama a getAll() -> 1 GET a /compras
+            const req = httpMock.expectOne('http://localhost:8000/compras');
+            expect(req.request.method).toBe('GET');
+            req.flush([SAMPLE_COMPRA]);
+
+            const compra = await promise;
             expect(compra).toBeDefined();
-            expect(compra?.montoTotal).toBe(100);
+            expect(compra?.id).toBe(1);
+            expect(compra?.monto_total).toBe(5000);
         });
 
         it('should return undefined for non-existent id', async () => {
-            const compra = await service.getById('999999999999999999');
+            const promise = service.getById(999999);
+
+            const req = httpMock.expectOne('http://localhost:8000/compras');
+            expect(req.request.method).toBe('GET');
+            req.flush([SAMPLE_COMPRA]);
+
+            const compra = await promise;
             expect(compra).toBeUndefined();
         });
     });
 
-    describe('create', () => {
-        it('should add a new compra', async () => {
-            const doc: CompraDoc = { id: '3', fecha: new Date().toISOString(), cantidadEntradas: 1, idsEntrada: ['e1'], montoTotal: 100 };
-            await service.create(doc);
-            const docs = await service.getAll();
-            expect(docs).toContain(doc);
-        });
-    });
+    describe('post', () => {
+        it('should add a new compra (POST /compras/crear_compra)', async () => {
+            const body: PostBody = {
+                fecha: '2027-10-21',
+                cantidad_entradas: 2,
+                usuario: { id: 1 },
+                forma_pago: { id: 1 },
+                entradas: [
+                    { edad: 30, tipo_entrada: { id: 2 } }
+                ]
+            };
 
-    describe('fromDocToClass', () => {
-        it('should convert CompraDoc to Compra instance', () => {
-            const doc = { id: '4', fecha: new Date().toISOString(), cantidadEntradas: 1, idsEntrada: ['e1'], montoTotal: 100 };
-            const compra = service.fromDocToClass(doc);
-            expect(compra).toBeInstanceOf(Compra);
-            expect(compra.entradas[0]).toBeInstanceOf(Entrada);
-            expect(compra.montoTotal).toBe(100);
-        });
+            const serverResponse = {
+                mensaje: 'creada',
+                compra: {
+                    ...SAMPLE_COMPRA,
+                    id: 2,
+                    fecha: '2027-10-21',
+                    cantidad_entradas: 2,
+                    monto_total: 10000
+                }
+            };
 
-        it('should throw if an entrada id is not found', () => {
-            const doc = { id: '5', fecha: new Date().toISOString(), cantidadEntradas: 1, idsEntrada: ['missing'], montoTotal: 100 };
-            entradasDbMock.getById = () => undefined;
-            service = new ComprasDb(entradasDbMock as EntradasDb);
-            expect(() => service.fromDocToClass(doc)).toThrowError(/Entrada con id/);
-        });
-    });
+            const promise = service.post(body);
 
-    describe('fromClassToDoc', () => {
-        it('should convert Compra instance to CompraDoc', () => {
-            const entrada = new Entrada('e1', new TipoPase('VIP'), 25, 150);
-            const compra = new Compra('6', new Date('2025-10-15'), 1, [entrada], 150);
-            const doc = service.fromClassToDoc(compra);
-            expect(doc.id).toBe('6');
-            expect(doc.idsEntrada).toEqual(['e1']);
-            expect(doc.montoTotal).toBe(150);
+            const req = httpMock.expectOne('http://localhost:8000/compras/crear_compra');
+            expect(req.request.method).toBe('POST');
+            expect(req.request.body).toEqual(body);
+
+            req.flush(serverResponse);
+
+            const res = await promise;
+            expect(res.mensaje).toBe('creada');
+            expect(res.compra.id).toBe(2);
+            expect(res.compra.cantidad_entradas).toBe(2);
         });
     });
 });

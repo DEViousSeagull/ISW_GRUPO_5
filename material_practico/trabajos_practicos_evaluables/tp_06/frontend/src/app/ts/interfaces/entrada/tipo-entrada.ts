@@ -1,5 +1,5 @@
-import { Doc } from "../doc";
+// import { Doc } from "../doc";
 
-export interface TipoEntradaDoc extends Doc {
-    nombre: string,
-}
+// export interface TipoEntradaDoc extends Doc {
+//     nombre: string,
+// }

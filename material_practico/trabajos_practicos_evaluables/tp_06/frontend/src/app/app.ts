@@ -17,8 +17,9 @@ export const MOCK_USER: AppUser = {
 
 @Component({
     selector: 'app-root',
+    standalone: true,
     templateUrl: './app.html',
-    styleUrl: './app.scss',
+    styleUrls: ['./app.scss'],
     imports: [RouterOutlet, RouterModule],
 })
 export class App {

@@ -1,10 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MisCompras } from './mis-compras';
-import { ComprasDb, Compra } from '../../services/compras/compras-db';
+import { ComprasDb, CompraDoc } from '../../services/compras/compras-db';
 import { Router } from '@angular/router';
-import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
 import { By } from '@angular/platform-browser';
-import { of } from 'rxjs';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import esAR from '@angular/common/locales/es-AR';
+
+registerLocaleData(esAR);
 
 describe('MisCompras', () => {
     let component: MisCompras;
@@ -12,7 +15,7 @@ describe('MisCompras', () => {
     let mockDb: jasmine.SpyObj<ComprasDb>;
     let mockRouter: jasmine.SpyObj<Router>;
 
-    const fakeCompras: Compra[] = [
+    const fakeCompras: CompraDoc[] = [
         {
             id: 1,
             fecha: '2025-10-21',
@@ -38,10 +41,11 @@ describe('MisCompras', () => {
         mockRouter = jasmine.createSpyObj('Router', ['navigate']);
 
         await TestBed.configureTestingModule({
-            imports: [MisCompras, CommonModule, DatePipe, CurrencyPipe],
+            imports: [MisCompras], // standalone component
             providers: [
                 { provide: ComprasDb, useValue: mockDb },
-                { provide: Router, useValue: mockRouter }
+                { provide: Router, useValue: mockRouter },
+                { provide: LOCALE_ID, useValue: 'es-AR' },
             ]
         }).compileComponents();
 
@@ -63,8 +67,17 @@ describe('MisCompras', () => {
 
         const cards = fixture.debugElement.queryAll(By.css('.compra-card'));
         expect(cards.length).toBe(2);
-        expect(cards[0].nativeElement.textContent).toContain('21/10/2025');
-        expect(cards[1].nativeElement.textContent).toContain('01/11/2025');
+
+        const text1 = cards[0].nativeElement.textContent.replace(/\s+/g, ' ');
+        const text2 = cards[1].nativeElement.textContent.replace(/\s+/g, ' ');
+
+        // Fechas en es-AR
+        expect(text1).toContain('21/10/2025');
+        expect(text2).toContain('01/11/2025');
+
+        // Monto: permitir variaciones de símbolo/espacios, pero validar el número formateado
+        expect(text1).toMatch(/10\.000/);
+        expect(text2).toMatch(/5\.000/);
     });
 
     it('should show loading initially', () => {
@@ -93,10 +106,11 @@ describe('MisCompras', () => {
 
         const emptyElem = fixture.debugElement.query(By.css('.empty'));
         expect(emptyElem).toBeTruthy();
+        // En el template termina con punto; usamos "toContain" para ser tolerantes
         expect(emptyElem.nativeElement.textContent).toContain('No tenés compras registradas');
     });
 
-    it('should navigate to mis-entradas on card click', async () => {
+    it('should navigate to mis-compras on card click', async () => {
         mockDb.getAll.and.returnValue(Promise.resolve(fakeCompras));
 
         await component.ngOnInit();
@@ -105,6 +119,6 @@ describe('MisCompras', () => {
         const firstCard = fixture.debugElement.queryAll(By.css('.compra-card'))[0];
         firstCard.triggerEventHandler('click', null);
 
-        expect(mockRouter.navigate).toHaveBeenCalledWith(['/mis-entradas', 1]);
+        expect(mockRouter.navigate).toHaveBeenCalledWith(['/mis-compras', 1]);
     });
 });

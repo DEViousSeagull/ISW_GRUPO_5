@@ -69,7 +69,7 @@ export class ComprarEntrada implements OnInit {
         return this.formEntrada.get('visitantes') as FormArray;
     }
     fechaValida(control: AbstractControl) {
-        const fecha = new Date(control.value);
+        const fecha = new Date(control.value + 'T00:00:00');
         const hoy = new Date();
         hoy.setHours(0, 0, 0, 0);
 
@@ -198,7 +198,7 @@ export class ComprarEntrada implements OnInit {
             // alert(`Compra exitosa! Monto total: ${response.compra.monto_total}`);
 
             this.cantidadEntradasResumen = response.compra.cantidad_entradas;
-            this.fechaResumen = new Date(response.compra.fecha);
+            this.fechaResumen = new Date(response.compra.fecha + 'T00:00:00');
             this.resumenCompraVisible = true;
         } catch (err) {
             console.error('Error al crear compra:', err);

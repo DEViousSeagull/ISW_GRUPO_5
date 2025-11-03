@@ -16,16 +16,8 @@ class Usuario(Base):
 
     compras: Mapped[List["Compra"]] = relationship(back_populates="usuario") 
 
-# # Clase antigua sin Base (comentada porque se usa el modelo SQLAlchemy arriba)
-# class Usuario:
-#     def __init__(self, nombre: str, apellido: str, email: str, password: str):
-#         self.nombre = nombre
-#         self.apellido = apellido
-#         self.email = email
-#         self.password = password
 
-
-    def validar_Atributos(self) -> None:
+    def validar_atributos(self) -> None:
         errores = []
 
         # nombre: obligatorio, str no vacío
@@ -69,6 +61,8 @@ class Usuario(Base):
                 errores.append("'id' no puede ser None")
             elif not isinstance(id_val, int):
                 errores.append("'id' debe ser int")
+            elif id_val < 1:
+                errores.append("'id' debe ser >= 1")
 
         if errores:
             raise ValueError("; ".join(errores))

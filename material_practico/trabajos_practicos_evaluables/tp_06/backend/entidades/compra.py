@@ -73,7 +73,7 @@ class Compra(Base):
             raise ValueError("La fecha de la compra no puede caer en lunes.")
         return True
     
-    def validar_formaPago(self):
+    def validar_forma_pago(self):
         return self.forma_pago.nombre
 
     def obtener_redirect_pago(self, gateway):
@@ -114,7 +114,7 @@ class Compra(Base):
         self.monto_total = total
         return self.monto_total
     
-    def validar_atributos_presentes(self):
+    def validar_atributos(self):
         """
         Valida que la compra tenga los atributos mínimos requeridos.
         Lanza ValueError con un mensaje indicando qué atributos faltan o son inválidos.
@@ -123,9 +123,9 @@ class Compra(Base):
             "fecha": lambda v: v is not None,
             "cantidad_entradas": lambda v: isinstance(v, int) and v >= 1,
             "entradas": lambda v: isinstance(v, list) and len(v) > 0,
-            "forma_pago": lambda v: v is not None,
-            "usuario": lambda v: v is not None,
-            "monto_total": lambda v: v is not None,
+            "forma_pago": lambda v: isinstance(v, FormaPago),
+            "usuario": lambda v: isinstance(v, Usuario),
+            "monto_total": lambda v: isinstance(v, int) and v >= 0,
             "forma_pago_id": lambda v: isinstance(v, int) and v >= 1,
             "usuario_id": lambda v: isinstance(v, int) and v >= 1,
         }

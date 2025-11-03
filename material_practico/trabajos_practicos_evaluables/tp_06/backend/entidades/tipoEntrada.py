@@ -15,11 +15,8 @@ class TipoEntrada(Base):
     entradas: Mapped[List["Entrada"]] = relationship(back_populates="tipo_entrada")
 
 
-#class TipoEntrada:
-#    def __init__(self, nombre: str):
-#        self.nombre = nombre
 
-    def validar_Atributos(self) -> None:
+    def validar_atributos(self) -> None:
 
         errores = []
 
@@ -42,6 +39,8 @@ class TipoEntrada(Base):
                 errores.append("'id' no puede ser None")
             elif not isinstance(id_val, int):
                 errores.append("'id' debe ser int")
+            elif id_val < 1:
+                errores.append("'id' debe ser >= 1")
 
         if errores:
             raise ValueError("; ".join(errores))

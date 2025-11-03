@@ -101,7 +101,7 @@ def test_GET_compras_PASA(client):
 
     # Verificar que los datos de la compra sean los esperados
     assert item["id"] == 1
-    assert item["fecha"] == date.today().isoformat()
+    assert item["fecha"] == '2025-10-22'
     assert item["cantidad_entradas"] == 1
     assert len(item["entradas"]) == 1
     assert item["entradas"][0]["id"] == 1

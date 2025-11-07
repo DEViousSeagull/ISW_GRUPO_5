@@ -1,0 +1,63 @@
+<div class="mailbox">
+    <div class="mailbox-header">
+        <h2>Bandeja de entrada</h2>
+        @if (!loading && !error) {
+        <span class="counter">{{ compras.length }} mensajes</span>
+        }
+    </div>
+
+    <!-- Estados -->
+    @if (loading) {
+    <div class="state">Cargando correos…</div>
+    }
+    @if (!loading && error) {
+    <div class="state error">{{ error }}</div>
+    }
+    @if (!loading && !error && compras.length === 0) {
+    <div class="state empty">No hay mensajes aún.</div>
+    }
+
+    <!-- Lista de mails -->
+    @if (!loading && !error && compras.length > 0) {
+    <div class="mail-card">
+        <ul class="mail-list">
+            @for (c of compras; track $index) {
+            <li class="mail-item" (click)="abrirDetalle(c.id)" tabindex="0" role="button">
+                <div class="mail-left">
+                    <div class="avatar">EP</div>
+                </div>
+
+                <div class="mail-content">
+                    <div class="mail-subject">
+                        Confirmacion de compra N° {{ c.id }}, para la fecha de visita {{ c.fecha | date:'dd-MM-yyyy' }}!
+                    </div>
+                    <div class="date">{{ c.fecha | date:'dd-MM-yyyy' }}</div>
+                    <!-- <div class="mail-snippet">
+                        ¡Gracias por tu compra en <strong>EcoHarmony Park</strong>!<br>
+                        Monto:
+                        <strong>{{ c.monto_total | currency:'ARS':'symbol':'1.0-0' }}</strong> ·
+                        Forma de pago:
+                        <strong>{{ c.forma_pago.nombre }}</strong> ·
+                        Entradas:
+                        <strong>{{ c.cantidad_entradas }}</strong>
+                    </div> -->
+
+                    <div class="mail-snippet">
+                        ¡Gracias por tu compra en <strong>EcoHarmony Park</strong>!<br>
+                        Monto: <strong>{{ c.monto_total | currency:'ARS':'symbol':'1.0-0' }}</strong> ·
+                        Forma de pago: <strong>{{ c.forma_pago.nombre }}</strong> ·
+                        Entradas: <strong>{{ c.cantidad_entradas }}</strong><br>
+                    </div>
+
+                </div>
+
+                <div class="mail-meta">
+                    <div class="from">no-reply@ecoharmonypark.com</div>
+                    <div class="date">{{ formatFechaCompra(c.fecha_compra) | date: 'dd/MM/yyyy HH:mm' }}</div>
+                </div>
+            </li>
+            }
+        </ul>
+    </div>
+    }
+</div>

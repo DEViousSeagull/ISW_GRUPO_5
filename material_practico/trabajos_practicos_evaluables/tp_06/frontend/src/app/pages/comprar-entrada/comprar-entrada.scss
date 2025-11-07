@@ -1,0 +1,356 @@
+/* === Card === */
+.form-card {
+    max-width: 420px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--bg-beige);
+    border-radius: 16px;
+    box-shadow: 0 4px 15px var(--shadow);
+    // font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--green-darkest);
+}
+
+/* === Groups & Labels === */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+}
+
+/* === Inputs & Selects === */
+input[type='date'],
+input[type='number'],
+select {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #fff;
+}
+
+
+select {
+    width: 160px;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--green-main);
+    box-shadow: 0 0 0 3px rgba(61, 163, 93, 0.2);
+    outline: none;
+}
+
+/* === Edades === */
+.edades-group {
+    background: var(--green-light);
+    border-radius: 8px;
+    padding: 0.8rem 0.8rem;
+    color: var(--green-darkest);
+
+    .visitante-item {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+/* === Button === */
+.btn-comprar {
+    width: 100%;
+    background-color: var(--green-main);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.15s;
+}
+
+.btn-comprar:hover {
+    background-color: var(--green-dark);
+    transform: translateY(-1px);
+}
+
+.btn-comprar:active {
+    background-color: var(--green-darkest);
+    transform: translateY(0);
+}
+
+/* === Resumen === */
+.resumen-compra {
+    max-width: 420px;
+    margin: 1.5rem auto;
+    padding: 1rem 1.5rem;
+    background: var(--green-light);
+    border: 1px solid var(--green-dark);
+    border-radius: 12px;
+    font-size: 1rem;
+    color: var(--green-darkest);
+}
+
+.resumen-compra h3 {
+    text-align: center;
+    color: var(--green-dark);
+    margin-bottom: 1rem;
+}
+
+/* === Errors === */
+.form-group.invalid input,
+.form-group.invalid select,
+.edad-item.invalid input {
+    border-color: var(--error);
+    box-shadow: 0 0 0 3px var(--error-bg);
+}
+
+.error {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 0.35rem;
+    line-height: 1.2;
+}
+
+/* Prevent layout jump when error appears */
+.form-group .error:empty {
+    display: none;
+}
+
+.error-visitante {
+    margin-bottom: 12px;
+}
+
+
+
+
+// modal
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    // font-family: 'Segoe UI', Roboto, sans-serif;
+
+}
+
+.modal-card {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-card h2 {
+    margin-bottom: 1rem;
+    color: #2b7a0b;
+}
+
+.modal-card .mensaje {
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+
+    .btn-cerrar {
+        margin-top: 1.5rem;
+        padding: 0.6rem 1.2rem;
+        background: #2b7a0b;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+    }
+
+    .btn-cerrar:hover {
+        background: #236307;
+    }
+
+    .btn-mail {
+        display: flex;
+        align-items: center;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* === Modal Pago (estética Mercado Pago) === */
+.mp-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    // font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+.mp-card {
+    width: 92%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, .25);
+    animation: fadeIn .25s ease-out;
+}
+
+.mp-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: linear-gradient(135deg, #009ee3 0%, #007ac1 100%);
+    color: #eaf7ff;
+    padding: 18px 20px 14px;
+}
+
+.mp-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, .15);
+    border: 1px solid rgba(255, 255, 255, .35);
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+
+.mp-sub {
+    margin-top: 6px;
+    opacity: .9;
+    font-size: .9rem;
+}
+
+.mp-body {
+    padding: 18px 20px 8px;
+    text-align: center;
+}
+
+.mp-total-label {
+    margin: 0;
+    color: #546e7a;
+    font-size: .95rem;
+}
+
+.mp-total-valor {
+    margin: 6px 0 18px;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #002e5b;
+}
+
+.mp-btn-pagar {
+    width: 100%;
+    border: 0;
+    border-radius: 10px;
+    padding: .85rem 1rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    background: #009ee3;
+    color: #fff;
+    transition: transform .12s ease, filter .12s ease;
+}
+
+.mp-btn-pagar:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+.mp-btn-pagar:disabled {
+    opacity: .75;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.mp-btn-cancelar {
+    margin-top: 10px;
+    width: 100%;
+    background: transparent;
+    border: 1px solid #cfd8dc;
+    color: #546e7a;
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.mp-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: #2e7d32;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 8px 0 2px;
+}
+
+.mp-check {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+}
+
+.mp-footer {
+    padding: 10px 16px 16px;
+    text-align: center;
+    color: #90a4ae;
+    font-size: .8rem;
+}
+
+/* Spinner */
+.mp-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-top-color: #fff;
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: mpSpin .8s linear infinite;
+}
+
+@keyframes mpSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}

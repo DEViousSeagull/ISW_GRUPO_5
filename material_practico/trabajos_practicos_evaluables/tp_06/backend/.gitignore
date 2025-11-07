@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+# Ignorar carpetas y archivos de Python
+*.pyc
+*.pyo
+
+# Ignorar archivos temporales de Pytest/IDE
+.pytest_cache/
+.idea/
+# Virtual environment
+venv/
+env/
+.venv/
+
+# IDEs
+.vscode/
+.idea/
+
+# Databases
+*.db
+*.sqlite3
+
+# Logs
+*.log
+*.tmp
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/

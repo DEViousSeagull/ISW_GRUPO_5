@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+
+/* You can add global styles to this file, and also import other style files */
+:root {
+    /* === EcoHarmony Park Green Palette === */
+    --green-darkest: #134611;
+    /* darker darkgreen */
+    --green-dark: #3e8914;
+    /* darkgreen */
+    --green-main: #3da35d;
+    /* main green */
+    --green-light: #96e072;
+    /* lighter lightgreen */
+    --bg-beige: #e8fccf;
+    /* background beige */
+
+    /* === Neutral & Accent === */
+    --text-main: #1a1a1a;
+    --text-muted: #444;
+    --error: #b91c1c;
+    --error-bg: rgba(220, 38, 38, 0.08);
+    --border-gray: #ccc;
+    --shadow: rgba(0, 0, 0, 0.4);
+
+}
+
+html,
+body {
+    font-family: 'Montserrat', 'Segoe UI', Roboto, system-ui, sans-serif;
+}

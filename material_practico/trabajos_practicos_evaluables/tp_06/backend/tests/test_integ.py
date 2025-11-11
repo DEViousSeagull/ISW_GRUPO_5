@@ -100,24 +100,7 @@ def test_get_compras_pasa(client):
     assert len(item["entradas"]) == item["cantidad_entradas"]
 
 
-    # Verificar que los datos de la compra sean los esperados
-<<<<<<< HEAD
-    assert item["id"] == 1
-    assert item["fecha"] == '2025-10-22'
-    assert item["cantidad_entradas"] == 1
-    assert len(item["entradas"]) == 1
-    assert item["entradas"][0]["id"] == 1
-    assert item["entradas"][0]["precio_unitario"] == 5000
-    assert item["entradas"][0]["edad"] == 30
-    assert item["entradas"][0]["tipo_entrada"]["nombre"] == "General"
-    assert item["forma_pago"]["id"] == 1
-    assert item["usuario"]["nombre"] == "Juan"
-    assert item["usuario"]["apellido"] == "Pérez"
-    assert item["usuario"]["email"] == "juan@example.com"
-    #assert item["usuario"]["password"] == "securepassword" #FALTA PWASWORD EN LA ENTIDAD USUARIO
-    assert item["usuario"]["id"] == 1
-    assert item["monto_total"] == 5000
-=======
+    # Verificar que los datos de la compra sean los esperado
     # assert item["id"] == 1
     # assert item["fecha"] == date.today().isoformat()
     # assert item["cantidad_entradas"] == 1
@@ -132,4 +115,4 @@ def test_get_compras_pasa(client):
     # assert item["usuario"]["email"] == "juan@example.com"
     # assert item["usuario"]["id"] == 1
     # assert item["monto_total"] == 5000
->>>>>>> d4a531481ffb927954a7de333f28ceff03999406
+

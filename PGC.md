@@ -18,7 +18,7 @@ De esta forma, los integrantes tendrán acceso rápido y centralizado a la infor
 ## Estructura
 Hemos definido la siguiente estructura de directorios, organizada en función del desarrollo y gestión del cursado de la materia Ingeniería y Calidad de Software.
 
-&lt;img width="829" height="864" alt="Estructura&#95;PCG drawio" src="https://github.com/user-attachments/assets/dc0e8708-e188-44e4-b0b7-de860c1d8fbb" /&gt;
+![Estructura_PCG](https://github.com/user-attachments/assets/263e0e67-d019-406d-aeaa-6c47677f4fb2)
 
 ## Convención de Nombrado de Items de Configuración
 - Para Carpetas:
@@ -39,7 +39,8 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | Notas de Clase Teórico | NOTA&#95;&lt;dd-mm-aa&gt;&#95;&lt;nombre&#95;persona&gt;&#95;&lt;nro&#95;archivo&gt;.&lt;pdf/docx/jpg/png&gt; | Notas tomadas para la clase teórica de la fecha (dd//mm/aa) indicada | /material&#95;teorico/material&#95;de&#95;elaboracion&#95;propia/notas&#95;de&#95;clases |
 | Resumen | RES&#95;&lt;tema&#95;res&gt;.&lt;docx/pdf&gt; | Resumen para el &lt;tema&#95;res&gt; indicado | /material&#95;teorico/material&#95;de&#95;elaboracion&#95;propia/resumenes |
 | Trabajos Practicos Evaluables | TPS.pdf | Consignas de Trabajos Prácticos a realizar | /material&#95;practico/trabajos&#95;practicos&#95;evaluables |
-| Resolución de Trabajo Practico | TP&#95;&lt;nro&#95;tp&gt;.pdf | Resolucion del Trabajo Práctico numero &lt;nro&#95;tp&gt; realizado | /material&#95;practico/trabajos&#95;practicos/tp&#95;&lt;nro&#95;tp&gt; |
+| Resolución de Trabajo Practico | TP&#95;&lt;nro&#95;tp&gt;.pdf | Resolución del Trabajo Práctico número &lt;nro&#95;tp&gt; realizado | /material&#95;practico/trabajos&#95;practicos/tp&#95;&lt;nro&#95;tp&gt; |
+| Resolución de Trabajo de Investigación | TI&#95;&lt;nro&#95;ti&gt;.pdf | Resolución del Trabajo de Investigación número &lt;nro&#95;ti&gt; realizado | /material&#95;practico/trabajos&#95;de&#95;Investigación |
 | Minutas | MIN&#95;&lt;dd-mm-aa&gt;.pdf | Registro de acuerdos y tareas de cada reunión del TP &lt;nro&#95;tp&gt; | /material&#95;practico/trabajos&#95;practicos&#95;evaluables/tp&#95;&lt;nro&#95;tp&gt;/minutas |
 | Casos de Estudio | CE.pdf | Descripción de todos los Casos de Estudio | /material&#95;practico/ejercitacion/casos&#95;de&#95;estudio |
 | Casos de Estudio de Resolución Propia | CERP&#95;&lt;nombre&#95;caso&gt;&#95;&lt;nombre&#95;persona&gt;.pdf | Resolución de Casos de estudio resueltos por el Grupo 5 | /material&#95;practico/ejercitacion/casos&#95;de&#95;estudio |
@@ -57,6 +58,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | RES | Resumen |
 | TPS | Trabajos Prácticos Evaluables|
 | TP | Trabajos Prácticos Evaluables Resueltos |
+| TI | Trabajos de Investigación Resueltos |
 | CE | Casos de Estudio |
 | CERP | Casos de Estudio de Resolución Propia |
 | MIN | Minuta |
@@ -68,6 +70,7 @@ Hemos definido la siguiente estructura de directorios, organizada en función de
 | &lt;dd-mm-aa&gt; | Fecha en el formato día-mes-año |
 | &lt;tema&#95;res&gt; | Tema al que corresponde el resumen |
 | &lt;nro&#95;tp&gt; | Número del Trabajo Práctico |
+| &lt;nro&#95;ti&gt; | Número del Trabajo de Investigación |
 | &lt;nombre&#95;caso&gt; | Nombre del caso de estudio |
 | &lt;nombre&#95;ejercicio&gt; | Nombre del ejercicio |
 | &lt;nombre&#95;persona&gt; | Nombre de la persona que creó el contenido |

@@ -18,7 +18,7 @@ De esta forma, los integrantes tendrán acceso rápido y centralizado a la infor
 ## Estructura
 Hemos definido la siguiente estructura de directorios, organizada en función del desarrollo y gestión del cursado de la materia Ingeniería y Calidad de Software.
 
-&lt;img width="829" height="864" alt="Estructura&#95;PCG drawio" src="https://github.com/user-attachments/assets/dc0e8708-e188-44e4-b0b7-de860c1d8fbb" /&gt;
+![Estructura_PCG](https://github.com/user-attachments/assets/263e0e67-d019-406d-aeaa-6c47677f4fb2)
 
 ## Convención de Nombrado de Items de Configuración
 - Para Carpetas:
